@@ -1,0 +1,8 @@
+# Archivos de backup y temporales
+dofus-mascotas_9.html
+*.xlsx
+*.png
+*.jpg
+*.jpeg
+
+# Solo subir el sitio principal
