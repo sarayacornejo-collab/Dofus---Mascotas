@@ -410,6 +410,7 @@ body {
   .guide-intro-grid { grid-template-columns: 1fr !important; }
   .xp-table-wrap { overflow-x: auto; }
   .ticket-grid { grid-template-columns: 1fr !important; }
+  #profile-section > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
 }
 
 .card h2 { font-family: 'Cinzel', serif; letter-spacing: .03em; }
@@ -712,6 +713,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     <a href="#" data-page="calc" class="active" onclick="return showPage('calc')">Calculadora</a>
     <a href="#" data-page="guides" onclick="return showPage('guides')">Guías</a>
     <a href="#" data-page="market" onclick="return showPage('market')">Mercadillo</a>
+    <a href="#" data-page="profile" id="profileNavLink" style="display:none;" onclick="return showPage('profile')">Mi Perfil</a>
   </div>
   <!-- Mobile: tabs below topbar -->
   <div id="mobileNav" style="display:none;position:fixed;top:48px;left:0;right:0;
@@ -720,6 +722,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     <a href="#" data-page="calc" onclick="return showPage('calc');closeMobileNav()" style="color:rgba(232,217,176,0.8);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:5px;display:block;">Calculadora</a>
     <a href="#" data-page="guides" onclick="return showPage('guides');closeMobileNav()" style="color:rgba(232,217,176,0.8);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:5px;display:block;">Guías</a>
     <a href="#" data-page="market" onclick="return showPage('market');closeMobileNav()" style="color:rgba(232,217,176,0.8);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:5px;display:block;">Mercadillo</a>
+    <a href="#" data-page="profile" id="profileNavLinkMobile" style="display:none;" onclick="return showPage('profile');closeMobileNav()" style="color:rgba(232,217,176,0.8);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:5px;display:block;">Mi Perfil</a>
   </div>
   <button id="mobileMenuBtn" onclick="toggleMobileNav()"
     style="display:none;background:transparent;border:none;color:var(--nav-text);
@@ -752,7 +755,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     <button id="darkToggle" onclick="toggleDark()" title="Modo oscuro · Solo Premium ⭐"><div class="toggle-track"><div class="toggle-thumb"></div></div><span id="darkLabel">Oscuro</span><span id="darkLock" style="font-size:10px;margin-left:3px;opacity:.55;" title="Función Premium">⭐</span></button>
     <div class="auth-sep"></div>
     <!-- Iconos topbar -->
-    <a href="https://discord.gg/dofuspets" target="_blank" rel="noopener" class="topbar-icon icon-discord" title="Discord DofusPet">
+    <a href="#" onclick="alert('Discord no disponible aún. ¡Próximamente!');return false;" class="topbar-icon icon-discord" title="Discord DofusPet (próximamente)">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
       Discord
     </a>
@@ -1073,8 +1076,12 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
   <!-- Listado de mascotas -->
   <div class="card">
     <h2 style="font-size:16px;font-weight:600;margin-bottom:4px;color:var(--gold);">Listado de mascotas y mascoturas</h2>
-    <p style="font-size:12px;color:var(--text3);margin-bottom:12px;">Datos traducidos de DofusPourLesNoobs. Haz clic en una mascota para ver detalles de obtención.</p>
-    <input type="text" class="search-box" id="guideSearch" placeholder="Buscar mascota..." oninput="renderGuideList()" style="margin-bottom:12px;" />
+    <p style="font-size:12px;color:var(--text3);margin-bottom:12px;">Efectos al nivel 100. Métodos de obtención en construcción.</p>
+    <div class="tab-row" style="margin-bottom:10px;">
+      <button class="tab-btn guide-tab-btn active" onclick="setGuideTab('mascota',this)">🐾 Mascotas (122)</button>
+      <button class="tab-btn guide-tab-btn" onclick="setGuideTab('mascotura',this)">🦎 Mascoturas (25)</button>
+    </div>
+    <input type="text" class="search-box" id="guideSearch" placeholder="Buscar por nombre..." oninput="renderGuideList()" style="margin-bottom:12px;" />
     <div id="guideList"></div>
   </div>
   </div><!-- /guides-section -->
@@ -1093,6 +1100,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     </div>
   </div>
   <div class="card">
+    <div id="marketControls">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
       <div style="display:flex;align-items:center;gap:8px;">
         <label style="font-size:13px;color:var(--text2);">Servidor:</label>
@@ -1116,9 +1124,57 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
       <tbody id="marketBody"></tbody>
     </table>
     </div>
-    <p style="font-size:11px;color:var(--text3);margin-top:10px;">Los precios se guardan automáticamente cada vez que cualquier usuario ingresa un precio en la calculadora. No tienen caducidad.</p>
+    </div><!-- /marketControls -->
+    <div id="marketContent"></div>
+    <p id="marketFootnote" style="font-size:11px;color:var(--text3);margin-top:10px;">Los precios se guardan automáticamente cuando los ingresas en la calculadora. Compartidos en tiempo real entre usuarios Premium.</p>
   </div>
 </div><!-- /market-section -->
+
+<!-- ===== PAGE: MI PERFIL ===== -->
+<div id="profile-section" style="display:none">
+  <div class="page-header">
+    <h1>Mi <span>Perfil</span></h1>
+    <p>Gestiona tu cuenta y preferencias</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="card">
+      <h2 style="font-size:15px;font-weight:600;margin-bottom:16px;color:var(--gold);">Información de la cuenta</h2>
+      <div id="profileInfoBox" style="font-size:13px;line-height:2;color:var(--text2);">Cargando…</div>
+    </div>
+    <div class="card">
+      <h2 style="font-size:15px;font-weight:600;margin-bottom:14px;color:var(--gold);">Cambiar contraseña</h2>
+      <input class="dp-input" type="password" id="profNewPass" placeholder="Nueva contraseña (mín. 6 caracteres)" />
+      <input class="dp-input" type="password" id="profNewPass2" placeholder="Confirmar nueva contraseña" />
+      <button class="dp-btn dp-btn-primary" onclick="changePassword()" style="margin-top:4px;">Actualizar contraseña</button>
+      <div id="profPassStatus" style="display:none;margin-top:8px;font-size:12px;border-radius:6px;padding:8px 12px;"></div>
+    </div>
+    <div class="card">
+      <h2 style="font-size:15px;font-weight:600;margin-bottom:14px;color:var(--gold);">Cambiar correo electrónico</h2>
+      <input class="dp-input" type="email" id="profNewEmail" placeholder="Nuevo correo electrónico" />
+      <input class="dp-input" type="password" id="profEmailPass" placeholder="Contraseña actual (para verificar)" />
+      <button class="dp-btn dp-btn-primary" onclick="changeEmail()" style="margin-top:4px;">Actualizar correo</button>
+      <div id="profEmailStatus" style="display:none;margin-top:8px;font-size:12px;border-radius:6px;padding:8px 12px;"></div>
+    </div>
+    <div class="card">
+      <h2 style="font-size:15px;font-weight:600;margin-bottom:14px;color:var(--gold);">Estado de membresía</h2>
+      <div id="profilePremiumBox" style="font-size:13px;"></div>
+    </div>
+  </div>
+  <div id="adminPanel" style="display:none;margin-top:24px;">
+    <div class="card">
+      <h2 style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--red);">🛡 Panel de Administración</h2>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:14px;">Visible solo para el administrador</p>
+      <div class="tab-row" style="margin-bottom:12px;" id="adminTabRow">
+        <button class="tab-btn active" id="atab-tickets" onclick="switchAdminTab('tickets',this)">🎫 Tickets</button>
+        <button class="tab-btn" id="atab-premium" onclick="switchAdminTab('premium',this)">⭐ Solicitudes Premium</button>
+        <button class="tab-btn" id="atab-users" onclick="switchAdminTab('users',this)">👥 Usuarios</button>
+      </div>
+      <div id="adminContent">
+        <div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">Haz clic en una pestaña arriba.</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /profile-section -->
 
 <!-- ===== TICKET (siempre visible al fondo) ===== -->
 <div id="ticket-widget" style="margin-top:48px;border-top:2px solid var(--border);padding-top:28px;">
@@ -3869,6 +3925,7 @@ function onServerChange() {
     onServerChangeInline(currentServer);
     badge.textContent = '⚡ ' + currentServer;
     badge.style.display = 'inline-block';
+    subscribeCommPrices(currentServer); // Suscribir precios Firebase
   } else {
     badge.style.display = 'none';
     const overlay = document.getElementById('serverGateOverlay');
@@ -3891,22 +3948,20 @@ function onServerChange() {
 // NAVEGACIÓN DE PÁGINAS
 // ============================================================
 function showPage(page) {
-  ['calc','guides','market'].forEach(p => {
+  if (page === 'profile' && !currentUser) {
+    openDpModal('authModal'); return false;
+  }
+  ['calc','guides','market','profile'].forEach(p => {
     const el = document.getElementById(p + '-section');
     if (el) el.style.display = (p === page) ? 'block' : 'none';
   });
-  // Update active state on both desktop and mobile nav links
   document.querySelectorAll('[data-page]').forEach(a => {
     a.classList.toggle('active', a.dataset.page === page);
-    if (a.dataset.page === page) {
-      a.style.color = '#e8c96a';
-    } else {
-      a.style.color = '';
-    }
+    a.style.color = a.dataset.page === page ? '#e8c96a' : '';
   });
-  if (page === 'guides') renderGuideSection();
-  if (page === 'market') renderMarket();
-  // Scroll to top
+  if (page === 'guides')  renderGuideSection();
+  if (page === 'market')  renderMarket();
+  if (page === 'profile') renderProfile();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   return false;
 }
@@ -4071,30 +4126,77 @@ function updateDiffs() {
   document.getElementById('d80100').textContent = p100 > p80 ? fmt(p100 - p80) : '—';
   document.getElementById('d100').textContent   = p100 > p1  ? fmt(p100 - p1)  : '—';
   updateProgress();
-  renderResources();
+  clearTimeout(_debResources); _debResources = setTimeout(renderResources, 300);
 }
 
 // ============================================================
 // COMUNIDAD & MERCADILLO
-// comunidad 24h: caduca tras 24h (para columna live en tabla)
-// mercadillo: permanente, por servidor (para página Mercadillo)
+// comunidad 24h: Firebase Firestore (premium) o localStorage (fallback)
+// mercadillo: Firebase Firestore para premium, localStorage como caché local
 // ============================================================
-function saveCommunityPrice(name, price) {
+
+// Escucha en tiempo real los precios de comunidad del servidor actual (solo premium)
+let _commUnsubscribe = null;
+function subscribeCommPrices(server) {
+  if (_commUnsubscribe) { _commUnsubscribe(); _commUnsubscribe = null; }
+  if (!_db || !isPremium() || !server) return;
+  const TTL = 24 * 60 * 60 * 1000;
+  const cutoff = new Date(Date.now() - TTL);
   try {
-    const server = currentServer || 'General';
-    // 24h (columna en tabla de recursos)
-    const d24 = { price, ts: Date.now() };
-    localStorage.setItem('dofus_comm_' + name, JSON.stringify(d24));
-    communityPrices[name] = d24;
-    // Permanente por servidor (Mercadillo)
-    localStorage.setItem(
-      'dofus_mkt_' + server + '_' + name,
-      JSON.stringify({ price, ts: Date.now(), server })
-    );
+    _commUnsubscribe = _db.collection('communityPrices')
+      .where('server', '==', server)
+      .where('ts', '>', cutoff)
+      .orderBy('ts', 'desc')
+      .onSnapshot(snap => {
+        const seen = new Set();
+        snap.forEach(doc => {
+          const d = doc.data();
+          if (seen.has(d.resourceName)) return; // solo el más reciente
+          seen.add(d.resourceName);
+          communityPrices[d.resourceName] = {
+            price: d.price,
+            ts: d.ts?.toMillis ? d.ts.toMillis() : Date.now(),
+            user: d.displayName || 'Jugador',
+            server: d.server
+          };
+        });
+        renderResources();
+        renderMarket();
+      }, err => { console.warn('Community listener:', err); });
+  } catch(e) { console.warn('subscribeCommPrices:', e); }
+}
+
+async function saveCommunityPrice(name, price) {
+  const server = currentServer || 'General';
+  const now = Date.now();
+  const entry = { price, ts: now, server,
+    user: currentUserData?.displayName || currentUser?.displayName || 'Jugador' };
+
+  // localStorage siempre (caché local)
+  try {
+    localStorage.setItem('dofus_comm_' + name, JSON.stringify(entry));
+    communityPrices[name] = entry;
+    localStorage.setItem('dofus_mkt_' + server + '_' + name,
+      JSON.stringify({ price, ts: now, server, user: entry.user }));
   } catch(e) {}
+
+  // Firebase para premium (datos compartidos entre usuarios)
+  if (_db && isPremium() && currentUser) {
+    try {
+      await _db.collection('communityPrices').add({
+        resourceName: name,
+        price,
+        server,
+        userId: currentUser.uid,
+        displayName: entry.user,
+        ts: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    } catch(e) { console.warn('saveCommunityPrice Firebase:', e); }
+  }
 }
 
 function loadCommunityPrices() {
+  // Carga local primero (funciona offline / sin login)
   try {
     const now = Date.now();
     const TTL = 24 * 60 * 60 * 1000;
@@ -4105,6 +4207,7 @@ function loadCommunityPrices() {
       if (now - d.ts < TTL) communityPrices[r.name] = d;
     });
   } catch(e) {}
+  // Firebase se suscribe tras login (en onServerChange / onAuthStateChanged)
 }
 
 function timeAgo(ts) {
@@ -4179,9 +4282,16 @@ function renderResources() {
     }
 
     const comm = communityPrices[r.name];
-    const commHTML = comm
-      ? `<span class="comm-price"><span class="comm-dot"></span>${fmt(comm.price)} · ${timeAgo(comm.ts)}</span>`
-      : `<span class="comm-price stale"><span class="comm-dot"></span>Sin datos</span>`;
+    let commHTML;
+    if (!isPremium()) {
+      commHTML = `<span class="comm-price stale" style="cursor:pointer;" onclick="openDpModal('premiumModal')" title="Función Premium">
+        <span class="comm-dot"></span>🔒 Premium</span>`;
+    } else if (comm) {
+      const who = comm.user ? `<span style="font-size:10px;color:var(--text3);"> · ${comm.user}</span>` : '';
+      commHTML = `<span class="comm-price"><span class="comm-dot"></span>${fmt(comm.price)} · ${timeAgo(comm.ts)}${who}</span>`;
+    } else {
+      commHTML = `<span class="comm-price stale"><span class="comm-dot"></span>Sin datos</span>`;
+    }
 
     const isBest = price && ideal && (price / ideal) < 0.85;
 
@@ -4205,14 +4315,14 @@ function renderResources() {
   }).join('');
 }
 
-let _debounceSave = {}, _debounceProgress;
+let _debounceSave = {}, _debounceProgress, _debResources;
 function setPriceFromInput(input) {
   const name = input.getAttribute('data-res');
   const val  = parseFloat(input.value) || null;
   resPrices[name] = val;
   updateRowInPlace(input.closest('tr'), name, val);
   clearTimeout(_debounceSave[name]);
-  _debounceSave[name] = setTimeout(() => { if (val) saveCommunityPrice(name, val); }, 600);
+  _debounceSave[name] = setTimeout(() => { if (val && isPremium()) saveCommunityPrice(name, val); }, 600);
   clearTimeout(_debounceProgress);
   _debounceProgress = setTimeout(updateProgress, 250);
 }
@@ -4261,9 +4371,14 @@ function updateRowInPlace(row, name, price) {
   }
 
   const comm = communityPrices[name];
-  cells[6].innerHTML = comm
-    ? `<span class="comm-price"><span class="comm-dot"></span>${fmt(comm.price)} · ${timeAgo(comm.ts)}</span>`
-    : `<span class="comm-price stale"><span class="comm-dot"></span>Sin datos</span>`;
+  if (!isPremium()) {
+    cells[6].innerHTML = `<span class="comm-price stale" style="cursor:pointer;" onclick="openDpModal('premiumModal')"><span class="comm-dot"></span>🔒 Premium</span>`;
+  } else if (comm) {
+    const who = comm.user ? `<span style="font-size:10px;color:var(--text3);"> · ${comm.user}</span>` : '';
+    cells[6].innerHTML = `<span class="comm-price"><span class="comm-dot"></span>${fmt(comm.price)} · ${timeAgo(comm.ts)}${who}</span>`;
+  } else {
+    cells[6].innerHTML = `<span class="comm-price stale"><span class="comm-dot"></span>Sin datos</span>`;
+  }
 
   const btn = cells[7].querySelector('.add-btn');
   if (btn) btn.disabled = !price;
@@ -4448,71 +4563,217 @@ function updateProgress() {
 }
 
 // ============================================================
-// GUÍAS
+// GUÍAS — Datos desde CSV (mascotas + mascoturas)
 // ============================================================
-const PETS_GUIDE = [
-  {name:'Abra Kadabra',     bonus:'70 Poderío · 50 Esq. PM',       how:'[-10,-12] — 5× Ámbar Roble Ancestral + 5× Raíz Abraknyde Ancestral', req:'Logro: Viejas ramas'},
-  {name:'Atouin',           bonus:'50 Curas · 50 Esq. PA',         how:'[7,-10] (Cloaca Amakna) — 10× Tela Célula Esfíntrica', req:'Logro: Ratas Amakneanas'},
-  {name:'Balafreux',        bonus:'100 Dmg Empuje · 1 PM',         how:'[-13,-29] — 50.000× Kolizetón', req:'Cota PvP > 3.500'},
-  {name:'Bebé Pandawa',     bonus:'120 Fuerza · 120 Suerte',       how:'[22,-31] — 20× Artefacto Pandawushu ×5 elementos', req:'Logro: Masacre elemental'},
-  {name:'Bilby',            bonus:'50 Curas · 50 Tacle',           how:'[9,28] — 2× Gelatina Real de 4 colores', req:'Logro: Gelatinas'},
-  {name:'Bisouglours',      bonus:'120 Inteligencia · 20 Dmg Fuego',how:'[-77,-45] Épicerie — 50× Kama de Hielo', req:'Nivel > 79'},
-  {name:'Black Tiwabbit',   bonus:'120 Fuerza · 80 Dmg Empuje',   how:'[28,-12] — 100× Bandana Black Tiwabbit', req:'Logro: Wabbits'},
-  {name:'Blérodoudou',      bonus:'120 Agilidad · 20 Dmg Aire',   how:'[-77,-45] Épicerie — 50× Kama de Hielo', req:'Nivel > 79'},
-  {name:'Bloalak',          bonus:'120 Prospección',               how:'[-16,3] — 200× Flor de Kaliptus', req:'Logro: Amateur de Kaliptus'},
-  {name:'Blokus',           bonus:'40 Ret. PM · 50 Tacle',        how:'[1,6] Xélorium — 500× Orichor', req:'—'},
-  {name:'Bontique',         bonus:'400 Vitalidad · 50 Res. Críticos', how:'[-33,-56] — 20× Alitón', req:'Orden 1+'},
-  {name:'Boskito',          bonus:'70 Poderío · 40 Ret. PA',      how:'[8,-22] — 50× Pétalo Girasol Salvaje + 50× Pétalo Rosa Demoníaca', req:'Logro: Plantas de campo'},
-  {name:'Bouflux',          bonus:'50 Dmg Críticos · 80 Dmg Empuje', how:'[-26,36] — 200× Alitón', req:'Orden 5'},
-  {name:'Bouftor',          bonus:'100 Res. Críticos · 100 Res. Empuje', how:'[-33,-56] — 200× Alitón', req:'Orden 5'},
-  {name:'Bouloute',         bonus:'400 Vitalidad · 30 Esq. PA',   how:'[-83,-48] — 100× Lana de Boufmouth', req:'Logro: Boufmouths'},
-  {name:'Brâkarien',        bonus:'400 Vitalidad · 50 Res. Empuje', how:'[-26,36] — 20× Alitón', req:'Orden 1+'},
-  {name:'Brûlih',           bonus:'160 Inteligencia',              how:'[13,35] — 10.000× Pepita', req:'—'},
-  {name:'Bulbisou',         bonus:'120 Fuerza · 20 Dmg Tierra',   how:'[-77,-45] Épicerie — 50× Kama de Hielo', req:'Nivel > 79'},
-  {name:'Feanor',           bonus:'280 Vitalidad · 50 Ret. PA',   how:'Mercadillo / obtenible en cofres de mazmorras especiales', req:'—'},
-  {name:'Gelifux',          bonus:'Resistencias elementales',      how:'Mercadillo de Criaturas / intercambio de recursos en PNJ', req:'—'},
-  {name:'Hardo',            bonus:'1 PM · 50 Poderío',            how:'Mercadillo / logros de mazmorras de fuego', req:'—'},
-  {name:'Jalatrool blanco', bonus:'120 Sabiduría',                 how:'Mercadillo / drop de criaturas Jalatrool en Sramshala', req:'—'},
-  {name:'Jalatrool negro',  bonus:'120 Sabiduría',                 how:'Mercadillo / drop de criaturas Jalatrool oscuras', req:'—'},
-  {name:'Kompost',          bonus:'120 Vitalidad',                 how:'Mercadillo / mazmorras de bosque y zonas verdes', req:'—'},
-  {name:'LeoPardo',         bonus:'1 PM · Prospección',           how:'Mercadillo de Criaturas', req:'—'},
-  {name:'Perforror',        bonus:'1 PM · 5% GC',                 how:'Mascotura de la familia Perfotroz (Dofus Pets)', req:'—'},
-  {name:'Piotín Verde',     bonus:'120 Agilidad',                  how:'Mercadillo / intercambio de recursos en zonas de Agilidad', req:'—'},
-  {name:'Siroko',           bonus:'50 Poderío',                    how:'Mercadillo / mazmorras de viento', req:'—'},
-  {name:'Tofucilazo',       bonus:'120 Inteligencia',              how:'Mercadillo / drop en Tofu Zafiro de Cémenterio Oscuro', req:'—'},
-  {name:'Zaparon',          bonus:'120 Fuerza',                    how:'Mercadillo / mazmorras de fuego avanzadas', req:'—'},
-  {name:'Dekarbón',         bonus:'1 Prospección',                 how:'Mascotura — intercambio de recursos especiales en taiga', req:'—'},
-  {name:'Draguillardo',     bonus:'50 Poderío',                    how:'Mascotura — Vulkania (evento temporal)', req:'—'},
-  {name:'Ardilla de las nieves', bonus:'Resistencia · Vitalidad', how:'Mercadillo / zonas nevadas e invernales', req:'—'},
-  {name:'Armadinho',        bonus:'Fuerza · Vitalidad',           how:'Mercadillo de Criaturas', req:'—'},
-  {name:'Tofucilazo',       bonus:'120 Inteligencia',              how:'Mercadillo', req:'—'},
+const MASCOTAS_DATA = [
+  {name:"Microsmoglob",efectos:"15 % crítico | 1 PA",idImg:18331,tipo:"mascota"},
+  {name:"Raribichón",efectos:"2 alcance | 2 invocaciones",idImg:18330,tipo:"mascota"},
+  {name:"Jalatrool blanco",efectos:"70 potencia (daños generales) | 15 % crítico",idImg:18308,tipo:"mascota"},
+  {name:"Joven jalatín celestial",efectos:"20 sabiduría | 500 / 500",idImg:18271,tipo:"mascota"},
+  {name:"Molocán",efectos:"400 vitalidad | 40 de daño crítico",idImg:18147,tipo:"mascota"},
+  {name:"Cosa",efectos:"400 vitalidad | 10% resistencia al aire",idImg:18139,tipo:"mascota"},
+  {name:"Dog",efectos:"400 vitalidad | 10% resistencia al agua",idImg:18120,tipo:"mascota"},
+  {name:"Pekatcham",efectos:"400 vitalidad | 40 a la esquiva pérdidas de PM",idImg:18117,tipo:"mascota"},
+  {name:"Glub",efectos:"120 prospección",idImg:18118,tipo:"mascota"},
+  {name:"Kerubebé",efectos:"2000 pods",idImg:18116,tipo:"mascota"},
+  {name:"Maullino",efectos:"15 % crítico | 2000 iniciativa",idImg:18115,tipo:"mascota"},
+  {name:"Minikornio",efectos:"2 invocaciones | 40 a la esquiva pérdidas de PM",idImg:18114,tipo:"mascota"},
+  {name:"Pekenacuajo",efectos:"400 vitalidad | 10% resistencia a la tierra",idImg:18113,tipo:"mascota"},
+  {name:"Brakmákaro",efectos:"400 vitalidad | 50 de resistencia al empuje",idImg:18110,tipo:"mascota"},
+  {name:"Bontapata",efectos:"400 vitalidad | 50 de resistencia a los críticos",idImg:18109,tipo:"mascota"},
+  {name:"Peluso",efectos:"400 vitalidad | 40 a la esquiva pérdidas de PA",idImg:18108,tipo:"mascota"},
+  {name:"Bloalak",efectos:"120 prospección",idImg:18107,tipo:"mascota"},
+  {name:"Tanuk",efectos:"1 PA | 50 a la esquiva pérdidas de PM",idImg:18111,tipo:"mascota"},
+  {name:"Drakolega",efectos:"50 placaje | 40 al retiro de PA",idImg:18106,tipo:"mascota"},
+  {name:"Selotasma",efectos:"400 vitalidad | 10% resistencia al fuego",idImg:18105,tipo:"mascota"},
+  {name:"Blokus",efectos:"50 placaje | 40 al retiro de PM",idImg:18104,tipo:"mascota"},
+  {name:"Armadinho",efectos:"100 de resistencia a los críticos | 100 de daño de empuje",idImg:18100,tipo:"mascota"},
+  {name:"Jamlet",efectos:"400 vitalidad | 40 a la esquiva pérdidas de PM",idImg:18099,tipo:"mascota"},
+  {name:"Perforábil",efectos:"1 PM | 2 alcance",idImg:18097,tipo:"mascota"},
+  {name:"Snoofle",efectos:"120 prospección",idImg:18098,tipo:"mascota"},
+  {name:"Black pekewabbit",efectos:"120 fuerza | 80 de daño de empuje",idImg:18096,tipo:"mascota"},
+  {name:"Miaumiena",efectos:"1 PM | 2 invocaciones",idImg:18094,tipo:"mascota"},
+  {name:"Fosfo",efectos:"2000 pods",idImg:164020,tipo:"mascota"},
+  {name:"Moskitorro",efectos:"70 potencia (daños generales) | 40 al retiro de PA",idImg:18093,tipo:"mascota"},
+  {name:"Tukankón",efectos:"50 potencia (daños generales) | 80 de resistencia a la tierra",idImg:18092,tipo:"mascota"},
+  {name:"Lokulto",efectos:"15 % crítico | 40 de daño crítico",idImg:18091,tipo:"mascota"},
+  {name:"Bulbeskeje",efectos:"2000 pods",idImg:18089,tipo:"mascota"},
+  {name:"Kraxiste",efectos:"15 % crítico | 80 de daño de empuje",idImg:18090,tipo:"mascota"},
+  {name:"Kolimira",efectos:"70 potencia (daños generales) | 2 alcance",idImg:18088,tipo:"mascota"},
+  {name:"Pulp",efectos:"50 de cura | 50 a la esquiva pérdidas de PM",idImg:18086,tipo:"mascota"},
+  {name:"Mekrangrejo",efectos:"120 fuerza | 120 agilidad",idImg:18087,tipo:"mascota"},
+  {name:"Lubesado",efectos:"40 a la esquiva pérdidas de PM | 100 de resistencia a los críticos",idImg:18085,tipo:"mascota"},
+  {name:"Kejicón",efectos:"70 potencia (daños generales) | 50 a la esquiva pérdidas de PA",idImg:18084,tipo:"mascota"},
+  {name:"Escarakiri",efectos:"120 inteligencia | 80 de daño de empuje",idImg:18083,tipo:"mascota"},
+  {name:"Raratontilla",efectos:"2 alcance | 2000 iniciativa",idImg:18082,tipo:"mascota"},
+  {name:"Tofu helado",efectos:"2000 iniciativa | 50 huida",idImg:18081,tipo:"mascota"},
+  {name:"Tofuma",efectos:"400 vitalidad | 40 de daño crítico",idImg:18078,tipo:"mascota"},
+  {name:"Serpeta",efectos:"50 potencia (daños generales) | 80 de resistencia al neutro",idImg:18079,tipo:"mascota"},
+  {name:"Orni",efectos:"400 vitalidad | 40 placaje",idImg:18077,tipo:"mascota"},
+  {name:"Besosete",efectos:"120 inteligencia | 20 de daño de fuego",idImg:18076,tipo:"mascota"},
+  {name:"Tejaluche",efectos:"120 agilidad | 20 de daños de aire",idImg:18075,tipo:"mascota"},
+  {name:"Bulbesor",efectos:"120 fuerza | 20 de daño de tierra",idImg:18074,tipo:"mascota"},
+  {name:"Kaniglúps",efectos:"120 suerte | 20 de daño de agua",idImg:18073,tipo:"mascota"},
+  {name:"Gwan tofu gowdinflón",efectos:"70 potencia (daños generales) | 40 al retiro de PM",idImg:18072,tipo:"mascota"},
+  {name:"Gélifux",efectos:"2000 iniciativa | 50 placaje",idImg:18071,tipo:"mascota"},
+  {name:"Ardilla de las nieves",efectos:"120 suerte | 80 de daño de empuje",idImg:18070,tipo:"mascota"},
+  {name:"Fridusa",efectos:"50 de cura | 40 al retiro de PM",idImg:18069,tipo:"mascota"},
+  {name:"Cromiñoncito",efectos:"120 fuerza | 120 inteligencia",idImg:18068,tipo:"mascota"},
+  {name:"Kuakuá mejorado",efectos:"22 prospección | 220 iniciativa",idImg:18008,tipo:"mascota"},
+  {name:"Gupin",efectos:"400 vitalidad | 10% resistencia neutral",idImg:18067,tipo:"mascota"},
+  {name:"Murciego pálido",efectos:"50 de daño crítico | 100 de resistencia al empuje",idImg:18066,tipo:"mascota"},
+  {name:"Kuakuá negro",efectos:"50 huida | 40 al retiro de PA",idImg:18065,tipo:"mascota"},
+  {name:"Wauwau atigrado",efectos:"1 PA | 50 a la esquiva pérdidas de PA",idImg:18064,tipo:"mascota"},
+  {name:"Pekefux atigrado",efectos:"120 prospección",idImg:18063,tipo:"mascota"},
+  {name:"Miaumiau de las nieves",efectos:"15 % crítico | 100 de resistencia al empuje",idImg:18062,tipo:"mascota"},
+  {name:"Otazo",efectos:"120 prospección",idImg:18061,tipo:"mascota"},
+  {name:"Tofucilazo",efectos:"120 agilidad | 80 de daño de empuje",idImg:18060,tipo:"mascota"},
+  {name:"Miscaludo",efectos:"50 de cura | 50 huida",idImg:18059,tipo:"mascota"},
+  {name:"Araknuza",efectos:"40 a la esquiva pérdidas de PA | 100 de resistencia a los críticos",idImg:18058,tipo:"mascota"},
+  {name:"Dragún dorado",efectos:"2 alcance | 40 a la esquiva pérdidas de PA",idImg:18057,tipo:"mascota"},
+  {name:"Buscador de ogrinas",efectos:"70 potencia (daños generales) | 80 de daño de empuje",idImg:18056,tipo:"mascota"},
+  {name:"Gelutín",efectos:"400 vitalidad | 80 de daño de empuje",idImg:18055,tipo:"mascota"},
+  {name:"Murciego",efectos:"2000 pods",idImg:18054,tipo:"mascota"},
+  {name:"Vampyrilla",efectos:"400 vitalidad | 40 huida",idImg:18053,tipo:"mascota"},
+  {name:"Fab'huritu de Rushu",efectos:"2 invocaciones | 2000 iniciativa",idImg:18052,tipo:"mascota"},
+  {name:"Dragún negro",efectos:"70 potencia (daños generales) | 50 a la esquiva pérdidas de PM",idImg:18048,tipo:"mascota"},
+  {name:"Cocodrail",efectos:"50 potencia (daños generales) | 80 de resistencia al fuego",idImg:18047,tipo:"mascota"},
+  {name:"Miniminotot",efectos:"50 potencia (daños generales) | 80 de resistencia al agua",idImg:18049,tipo:"mascota"},
+  {name:"Pekewabbit hambriento",efectos:"50 potencia (daños generales) | 80 de resistencia al aire",idImg:18051,tipo:"mascota"},
+  {name:"Miaumiau de Angora",efectos:"70 potencia (daños generales) | 40 de daño crítico",idImg:18050,tipo:"mascota"},
+  {name:"Boluto del padrino",efectos:"400 vitalidad | 40 a la esquiva pérdidas de PA",idImg:18046,tipo:"mascota"},
+  {name:"Feanor",efectos:"50 potencia (daños generales) | 1 PA",idImg:18045,tipo:"mascota"},
+  {name:"Ross",efectos:"50 de cura | 40 al retiro de PA",idImg:18044,tipo:"mascota"},
+  {name:"Bebé pandawa",efectos:"120 fuerza | 120 suerte",idImg:18042,tipo:"mascota"},
+  {name:"Walk",efectos:"120 inteligencia | 120 suerte",idImg:18038,tipo:"mascota"},
+  {name:"Pekefux",efectos:"120 prospección",idImg:18037,tipo:"mascota"},
+  {name:"Escarador",efectos:"50 potencia | 5% res. neutral | 5% res. tierra | 5% res. fuego | 5% res. agua | 5% res. aire",idImg:18036,tipo:"mascota"},
+  {name:"Abra kadabra",efectos:"70 potencia (daños generales) | 50 a la esquiva pérdidas de PM",idImg:18034,tipo:"mascota"},
+  {name:"Boluto",efectos:"400 vitalidad | 40 a la esquiva pérdidas de PA",idImg:18035,tipo:"mascota"},
+  {name:"Bworky",efectos:"2000 pods",idImg:18031,tipo:"mascota"},
+  {name:"Koalak sanguíneo",efectos:"70 potencia (daños generales) | 40 al retiro de PA",idImg:18030,tipo:"mascota"},
+  {name:"Willy, el Plasta",efectos:"120 inteligencia | 120 agilidad",idImg:18029,tipo:"mascota"},
+  {name:"Mini wey",efectos:"120 suerte | 120 agilidad",idImg:18028,tipo:"mascota"},
+  {name:"Tortuga",efectos:"50 de cura | 50 a la esquiva pérdidas de PA",idImg:18017,tipo:"mascota"},
+  {name:"Piotín violeta",efectos:"70 potencia (daños generales) | 2 invocaciones",idImg:18022,tipo:"mascota"},
+  {name:"Piotín verde",efectos:"120 fuerza | 40 de daño crítico",idImg:18026,tipo:"mascota"},
+  {name:"Piotín rojo",efectos:"120 inteligencia | 40 de daño crítico",idImg:18025,tipo:"mascota"},
+  {name:"Piotín rosa",efectos:"70 potencia (daños generales) | 2 alcance",idImg:18024,tipo:"mascota"},
+  {name:"Piotín amarillo",efectos:"120 agilidad | 40 de daño crítico",idImg:18023,tipo:"mascota"},
+  {name:"Piotín azul",efectos:"120 suerte | 40 de daño crítico",idImg:18019,tipo:"mascota"},
+  {name:"Cochino jabato",efectos:"70 potencia (daños generales) | 40 placaje",idImg:18020,tipo:"mascota"},
+  {name:"Bilby",efectos:"50 de cura | 50 placaje",idImg:18043,tipo:"mascota"},
+  {name:"Leopardo",efectos:"70 potencia (daños generales) | 40 al retiro de PM",idImg:18027,tipo:"mascota"},
+  {name:"Ardilla pilla",efectos:"70 potencia (daños generales) | 40 huida",idImg:18016,tipo:"mascota"},
+  {name:"Cuerbokito Feo",efectos:"120 prospección",idImg:18018,tipo:"mascota"},
+  {name:"Miaumiau atigrado",efectos:"70 potencia (daños generales) | 100 de resistencia al empuje",idImg:18041,tipo:"mascota"},
+  {name:"Miaumiau pelirroja",efectos:"15 vitalidad",idImg:18040,tipo:"mascota"},
+  {name:"Minimino",efectos:"70 potencia (daños generales) | 40 al retiro de PA",idImg:18021,tipo:"mascota"},
+  {name:"Crum",efectos:"50 potencia (daños generales) | 25% resistencia neutral",idImg:18015,tipo:"mascota"},
+  {name:"Dragún rosa",efectos:"50 huida | 40 al retiro de PA",idImg:18014,tipo:"mascota"},
+  {name:"Fotasma",efectos:"400 vitalidad | 40 huida",idImg:18013,tipo:"mascota"},
+  {name:"Pequeño wauwau negro",efectos:"70 potencia (daños generales) | 80 de daño de empuje",idImg:18010,tipo:"mascota"},
+  {name:"Pequeño miaumiau blanco",efectos:"2000 iniciativa | 50 a la esquiva pérdidas de PA",idImg:18009,tipo:"mascota"},
+  {name:"Peki",efectos:"400 vitalidad | 80 de daño de empuje",idImg:18012,tipo:"mascota"},
+  {name:"Nomoon",efectos:"120 prospección",idImg:18011,tipo:"mascota"},
+  {name:"Kuakuá",efectos:"20 prospección | 200 iniciativa",idImg:18008,tipo:"mascota"},
+  {name:"Bwak de tierra",efectos:"50 potencia (daños generales) | 25% resistencia a la tierra",idImg:18005,tipo:"mascota"},
+  {name:"Bwak de aire",efectos:"50 potencia (daños generales) | 25% resistencia al aire",idImg:18004,tipo:"mascota"},
+  {name:"Bwak de agua",efectos:"50 potencia (daños generales) | 25% resistencia al agua",idImg:18002,tipo:"mascota"},
+  {name:"Bwak de fuego",efectos:"50 potencia (daños generales) | 25% resistencia al fuego",idImg:18003,tipo:"mascota"},
+  {name:"Wabbit",efectos:"70 potencia (daños generales) | 100 de resistencia a los críticos",idImg:18007,tipo:"mascota"},
+  {name:"Miaumiau",efectos:"70 potencia (daños generales) | 40 huida",idImg:18001,tipo:"mascota"},
+  {name:"Wauwau",efectos:"20 sabiduría",idImg:18006,tipo:"mascota"}
 ];
+
+const MASCOTURAS_DATA = [
+  {name:"Montura del Venerable",efectos:"1 PA | 2 invocaciones",idImg:121164,tipo:"mascotura"},
+  {name:"Gavioto",efectos:"2000 pods",idImg:121135,tipo:"mascotura"},
+  {name:"Kobraviva",efectos:"2000 iniciativa | 50 a la esquiva pérdidas de PM",idImg:121136,tipo:"mascotura"},
+  {name:"Lagartiro",efectos:"50 huida | 40 al retiro de PM",idImg:121137,tipo:"mascotura"},
+  {name:"Kolifante zenusha",efectos:"120 suerte | 15 % crítico",idImg:121132,tipo:"mascotura"},
+  {name:"Kolifante de Kartago",efectos:"120 agilidad | 15 % crítico",idImg:121131,tipo:"mascotura"},
+  {name:"Kolifante de Lejandro",efectos:"120 inteligencia | 15 % crítico",idImg:121133,tipo:"mascotura"},
+  {name:"Kolifante mamuk",efectos:"120 fuerza | 15 % crítico",idImg:121134,tipo:"mascotura"},
+  {name:"Tortikoli",efectos:"40 placaje | 80 de resistencia al empuje",idImg:121069,tipo:"mascotura"},
+  {name:"Tae'Niak",efectos:"2 invocaciones | 15 daño tierra | 15 daño fuego | 15 daño agua | 15 daño aire",idImg:121070,tipo:"mascotura"},
+  {name:"Jalapólux",efectos:"50 de daño crítico | 100 de daño de empuje",idImg:121022,tipo:"mascotura"},
+  {name:"Jalacástor",efectos:"100 de resistencia a los críticos | 100 de resistencia al empuje",idImg:121021,tipo:"mascotura"},
+  {name:"Mortiélago alabastrado",efectos:"70 potencia (daños generales) | 40 de daño crítico",idImg:121019,tipo:"mascotura"},
+  {name:"Mortiélago",efectos:"1 PA | 2000 iniciativa",idImg:121014,tipo:"mascotura"},
+  {name:"Perforror",efectos:"10 % crítico | 1 PM",idImg:121010,tipo:"mascotura"},
+  {name:"Hardo",efectos:"160 inteligencia",idImg:121008,tipo:"mascotura"},
+  {name:"Kompost",efectos:"160 fuerza",idImg:121007,tipo:"mascotura"},
+  {name:"Xaparón",efectos:"160 suerte",idImg:121006,tipo:"mascotura"},
+  {name:"Siroko",efectos:"160 agilidad",idImg:121005,tipo:"mascotura"},
+  {name:"Kwalteza",efectos:"25 potencia (daños generales) | 1 PA",idImg:121009,tipo:"mascotura"},
+  {name:"Suskrofa",efectos:"1 PM | 100 de daño de empuje",idImg:121004,tipo:"mascotura"},
+  {name:"Sakóquero",efectos:"1 PA | 50 de daño crítico",idImg:121003,tipo:"mascotura"},
+  {name:"Kramkram",efectos:"50 potencia | 5% res. neutral | 5% res. tierra | 5% res. fuego | 5% res. agua | 5% res. aire",idImg:121002,tipo:"mascotura"},
+  {name:"Dekarbón",efectos:"120 prospección",idImg:121001,tipo:"mascotura"},
+  {name:"Dragrillado",efectos:"70 potencia (daños generales) | 2 invocaciones",idImg:121000,tipo:"mascotura"}
+];
+
+// Returns local image path if PNG exists, else API fallback
+function getPetImg(pet) {
+  const folder = pet.tipo === 'mascotura' ? 'mascoturas' : 'mascotas';
+  return `${folder}/${pet.name}.png`;
+}
+function getPetImgFallback(pet) {
+  return `https://api.dofusdb.fr/img/items/${pet.idImg}.png`;
+}
+
+let _guideTab = 'mascota';
 
 function renderGuideSection() {
   renderGuideList();
   renderXPTable();
 }
 
+function setGuideTab(tab, btn) {
+  _guideTab = tab;
+  document.querySelectorAll('.guide-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGuideList();
+}
+
 function renderGuideList() {
   const q = (document.getElementById('guideSearch')?.value || '').toLowerCase();
-  const list = PETS_GUIDE.filter((p, i, arr) =>
-    arr.findIndex(x => x.name === p.name) === i && p.name.toLowerCase().includes(q)
-  );
-  document.getElementById('guideList').innerHTML = list.map(p => `
+  const source = _guideTab === 'mascotura' ? MASCOTURAS_DATA : MASCOTAS_DATA;
+  const list = source.filter(p => p.name.toLowerCase().includes(q));
+  document.getElementById('guideList').innerHTML = list.map(p => {
+    const localImg = getPetImg(p);
+    const fallbackImg = getPetImgFallback(p);
+    const efectosHtml = p.efectos.split('|').map(e =>
+      `<span style="display:inline-block;background:var(--gold-dim);border:1px solid rgba(201,168,76,.25);border-radius:4px;padding:1px 7px;margin:2px 2px 0 0;font-size:11px;color:var(--gold-text);">${e.trim()}</span>`
+    ).join('');
+    return `
     <div style="border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:8px;
       display:flex;gap:14px;align-items:flex-start;transition:background .15s;"
       onmouseover="this.style.background='var(--bg3)'" onmouseout="this.style.background=''">
-      <div style="width:44px;height:44px;background:var(--gold-dim);border-radius:8px;border:1px solid var(--border2);
-        display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🐾</div>
-      <div style="flex:1;">
-        <div style="font-weight:600;font-size:14px;margin-bottom:3px;">${p.name}</div>
-        <div style="font-size:12px;color:var(--gold-text);margin-bottom:5px;font-weight:500;">✦ Bonus lvl 100: ${p.bonus}</div>
-        <div style="font-size:12px;color:var(--text2);margin-bottom:2px;">
-          <strong style="color:var(--text);">Obtención:</strong> ${p.how}</div>
-        ${p.req !== '—' ? `<div style="font-size:11px;color:var(--text3);">
-          <strong>Requisito:</strong> ${p.req}</div>` : ''}
+      <div style="width:52px;height:52px;background:var(--bg3);border-radius:8px;border:1px solid var(--border2);
+        display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">
+        <img src="${localImg}" alt="${p.name}" style="width:48px;height:48px;object-fit:contain;"
+          onerror="this.src='${fallbackImg}'" />
       </div>
-    </div>`).join('');
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-weight:600;font-size:14px;">${p.name}</span>
+          <span style="font-size:10px;padding:1px 7px;border-radius:4px;font-weight:600;
+            background:${p.tipo==='mascotura'?'var(--blue-bg)':'var(--green-bg)'};
+            color:${p.tipo==='mascotura'?'var(--blue)':'var(--green)'};
+            border:1px solid ${p.tipo==='mascotura'?'#90b8e8':'#90d0a8'};">
+            ${p.tipo==='mascotura'?'Mascotura':'Mascota'}
+          </span>
+        </div>
+        <div style="margin-bottom:6px;">${efectosHtml}</div>
+        <div style="font-size:12px;color:var(--text3);">
+          <strong style="color:var(--text2);">Método de obtención:</strong>
+          <span style="font-style:italic;">Próximamente…</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('') || '<div style="text-align:center;color:var(--text3);padding:32px;">Sin resultados</div>';
 }
 
 function renderXPTable() {
@@ -4556,55 +4817,124 @@ function renderXPTable() {
 // MERCADILLO (histórico permanente por servidor)
 // ============================================================
 function renderMarket() {
+  const tb = document.getElementById('marketBody');
+  const marketContent = document.getElementById('marketContent');
+  const marketControls = document.getElementById('marketControls');
+  const marketFootnote = document.getElementById('marketFootnote');
+  if (!tb) return;
+
+  // ── Muro premium ──────────────────────────────────────────
+  if (!isPremium()) {
+    if (marketControls) marketControls.style.display = 'none';
+    if (marketFootnote) marketFootnote.style.display = 'none';
+    if (marketContent) {
+      marketContent.innerHTML = `
+        <div style="position:relative;overflow:hidden;border-radius:var(--r-lg);border:1px solid var(--border);">
+          <div style="filter:blur(5px);pointer-events:none;user-select:none;opacity:.45;">
+            <table style="width:100%;border-collapse:collapse;font-size:13px;">
+              <tbody>
+                ${['Cristal de selenita · Draconiros · 4.2 k · hace 2h','Alas de abominación · Imagiro · 12 k · hace 45 min',
+                   'Raíz de abraknyde · Brial · 890 · hace 1h','Musgo seco · Salar · 340 · hace 4h',
+                   'Pepita · Orukam · 1.1 k · hace 20 min'].map((line,i) => {
+                  const p = line.split(' · ');
+                  return `<tr style="${i%2?'background:var(--bg3)':''}">
+                    <td style="padding:9px 10px;">${p[0]}</td>
+                    <td style="padding:9px 10px;"><span style="font-size:11px;padding:2px 9px;border-radius:10px;background:var(--bg4);border:1px solid var(--border);">${p[1]}</span></td>
+                    <td style="padding:9px 10px;font-weight:600;color:var(--gold);">${p[2]}</td>
+                    <td style="padding:9px 10px;font-size:12px;color:var(--text3);">${p[3]}</td>
+                  </tr>`;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+            justify-content:center;background:rgba(14,12,9,.78);backdrop-filter:blur(2px);padding:24px;text-align:center;">
+            <div style="font-size:30px;margin-bottom:10px;">🔒</div>
+            <div style="font-family:'Cinzel',serif;font-size:17px;color:var(--gold3);font-weight:700;margin-bottom:6px;">
+              Función Premium
+            </div>
+            <div style="font-size:13px;color:rgba(232,217,176,.65);max-width:360px;line-height:1.65;margin-bottom:16px;">
+              El Mercadillo muestra precios reportados por la comunidad en tiempo real, organizados por servidor.
+              Exclusivo para miembros Premium.
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+              ${!currentUser
+                ? `<button onclick="openDpModal('authModal')" class="dp-btn dp-btn-primary" style="width:auto;padding:9px 22px;font-size:13px;">Iniciar sesión</button>
+                   <button onclick="openDpModal('premiumModal')" style="padding:9px 18px;border-radius:8px;border:1px solid rgba(232,201,106,.4);background:transparent;color:var(--gold3);cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;">Ver Premium ⭐</button>`
+                : `<button onclick="openDpModal('premiumModal')" class="dp-btn dp-btn-primary" style="width:auto;padding:9px 22px;font-size:13px;">Activar Premium ⭐ — $1/mes</button>`
+              }
+            </div>
+          </div>
+        </div>`;
+    }
+    return;
+  }
+
+  // ── Vista premium: datos reales ───────────────────────────
+  if (marketControls) marketControls.style.display = '';
+  if (marketFootnote) marketFootnote.style.display = '';
+  if (marketContent) { marketContent.innerHTML = ''; }
+
   const serverFilter = (document.getElementById('marketServerFilter')?.value || '').toLowerCase();
   const q = (document.getElementById('marketSearch')?.value || '').toLowerCase();
+  const seen = new Set();
   const rows = [];
+
+  // Primero datos de Firebase (communityPrices)
+  Object.entries(communityPrices).forEach(([name, d]) => {
+    const server = d.server || currentServer || 'General';
+    if (serverFilter && !server.toLowerCase().includes(serverFilter)) return;
+    if (q && !name.toLowerCase().includes(q)) return;
+    const key = server + '|' + name;
+    if (seen.has(key)) return;
+    seen.add(key);
+    rows.push({ name, server, price: d.price, ts: d.ts, user: d.user || '' });
+  });
+
+  // Luego localStorage (complemento/fallback)
   try {
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (!key || !key.startsWith('dofus_mkt_')) continue;
+      if (!key?.startsWith('dofus_mkt_')) continue;
       const d = JSON.parse(localStorage.getItem(key));
       if (!d) continue;
       const server = d.server || 'General';
       // Extraer nombre: key = dofus_mkt_<server>_<name>
       const name = key.slice(('dofus_mkt_' + server + '_').length);
+      const dKey = server + '|' + name;
+      if (seen.has(dKey)) continue;
       if (serverFilter && !server.toLowerCase().includes(serverFilter)) continue;
       if (q && !name.toLowerCase().includes(q)) continue;
-      rows.push({ name, server, price: d.price, ts: d.ts });
+      seen.add(dKey);
+      rows.push({ name, server, price: d.price, ts: d.ts, user: d.user || '' });
     }
   } catch(e) {}
 
   rows.sort((a, b) => b.ts - a.ts);
 
-  const tb = document.getElementById('marketBody');
-  if (!tb) return;
-
   if (!rows.length) {
     tb.innerHTML = `<tr><td colspan="4" style="padding:24px;text-align:center;color:var(--text3);font-size:13px;">
-      Sin datos aún. Los precios se guardan automáticamente cuando los ingresas en la calculadora.</td></tr>`;
-    return;
+      Sin datos aún. Los precios se guardan cuando los ingresas en la calculadora.</td></tr>`;
+  } else {
+    tb.innerHTML = rows.map((r, i) => `
+      <tr style="border-bottom:1px solid var(--border);${i%2===0?'background:var(--bg3)':''}">
+        <td style="padding:9px 10px;font-size:13px;font-weight:500;">${r.name}</td>
+        <td style="padding:9px 10px;">
+          <span style="font-size:11px;padding:2px 9px;border-radius:10px;background:var(--bg4);
+            border:1px solid var(--border);color:var(--text2);font-weight:500;">${r.server}</span></td>
+        <td style="padding:9px 10px;font-weight:600;color:var(--gold);">${fmt(r.price)}</td>
+        <td style="padding:9px 10px;font-size:12px;color:var(--text3);">
+          ${r.user ? `<span style="color:var(--text2);font-size:11px;">${r.user}</span> · ` : ''}${timeAgo(r.ts)}</td>
+      </tr>`).join('');
   }
 
-  tb.innerHTML = rows.map((r, i) => `
-    <tr style="border-bottom:1px solid var(--border);${i%2===0?'background:var(--bg3)':''}">
-      <td style="padding:9px 10px;font-size:13px;font-weight:500;">${r.name}</td>
-      <td style="padding:9px 10px;">
-        <span style="font-size:11px;padding:2px 9px;border-radius:10px;background:var(--bg4);
-          border:1px solid var(--border);color:var(--text2);font-weight:500;">${r.server}</span></td>
-      <td style="padding:9px 10px;font-weight:600;color:var(--gold);">${fmt(r.price)}</td>
-      <td style="padding:9px 10px;font-size:12px;color:var(--text3);">${timeAgo(r.ts)}</td>
-    </tr>`).join('');
-
-  // Populate server select
+  // Actualizar filtro servidores
   const servers = [...new Set(rows.map(r => r.server))].sort();
   const mf = document.getElementById('marketServerFilter');
   if (mf) {
     const cur = mf.value;
     mf.innerHTML = '<option value="">Todos los servidores</option>';
-    servers.forEach(s => {
-      const o = document.createElement('option');
-      o.value = s; o.textContent = s; mf.appendChild(o);
-    });
+    servers.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; mf.appendChild(o); });
     if (cur) mf.value = cur;
   }
 }
@@ -4612,17 +4942,35 @@ function renderMarket() {
 // ============================================================
 // TICKET
 // ============================================================
-function sendTicket() {
+async function sendTicket() {
   const msg = document.getElementById('ticketMsg').value.trim();
   if (!msg) { alert('Por favor escribe un mensaje antes de enviar.'); return; }
   const user   = document.getElementById('ticketUser').value.trim();
   const type   = document.getElementById('ticketType').value;
   const server = document.getElementById('ticketServer').value;
+  const ticketData = {
+    user,
+    userEmail: currentUser?.email || '',
+    server,
+    type,
+    msg,
+    ts: Date.now()
+  };
+  // Save to localStorage (fallback)
   try {
     const tickets = JSON.parse(localStorage.getItem('dofus_tickets') || '[]');
-    tickets.push({ user, server, type, msg, ts: Date.now() });
+    tickets.push(ticketData);
     localStorage.setItem('dofus_tickets', JSON.stringify(tickets));
   } catch(e) {}
+  // Save to Firestore
+  if (_db) {
+    try {
+      await _db.collection('tickets').add({
+        ...ticketData,
+        ts: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    } catch(e) { console.warn('Ticket Firestore:', e); }
+  }
   const st = document.getElementById('ticketStatus');
   st.style.display = 'inline';
   document.getElementById('ticketMsg').value    = '';
@@ -4651,17 +4999,30 @@ function sendTicket() {
   rules_version = '2';
   service cloud.firestore {
     match /databases/{database}/documents {
+      function isAdmin() {
+        return request.auth.token.email in ['s.arayacornejo@gmail.com'];
+      }
+      function isPremium() {
+        return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.premium == true;
+      }
       match /users/{uid} {
-        allow read: if request.auth.uid == uid;
+        allow read: if request.auth.uid == uid || isAdmin();
         allow write: if request.auth.uid == uid
-          && !request.resource.data.keys().hasAny(['premium','premiumSince']);
+          && !request.resource.data.keys().hasAny(['premium','premiumSince','role'])
+          || isAdmin();
       }
       match /premiumRequests/{uid} {
-        allow read, create: if request.auth.uid == uid;
+        allow read: if request.auth.uid == uid || isAdmin();
+        allow create: if request.auth.uid == uid;
+        allow update: if isAdmin();
+      }
+      match /tickets/{id} {
+        allow read: if isAdmin();
+        allow create: if request.auth != null;
       }
       match /communityPrices/{id} {
-        allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.premium == true;
-        allow write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.premium == true;
+        allow read: if isPremium();
+        allow write: if isPremium();
       }
     }
   }
@@ -4699,11 +5060,16 @@ function initFirebase() {
         updateTopbarForUser(user);
         if (!isPremium()) resetDarkMode();
         else applyDarkIfSaved();
+        // Re-suscribir precios comunitarios si hay servidor seleccionado
+        if (currentServer) subscribeCommPrices(currentServer);
       } else {
         currentUser = null;
         currentUserData = null;
         updateTopbarForUser(null);
         resetDarkMode();
+        if (_commUnsubscribe) { _commUnsubscribe(); _commUnsubscribe = null; }
+        communityPrices = {};
+        renderResources();
       }
     });
   } catch(e) { console.error('Firebase init:', e); }
@@ -4717,11 +5083,13 @@ async function syncUserDoc(user) {
     if (snap.exists) {
       currentUserData = snap.data();
     } else {
+      const role = ADMIN_EMAILS.includes(user.email) ? 'admin' : 'user';
       const data = {
         email:       user.email || '',
         displayName: user.displayName || user.email?.split('@')[0] || 'Jugador',
         photoURL:    user.photoURL || null,
-        premium:     false,
+        premium:     role === 'admin',
+        role:        role,
         createdAt:   firebase.firestore.FieldValue.serverTimestamp(),
         server:      ''
       };
@@ -4731,7 +5099,16 @@ async function syncUserDoc(user) {
   } catch(e) { console.warn('Firestore sync:', e); }
 }
 
-function isPremium() { return currentUserData?.premium === true; }
+function isPremium() { return currentUserData?.premium === true || isAdmin(); }
+
+// ── Roles ─────────────────────────────────────────────────
+const ADMIN_EMAILS = ['s.arayacornejo@gmail.com'];
+function isAdmin() { return !!(currentUser && ADMIN_EMAILS.includes(currentUser.email)); }
+function getUserRole() {
+  if (isAdmin()) return 'admin';
+  if (currentUserData?.premium === true) return 'premium';
+  return 'user';
+}
 
 function applyDarkIfSaved() {
   const t = localStorage.getItem('dofuspets-theme');
@@ -4868,13 +5245,19 @@ document.addEventListener('click', e => {
 // ── Topbar render (logged in / out) ──────────────────────
 function updateTopbarForUser(user) {
   const area = document.getElementById('topbarAuthArea');
+  const profileLink = document.getElementById('profileNavLink');
+  const profileLinkM = document.getElementById('profileNavLinkMobile');
   if (!area) return;
   if (!user) {
     area.innerHTML = `
       <button class="auth-btn btn-login"     onclick="showAuth('login')">Iniciar sesión</button>
       <button class="auth-btn btn-register"  onclick="showAuth('register')">Registrarse</button>`;
+    if (profileLink)  profileLink.style.display  = 'none';
+    if (profileLinkM) profileLinkM.style.display = 'none';
     return;
   }
+  if (profileLink)  profileLink.style.display  = '';
+  if (profileLinkM) profileLinkM.style.display = '';
   const name   = currentUserData?.displayName || user.displayName || user.email?.split('@')[0] || 'Jugador';
   const photo  = user.photoURL;
   const prem   = isPremium();
@@ -4891,8 +5274,11 @@ function updateTopbarForUser(user) {
         <div class="user-dd-header">
           <div class="uname">${name}</div>
           <div class="uemail">${user.email || ''}</div>
-          <div class="plan-chip ${prem ? 'premium' : 'free'}">${prem ? '⭐ Premium' : 'Cuenta gratuita'}</div>
+          <div class="plan-chip ${isAdmin() ? 'premium' : prem ? 'premium' : 'free'}">${isAdmin() ? '🛡 Admin' : prem ? '⭐ Premium' : 'Cuenta gratuita'}</div>
         </div>
+        <button class="user-dd-item" onclick="closeUserDd();showPage('profile')">
+          <span>👤</span> Mi Perfil
+        </button>
         ${!prem ? `<button class="user-dd-item" onclick="closeUserDd();openDpModal('premiumModal')">
           <span>⭐</span> Activar Premium
         </button>` : ''}
@@ -4945,7 +5331,244 @@ renderResources();
 // KOFI / PREMIUM
 // ============================================================
 function openKofi() {
-  window.open('https://ko-fi.com/dofuspets', '_blank', 'noopener,noreferrer');
+  window.open('https://ko-fi.com/dofuspet', '_blank', 'noopener,noreferrer');
+}
+
+// ============================================================
+// PERFIL
+// ============================================================
+function renderProfile() {
+  if (!currentUser) return;
+  const name  = currentUserData?.displayName || currentUser.displayName || 'Jugador';
+  const email = currentUser.email || '—';
+  const role  = getUserRole();
+  const planLabel = role === 'admin' ? '🛡 Administrador' : isPremium() ? '⭐ Premium' : 'Gratuito';
+  const planColor = role === 'admin' || isPremium() ? 'var(--gold)' : 'var(--text3)';
+
+  document.getElementById('profileInfoBox').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div><strong style="color:var(--text);">Nombre:</strong> ${name}</div>
+      <div><strong style="color:var(--text);">Correo:</strong> ${email}</div>
+      <div><strong style="color:var(--text);">Cuenta creada:</strong> ${currentUser.metadata?.creationTime ? new Date(currentUser.metadata.creationTime).toLocaleDateString('es-CL') : '—'}</div>
+      <div><strong style="color:var(--text);">Plan:</strong> <span style="color:${planColor};font-weight:600;">${planLabel}</span></div>
+    </div>`;
+
+  const premBox = document.getElementById('profilePremiumBox');
+  if (isPremium()) {
+    premBox.innerHTML = `<div style="background:var(--gold-dim);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:12px 16px;">
+      <div style="font-weight:600;color:var(--gold);margin-bottom:4px;">⭐ ${role==='admin'?'Administrador':'Cuenta Premium activa'}</div>
+      <div style="font-size:12px;color:var(--text2);">Tienes acceso a todas las funciones premium: Comunidad 24h, Mercadillo, Modo oscuro y más.</div>
+    </div>`;
+  } else {
+    premBox.innerHTML = `<div style="font-size:13px;color:var(--text2);margin-bottom:12px;">Tu cuenta es gratuita. Activa Premium para desbloquear funciones exclusivas.</div>
+    <button class="dp-btn dp-btn-primary" onclick="openDpModal('premiumModal')" style="max-width:200px;">⭐ Ver Premium ($1/mes)</button>`;
+  }
+
+  const adminPanel = document.getElementById('adminPanel');
+  if (isAdmin()) { adminPanel.style.display = 'block'; } else { adminPanel.style.display = 'none'; }
+}
+
+async function changePassword() {
+  if (!currentUser) return;
+  const p1 = document.getElementById('profNewPass').value;
+  const p2 = document.getElementById('profNewPass2').value;
+  const st = document.getElementById('profPassStatus');
+  if (!p1 || !p2) { showProfileStatus(st, 'Completa ambos campos.', false); return; }
+  if (p1 !== p2)  { showProfileStatus(st, 'Las contraseñas no coinciden.', false); return; }
+  if (p1.length < 6) { showProfileStatus(st, 'Mínimo 6 caracteres.', false); return; }
+  try {
+    await currentUser.updatePassword(p1);
+    showProfileStatus(st, '✓ Contraseña actualizada correctamente.', true);
+    document.getElementById('profNewPass').value = '';
+    document.getElementById('profNewPass2').value = '';
+  } catch(e) {
+    if (e.code === 'auth/requires-recent-login') {
+      showProfileStatus(st, 'Por seguridad, cierra sesión, vuelve a iniciarla y reintenta.', false);
+    } else { showProfileStatus(st, fbError(e.code), false); }
+  }
+}
+
+async function changeEmail() {
+  if (!currentUser) return;
+  const newEmail = document.getElementById('profNewEmail').value.trim();
+  const pass = document.getElementById('profEmailPass').value;
+  const st = document.getElementById('profEmailStatus');
+  if (!newEmail || !pass) { showProfileStatus(st, 'Completa todos los campos.', false); return; }
+  try {
+    const cred = firebase.auth.EmailAuthProvider.credential(currentUser.email, pass);
+    await currentUser.reauthenticateWithCredential(cred);
+    await currentUser.updateEmail(newEmail);
+    if (_db) await _db.collection('users').doc(currentUser.uid).update({ email: newEmail });
+    showProfileStatus(st, '✓ Correo actualizado. Revisa tu bandeja para verificarlo.', true);
+    document.getElementById('profNewEmail').value = '';
+    document.getElementById('profEmailPass').value = '';
+    renderProfile();
+  } catch(e) {
+    if (e.code === 'auth/wrong-password') showProfileStatus(st, 'Contraseña incorrecta.', false);
+    else showProfileStatus(st, fbError(e.code), false);
+  }
+}
+
+function showProfileStatus(el, msg, ok) {
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.style.background = ok ? 'var(--green-bg)' : 'var(--red-bg)';
+  el.style.color      = ok ? 'var(--green)'    : 'var(--red)';
+  el.style.border     = `1px solid ${ok ? 'rgba(56,160,104,.2)' : 'rgba(168,40,40,.2)'}`;
+  setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+// ── Admin panel ───────────────────────────────────────────
+function switchAdminTab(tab, btn) {
+  document.querySelectorAll('#adminTabRow .tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (tab === 'tickets') loadAdminTickets();
+  else if (tab === 'premium') loadAdminPremiumReqs();
+  else if (tab === 'users') loadAdminUsers();
+}
+
+async function loadAdminUsers() {
+  if (!isAdmin() || !_db) return;
+  document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">Cargando usuarios…</div>';
+  try {
+    const snap = await _db.collection('users').orderBy('createdAt', 'desc').limit(100).get();
+    if (snap.empty) {
+      document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">Sin usuarios registrados.</div>';
+      return;
+    }
+    const rows = snap.docs.map(d => {
+      const u = d.data();
+      const uid = d.id;
+      const prem = u.premium ? '⭐ Premium' : 'Free';
+      const premColor = u.premium ? 'var(--gold)' : 'var(--text3)';
+      const premBtn = u.premium
+        ? `<button onclick="setUserPremium('${uid}',false)" style="font-size:11px;padding:3px 8px;border-radius:5px;background:var(--red-bg);color:var(--red);border:1px solid var(--red);cursor:pointer;font-family:'DM Sans',sans-serif;">Quitar</button>`
+        : `<button onclick="setUserPremium('${uid}',true)" style="font-size:11px;padding:3px 8px;border-radius:5px;background:var(--green-bg);color:var(--green);border:1px solid var(--green);cursor:pointer;font-family:'DM Sans',sans-serif;">Activar</button>`;
+      const date = u.createdAt?.toDate ? u.createdAt.toDate().toLocaleDateString('es-CL') : '—';
+      return `<tr id="urow-${uid}">
+        <td style="padding:7px 10px;font-size:12px;">${u.displayName||'—'}</td>
+        <td style="padding:7px 10px;font-size:12px;color:var(--text3);">${u.email||'—'}</td>
+        <td style="padding:7px 10px;font-size:12px;color:${premColor};font-weight:600;">${prem}</td>
+        <td style="padding:7px 10px;font-size:12px;color:var(--text3);">${date}</td>
+        <td style="padding:7px 10px;">${premBtn}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('adminContent').innerHTML = `
+      <div style="overflow-x:auto;">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;">${snap.size} usuarios registrados</div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead><tr style="background:var(--bg3);">
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Nombre</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Correo</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Plan</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Registro</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Acción</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  } catch(e) {
+    document.getElementById('adminContent').innerHTML = `<div style="color:var(--red);padding:12px;font-size:12px;">Error: ${e.message}</div>`;
+  }
+}
+
+async function setUserPremium(uid, value) {
+  if (!isAdmin() || !_db) return;
+  const label = value ? '¿Activar Premium a este usuario?' : '¿Quitar Premium a este usuario?';
+  if (!confirm(label)) return;
+  try {
+    await _db.collection('users').doc(uid).update({
+      premium: value,
+      role: value ? 'premium' : 'user',
+      ...(value ? { premiumSince: firebase.firestore.FieldValue.serverTimestamp() } : {})
+    });
+    loadAdminUsers(); // Recargar tabla
+  } catch(e) { alert('Error: ' + e.message); }
+}
+
+async function loadAdminTickets() {
+  if (!isAdmin() || !_db) return;
+  document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">Cargando tickets…</div>';
+  try {
+    const snap = await _db.collection('tickets').orderBy('ts', 'desc').limit(50).get();
+    if (snap.empty) {
+      document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">Sin tickets aún.</div>';
+      return;
+    }
+    const rows = snap.docs.map(d => {
+      const t = d.data();
+      const date = t.ts?.toDate ? t.ts.toDate().toLocaleString('es-CL') : '—';
+      return `<tr>
+        <td style="padding:8px 10px;font-size:12px;color:var(--text3);">${date}</td>
+        <td style="padding:8px 10px;font-size:13px;font-weight:500;">${t.userEmail||t.user||'Anónimo'}</td>
+        <td style="padding:8px 10px;"><span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--bg4);border:1px solid var(--border);">${t.type||'—'}</span></td>
+        <td style="padding:8px 10px;font-size:13px;">${t.msg||'—'}</td>
+        <td style="padding:8px 10px;font-size:11px;color:var(--text3);">${t.server||'—'}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('adminContent').innerHTML = `
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead><tr style="background:var(--bg3);">
+            <th style="padding:8px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Fecha</th>
+            <th style="padding:8px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Usuario</th>
+            <th style="padding:8px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Tipo</th>
+            <th style="padding:8px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Mensaje</th>
+            <th style="padding:8px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Servidor</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  } catch(e) {
+    document.getElementById('adminContent').innerHTML = `<div style="color:var(--red);padding:12px;font-size:12px;">Error: ${e.message}</div>`;
+  }
+}
+
+async function loadAdminPremiumReqs() {
+  if (!isAdmin() || !_db) return;
+  document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">Cargando solicitudes…</div>';
+  try {
+    const snap = await _db.collection('premiumRequests').where('status','==','pending').get();
+    if (snap.empty) {
+      document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">Sin solicitudes pendientes.</div>';
+      return;
+    }
+    const rows = snap.docs.map(d => {
+      const r = d.data();
+      return `<tr>
+        <td style="padding:8px 10px;font-size:13px;">${r.email||'—'}</td>
+        <td style="padding:8px 10px;font-size:13px;">${r.displayName||'—'}</td>
+        <td style="padding:8px 10px;font-size:13px;">${r.kofiUsername||'—'}</td>
+        <td style="padding:8px 10px;">
+          <button onclick="activatePremium('${d.id}')" style="font-size:11px;padding:3px 10px;border-radius:5px;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;">Activar</button>
+        </td>
+      </tr>`;
+    }).join('');
+    document.getElementById('adminContent').innerHTML = `
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead><tr style="background:var(--bg3);">
+            <th style="padding:8px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Correo</th>
+            <th style="padding:8px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Nombre</th>
+            <th style="padding:8px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Ko-fi</th>
+            <th style="padding:8px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Acción</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  } catch(e) {
+    document.getElementById('adminContent').innerHTML = `<div style="color:var(--red);padding:12px;font-size:12px;">Error: ${e.message}</div>`;
+  }
+}
+
+async function activatePremium(uid) {
+  if (!isAdmin() || !_db) return;
+  if (!confirm('¿Activar Premium para este usuario?')) return;
+  try {
+    await _db.collection('users').doc(uid).update({ premium: true, role: 'premium', premiumSince: firebase.firestore.FieldValue.serverTimestamp() });
+    await _db.collection('premiumRequests').doc(uid).update({ status: 'approved' });
+    loadAdminPremiumReqs();
+  } catch(e) { alert('Error: ' + e.message); }
 }
 
 initFirebase();
@@ -5029,7 +5652,7 @@ initFirebase();
         <li><span class="bi">🚫</span><div><strong>Sin publicidad</strong><span class="bd">Experiencia completamente limpia, sin banners ni interrupciones.</span></div></li>
         <li><span class="bi">🔬</span><div><strong>Acceso anticipado</strong><span class="bd">Prueba nuevas funciones antes que nadie y deja tu feedback para moldearlas.</span></div></li>
       </ul>
-      <a href="https://ko-fi.com/dofuspets" target="_blank" rel="noopener"
+      <a href="https://ko-fi.com/dofuspet" target="_blank" rel="noopener"
         style="display:flex;align-items:center;justify-content:center;gap:10px;
           padding:13px;border-radius:10px;background:#ff5e5b;color:#fff;font-size:14px;
           font-weight:700;text-decoration:none;margin-bottom:14px;transition:background .2s;"
