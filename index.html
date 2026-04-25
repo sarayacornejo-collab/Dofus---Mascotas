@@ -411,6 +411,7 @@ body {
   .xp-table-wrap { overflow-x: auto; }
   .ticket-grid { grid-template-columns: 1fr !important; }
   #profile-section > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+  #compareGrid { grid-template-columns: 1fr !important; }
 }
 
 .card h2 { font-family: 'Cinzel', serif; letter-spacing: .03em; }
@@ -945,11 +946,11 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
           <label style="font-size:12px;color:var(--text2);white-space:nowrap;">XP mín.:</label>
           <input type="number" id="xpMinFilter" placeholder="ej. 10" min="0" step="1"
             style="width:70px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;background:var(--bg3);color:var(--text);outline:none;"
-            oninput="renderResources()" />
+            oninput="debouncedRender()" />
         </div>
       </div>
     </div>
-    <input type="text" class="search-box" id="resSearch" placeholder="Buscar recurso..." oninput="renderResources()" />
+    <input type="text" class="search-box" id="resSearch" placeholder="Buscar recurso..." oninput="debouncedRender()" />
     <div class="res-wrap">
       <table class="res-table">
         <thead>
@@ -1160,6 +1161,19 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
       <div id="profilePremiumBox" style="font-size:13px;"></div>
     </div>
   </div>
+  <!-- Tabs de secciones premium -->
+  <div id="premiumProfileTabs" style="display:none;margin-top:24px;">
+    <div class="card">
+      <div class="tab-row" style="margin-bottom:16px;" id="profileTabRow">
+        <button class="tab-btn active" id="ptab-historial" onclick="openProfileTab('historial')">📜 Mi Historial</button>
+        <button class="tab-btn" id="ptab-notas" onclick="openProfileTab('notas')">📌 Notas</button>
+      </div>
+      <div id="profileTabContent">
+        <div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">Selecciona una pestaña.</div>
+      </div>
+    </div>
+  </div>
+
   <div id="adminPanel" style="display:none;margin-top:24px;">
     <div class="card">
       <h2 style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--red);">🛡 Panel de Administración</h2>
@@ -3898,9 +3912,10 @@ function fmtXP(n) {
 
 // Formatea input kamas con puntos de millar mientras el usuario escribe
 function formatKamasInput(input) {
-  const cur = input.selectionStart;
-  const raw = input.value.replace(/\./g, '').replace(/[^0-9]/g, '');
+  const raw  = input.value.replace(/\./g, '').replace(/[^0-9]/g, '');
   const fmtd = raw.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  if (input.value === fmtd) return; // sin cambio: no tocar el DOM
+  const cur  = input.selectionStart;
   const diff = fmtd.length - input.value.length;
   input.value = fmtd;
   try { input.setSelectionRange(cur + diff, cur + diff); } catch(e) {}
@@ -4011,20 +4026,36 @@ async function loadPets() {
 }
 
 function onPetChange() {
-  const sel  = document.getElementById('petSelect');
-  const opt  = sel.options[sel.selectedIndex];
-  const imgUrl = opt?.dataset?.img || '';
+  const sel    = document.getElementById('petSelect');
+  const opt    = sel.options[sel.selectedIndex];
   const name   = opt?.value || '';
-  const imgBox  = document.getElementById('petImgBox');
+  const imgBox = document.getElementById('petImgBox');
   const imgName = document.getElementById('petImgName');
-  if (imgUrl) {
-    imgBox.innerHTML = `<img src="${imgUrl}" alt="${name}"
+  imgName.textContent = name;
+  if (!name) { imgBox.innerHTML = '<span style="font-size:28px;color:var(--text3);">?</span>'; return; }
+
+  // 1) Buscar en datos locales (imágenes en mascotas/ o mascoturas/)
+  const allPets = [...MASCOTAS_DATA, ...MASCOTURAS_DATA];
+  const petData = allPets.find(p => p.name.toLowerCase() === name.toLowerCase());
+
+  let localSrc = '', apiFallback = opt?.dataset?.img || '';
+  if (petData) {
+    const folder = petData.tipo === 'mascotura' ? 'mascoturas' : 'mascotas';
+    localSrc    = `${folder}/${petData.name}.png`;
+    apiFallback = apiFallback || `https://api.dofusdb.fr/img/items/${petData.idImg}.png`;
+  }
+
+  const primary = localSrc || apiFallback;
+  const second  = localSrc ? apiFallback : '';
+  const esc = (s) => s.replace(/'/g, "\\'");
+
+  if (primary) {
+    imgBox.innerHTML = `<img src="${primary}" alt="${name}"
       style="width:72px;height:72px;object-fit:contain;"
-      onerror="this.parentNode.innerHTML='<span style=font-size:28px;color:var(--text3)>?</span>'" />`;
+      onerror="${second ? `this.src='${esc(second)}';this.onerror=null` : `this.parentNode.innerHTML='<span style=font-size:28px;color:var(--text3)>?</span>'`}" />`;
   } else {
     imgBox.innerHTML = '<span style="font-size:28px;color:var(--text3);">?</span>';
   }
-  imgName.textContent = name;
 }
 
 // ============================================================
@@ -4125,8 +4156,14 @@ function updateDiffs() {
   document.getElementById('d80').textContent    = p80  > p1  ? fmt(p80  - p1)  : '—';
   document.getElementById('d80100').textContent = p100 > p80 ? fmt(p100 - p80) : '—';
   document.getElementById('d100').textContent   = p100 > p1  ? fmt(p100 - p1)  : '—';
-  updateProgress();
-  clearTimeout(_debResources); _debResources = setTimeout(renderResources, 300);
+  // Debounce tanto la tabla como las barras de progreso para no bloquear el teclado
+  clearTimeout(_debounceProgress); _debounceProgress = setTimeout(updateProgress, 180);
+  clearTimeout(_debResources);     _debResources     = setTimeout(renderResources, 380);
+}
+
+// Helper para inputs de búsqueda: debounce renderResources
+function debouncedRender() {
+  clearTimeout(_debResources); _debResources = setTimeout(renderResources, 280);
 }
 
 // ============================================================
@@ -4151,7 +4188,7 @@ function subscribeCommPrices(server) {
         const seen = new Set();
         snap.forEach(doc => {
           const d = doc.data();
-          if (seen.has(d.resourceName)) return; // solo el más reciente
+          if (seen.has(d.resourceName)) return;
           seen.add(d.resourceName);
           communityPrices[d.resourceName] = {
             price: d.price,
@@ -4160,8 +4197,11 @@ function subscribeCommPrices(server) {
             server: d.server
           };
         });
-        renderResources();
-        renderMarket();
+        // Debounce para no interrumpir al usuario si está escribiendo
+        clearTimeout(_debResources); _debResources = setTimeout(() => {
+          renderResources();
+          renderMarket();
+        }, 500);
       }, err => { console.warn('Community listener:', err); });
   } catch(e) { console.warn('subscribeCommPrices:', e); }
 }
@@ -4393,16 +4433,45 @@ function updateRowInPlace(row, name, price) {
 // ============================================================
 // LOG
 // ============================================================
-function addToLog(name) {
+async function addToLog(name) {
   const res = RESOURCES.find(r => r.name === name);
   if (!res) return;
-  const price = resPrices[name] || 0;
-  const qty   = Math.max(1, resQtys[name] || 1);
+  const price   = resPrices[name] || 0;
+  const qty     = Math.max(1, resQtys[name] || 1);
+  const ideal   = getIdealPrice(res.xp);
+  const margin  = getMarginKamas();
   const existing = log.find(l => l.name === name);
+  const histId  = existing?.histId || null;
+
   if (existing) { existing.qty += qty; existing.price = price; }
-  else log.push({ name, xp: res.xp, price, qty });
+  else log.push({ name, xp: res.xp, price, qty, histId: null });
   renderLog();
   updateProgress();
+
+  // Guardar en historial Firebase (solo premium)
+  if (_db && isPremium() && currentUser && price > 0) {
+    const rentPct = ideal && price ? Math.round((1 - price / ideal) * 100) : null;
+    const entry = {
+      resourceName: name,
+      price,
+      qty,
+      xpPerUnit: res.xp,
+      idealPrice: ideal || null,
+      rentPct,
+      server: currentServer || 'General',
+      pet: document.getElementById('petSelect')?.value || '',
+      margin: margin || null,
+      ts: firebase.firestore.FieldValue.serverTimestamp(),
+      userId: currentUser.uid
+    };
+    try {
+      const ref = await _db.collection('users').doc(currentUser.uid)
+        .collection('history').add(entry);
+      // Guardar el ID del doc para poder borrarlo luego
+      const logItem = log.find(l => l.name === name);
+      if (logItem) logItem.histId = ref.id;
+    } catch(e) { console.warn('historial:', e); }
+  }
 }
 
 
@@ -4442,7 +4511,17 @@ function clearLog() {
   updateProgress();
 }
 
-function removeLog(i) { log.splice(i, 1); renderLog(); updateProgress(); }
+function removeLog(i) {
+  const item = log[i];
+  // Borrar entrada del historial Firebase si existe
+  if (item?.histId && _db && currentUser) {
+    _db.collection('users').doc(currentUser.uid)
+      .collection('history').doc(item.histId).delete().catch(() => {});
+  }
+  log.splice(i, 1);
+  renderLog();
+  updateProgress();
+}
 
 function changeQty(i, delta) {
   log[i].qty = Math.max(1, log[i].qty + delta);
@@ -5160,7 +5239,20 @@ async function registerWithEmail() {
   try {
     const cred = await _auth.createUserWithEmailAndPassword(email, pass);
     await cred.user.updateProfile({ displayName: name });
+    // Enviar correo de verificación
+    try { await cred.user.sendEmailVerification(); } catch(ve) { console.warn('verif email:', ve); }
     closeDpModal('authModal');
+    // Mostrar mensaje de bienvenida con instrucción de verificar
+    setTimeout(() => {
+      const el = document.getElementById('authError');
+      if (el) {
+        el.textContent = '✓ Cuenta creada. Revisa tu correo para verificar tu dirección.';
+        el.style.display = 'block';
+        el.style.background = 'var(--green-bg)'; el.style.color = 'var(--green)';
+        el.style.borderColor = 'rgba(56,160,104,.2)';
+        setTimeout(() => { if (el) el.style.display = 'none'; }, 6000);
+      }
+    }, 400);
   } catch(e) { showAuthError(fbError(e.code)); }
 }
 
@@ -5168,18 +5260,26 @@ async function registerWithEmail() {
 async function forgotPassword() {
   if (!_fbReady) return;
   const email = document.getElementById('loginEmail')?.value.trim();
-  if (!email) { showAuthError('Ingresa tu correo primero.'); return; }
+  if (!email) { showAuthError('Ingresa tu correo electrónico arriba y vuelve a intentarlo.'); return; }
   try {
-    await _auth.sendPasswordResetEmail(email);
-    showAuthError('📧 Correo de recuperación enviado. Revisa tu bandeja.', true);
-  } catch(e) { showAuthError(fbError(e.code)); }
+    await _auth.sendPasswordResetEmail(email, {
+      url: window.location.origin + window.location.pathname
+    });
+    showAuthError('📧 Correo enviado a ' + email + '. Revisa tu bandeja (y la carpeta de spam).', true);
+  } catch(e) {
+    const msg = e.code === 'auth/user-not-found'
+      ? 'No existe una cuenta con ese correo.'
+      : fbError(e.code);
+    showAuthError(msg);
+  }
 }
 
 // ── Auth: logout ──────────────────────────────────────────
 async function logoutUser() {
   if (!_auth) return;
-  await _auth.signOut();
   closeUserDd();
+  await _auth.signOut();
+  showPage('calc'); // Siempre redirigir al Home al cerrar sesión
 }
 
 // ── Auth error messages ───────────────────────────────────
@@ -5221,14 +5321,15 @@ function switchAuthTab(tab) {
 function openDpModal(id) {
   const el = document.getElementById(id);
   if (el) el.style.display = 'flex';
-  if (id === 'authModal') setTimeout(() => document.getElementById('loginEmail')?.focus(), 120);
+  if (id === 'authModal')    setTimeout(() => document.getElementById('loginEmail')?.focus(), 120);
+  if (id === 'compareModal') initCompareModal();
 }
 function closeDpModal(id) {
   const el = document.getElementById(id);
   if (el) el.style.display = 'none';
 }
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeDpModal('authModal'); closeDpModal('premiumModal'); closeUserDd(); }
+  if (e.key === 'Escape') { closeDpModal('premiumModal'); closeUserDd(); }
 });
 
 // ── User dropdown ─────────────────────────────────────────
@@ -5283,12 +5384,12 @@ function updateTopbarForUser(user) {
           <span>⭐</span> Activar Premium
         </button>` : ''}
         <button class="user-dd-item" style="${prem?'':'opacity:.5;cursor:default;'}"
-          onclick="${prem?"closeUserDd();alert('Historial próximamente.')":"openDpModal('premiumModal')"}">
+          onclick="${prem?"closeUserDd();showPage('profile');setTimeout(()=>openProfileTab('historial'),250)":"openDpModal('premiumModal')"}">
           <span>📜</span> Mi historial
           ${!prem?'<span class="lock-hint">🔒 Premium</span>':''}
         </button>
         <button class="user-dd-item" style="${prem?'':'opacity:.5;cursor:default;'}"
-          onclick="${prem?"closeUserDd();alert('Comparador próximamente.')":"openDpModal('premiumModal')"}">
+          onclick="${prem?"closeUserDd();openDpModal('compareModal')":"openDpModal('premiumModal')"}">
           <span>⚖️</span> Comparar mascotas
           ${!prem?'<span class="lock-hint">🔒 Premium</span>':''}
         </button>
@@ -5366,6 +5467,181 @@ function renderProfile() {
 
   const adminPanel = document.getElementById('adminPanel');
   if (isAdmin()) { adminPanel.style.display = 'block'; } else { adminPanel.style.display = 'none'; }
+
+  const premTabs = document.getElementById('premiumProfileTabs');
+  if (premTabs) premTabs.style.display = isPremium() ? 'block' : 'none';
+}
+
+// ── Tabs de perfil premium ────────────────────────────────
+function openProfileTab(tab) {
+  document.querySelectorAll('#profileTabRow .tab-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('ptab-' + tab);
+  if (btn) btn.classList.add('active');
+  if (tab === 'historial') loadHistorial();
+  else if (tab === 'notas') {
+    document.getElementById('profileTabContent').innerHTML = `
+      <p style="font-size:13px;color:var(--text3);">Próximamente: notas personales por mascota/recurso.</p>`;
+  }
+}
+
+async function loadHistorial() {
+  const container = document.getElementById('profileTabContent');
+  if (!container || !_db || !currentUser) return;
+  container.innerHTML = '<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">Cargando historial…</div>';
+  try {
+    const snap = await _db.collection('users').doc(currentUser.uid)
+      .collection('history').orderBy('ts', 'desc').limit(100).get();
+    if (snap.empty) {
+      container.innerHTML = `<div style="text-align:center;color:var(--text3);padding:32px;font-size:13px;">
+        Sin entradas aún. Los recursos que añadas a tu log se guardarán aquí.</div>`;
+      return;
+    }
+    const rows = snap.docs.map(d => {
+      const h = d.data();
+      const date = h.ts?.toDate ? h.ts.toDate().toLocaleDateString('es-CL') : '—';
+      const rentLabel = h.rentPct !== null && h.rentPct !== undefined
+        ? `<span style="color:${h.rentPct >= 0 ? 'var(--green)' : 'var(--red)'};font-weight:600;">${h.rentPct >= 0 ? '+' : ''}${h.rentPct}%</span>`
+        : '<span style="color:var(--text3);">—</span>';
+      return `<tr>
+        <td style="padding:7px 10px;font-size:13px;font-weight:500;">${h.resourceName||'—'}</td>
+        <td style="padding:7px 10px;font-size:12px;color:var(--text3);">${h.pet||'—'}</td>
+        <td style="padding:7px 10px;font-size:12px;">${h.qty||1}×</td>
+        <td style="padding:7px 10px;font-weight:600;color:var(--gold);">${fmt(h.price)}</td>
+        <td style="padding:7px 10px;">${rentLabel}</td>
+        <td style="padding:7px 10px;font-size:11px;color:var(--text3);">${h.server||'—'}</td>
+        <td style="padding:7px 10px;font-size:11px;color:var(--text3);">${date}</td>
+        <td style="padding:7px 10px;">
+          <button onclick="deleteHistEntry('${d.id}')" style="font-size:11px;background:none;border:none;color:var(--text3);cursor:pointer;padding:2px 6px;border-radius:4px;" title="Eliminar">✕</button>
+        </td>
+      </tr>`;
+    }).join('');
+    container.innerHTML = `
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead><tr style="background:var(--bg3);">
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Recurso</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Mascota</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Qty</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Precio</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Rentabilidad</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Servidor</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Fecha</th>
+            <th style="padding:7px 10px;border-bottom:2px solid var(--border);"></th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  } catch(e) {
+    container.innerHTML = `<div style="color:var(--red);padding:12px;font-size:12px;">Error: ${e.message}</div>`;
+  }
+}
+
+async function deleteHistEntry(docId) {
+  if (!_db || !currentUser) return;
+  try {
+    await _db.collection('users').doc(currentUser.uid).collection('history').doc(docId).delete();
+    loadHistorial();
+  } catch(e) { console.warn('deleteHist:', e); }
+}
+
+// ── Comparar Mascotas ─────────────────────────────────────
+let _cmpInited = false;
+function initCompareModal() {
+  if (_cmpInited) return;
+  _cmpInited = true;
+  const allPets = [...MASCOTAS_DATA, ...MASCOTURAS_DATA];
+  ['A','B'].forEach(side => {
+    const sel = document.getElementById('cmpPet' + side);
+    if (!sel) return;
+    allPets.forEach(p => {
+      const o = document.createElement('option');
+      o.value = p.name; o.textContent = p.name + (p.tipo === 'mascotura' ? ' 🦎' : '');
+      sel.appendChild(o);
+    });
+  });
+}
+
+function onCmpPetChange(side) {
+  const sel = document.getElementById('cmpPet' + side);
+  const name = sel?.value || '';
+  const imgBox = document.getElementById('cmpImg' + side);
+  if (!imgBox) return;
+  const allPets = [...MASCOTAS_DATA, ...MASCOTURAS_DATA];
+  const petData = allPets.find(p => p.name === name);
+  if (petData) {
+    const folder = petData.tipo === 'mascotura' ? 'mascoturas' : 'mascotas';
+    const local = `${folder}/${petData.name}.png`;
+    const api   = `https://api.dofusdb.fr/img/items/${petData.idImg}.png`;
+    imgBox.innerHTML = `<img src="${local}" alt="${name}" style="height:52px;object-fit:contain;"
+      onerror="this.src='${api.replace(/'/g,"\\'")}'" />`;
+  } else {
+    imgBox.innerHTML = '<span style="font-size:24px;color:var(--text3);">?</span>';
+  }
+  calcCompare();
+}
+
+function cmpGetVal(id) {
+  const raw = (document.getElementById(id)?.value || '').replace(/\./g,'');
+  return parseFloat(raw) || 0;
+}
+
+function calcCompare() {
+  const sides = ['A','B'];
+  const results = sides.map(side => {
+    const p1   = cmpGetVal('cmp' + side + '_p1');
+    const p100 = cmpGetVal('cmp' + side + '_p100');
+    const margin = p100 - p1;
+    return { side, p1, p100, margin };
+  });
+
+  const [a, b] = results;
+  sides.forEach(({ side, p1, p100, margin } = results.find(r => r.side === side) || {}) => {
+    // handled below
+  });
+
+  results.forEach(r => {
+    const box = document.getElementById('cmpResult' + r.side);
+    if (!box) return;
+    if (!r.p1 && !r.p100) { box.innerHTML = '<span style="color:var(--text3);font-size:12px;">Ingresa los precios para calcular.</span>'; return; }
+    const margin = r.p100 - r.p1;
+    const color = r.side === 'A' ? 'var(--gold)' : 'var(--blue)';
+    box.innerHTML = `
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="color:var(--text2);font-size:12px;">Nivel 1:</span>
+        <span style="font-weight:600;">${fmt(r.p1)}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="color:var(--text2);font-size:12px;">Nivel 100:</span>
+        <span style="font-weight:600;">${fmt(r.p100)}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:6px;margin-top:4px;">
+        <span style="color:var(--text2);font-size:12px;">Margen:</span>
+        <span style="font-weight:700;color:${margin > 0 ? color : 'var(--red)'};">${margin >= 0 ? '+' : ''}${fmt(margin)}</span>
+      </div>`;
+  });
+
+  // Veredicto comparativo
+  const verdict = document.getElementById('cmpVerdict');
+  if (!verdict) return;
+  const aMargin = a.p100 - a.p1;
+  const bMargin = b.p100 - b.p1;
+  if (aMargin > 0 || bMargin > 0) {
+    verdict.style.display = 'block';
+    const diff = Math.abs(aMargin - bMargin);
+    let msg = '';
+    if (aMargin > bMargin && aMargin > 0) {
+      const nameA = document.getElementById('cmpPetA')?.value || 'Mascota A';
+      msg = `<strong style="color:var(--gold);">${nameA}</strong> tiene mayor margen por <strong>${fmt(diff)}</strong>.`;
+    } else if (bMargin > aMargin && bMargin > 0) {
+      const nameB = document.getElementById('cmpPetB')?.value || 'Mascota B';
+      msg = `<strong style="color:var(--blue);">${nameB}</strong> tiene mayor margen por <strong>${fmt(diff)}</strong>.`;
+    } else {
+      msg = 'Ambas mascotas tienen el mismo margen.';
+    }
+    verdict.innerHTML = `<div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:13px;text-align:center;">${msg}</div>`;
+  } else {
+    verdict.style.display = 'none';
+  }
 }
 
 async function changePassword() {
@@ -5575,8 +5851,7 @@ initFirebase();
 </script>
 
 <!-- ══════════════ MODAL: AUTH ══════════════ -->
-<div id="authModal" class="dp-modal-overlay" style="display:none"
-  onclick="if(event.target===this)closeDpModal('authModal')">
+<div id="authModal" class="dp-modal-overlay" style="display:none">
   <div class="dp-modal">
     <div class="dp-modal-head">
       <div style="font-size:26px;">🐾</div>
@@ -5625,7 +5900,6 @@ initFirebase();
 
 <!-- ══════════════ MODAL: PREMIUM ══════════════ -->
 <div id="premiumModal" class="dp-modal-overlay" style="display:none"
-  onclick="if(event.target===this)closeDpModal('premiumModal')">
   <div class="dp-modal" style="max-width:500px;">
     <div class="premium-head-banner">
       <div style="font-size:30px;">⭐</div>
@@ -5675,6 +5949,59 @@ initFirebase();
           ✓ Solicitud enviada. Nos pondremos en contacto contigo pronto. ¡Gracias!
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MODAL: COMPARAR MASCOTAS ══════════════ -->
+<div id="compareModal" class="dp-modal-overlay" style="display:none">
+  <div class="dp-modal" style="max-width:760px;width:95%;">
+    <div class="dp-modal-head">
+      <div style="font-size:24px;">⚖️</div>
+      <h2>Comparar Mascotas</h2>
+      <p>Ingresa precios de dos mascotas y compara márgenes</p>
+      <button class="dp-modal-close" onclick="closeDpModal('compareModal')">✕</button>
+    </div>
+    <div class="dp-modal-body" style="padding:20px 24px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;" id="compareGrid">
+        <!-- Mascota A -->
+        <div>
+          <div style="font-weight:600;font-size:13px;color:var(--gold);margin-bottom:10px;text-align:center;">Mascota A</div>
+          <select id="cmpPetA" onchange="onCmpPetChange('A')"
+            style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:13px;padding:8px 10px;outline:none;margin-bottom:10px;">
+            <option value="">Selecciona mascota…</option>
+          </select>
+          <div id="cmpImgA" style="text-align:center;margin-bottom:10px;height:60px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:24px;color:var(--text3);">?</span>
+          </div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">Precio Nivel 1:</div>
+          <input type="text" id="cmpA_p1" class="dp-input" placeholder="ej. 5.000.000"
+            oninput="formatKamasInput(this);calcCompare()" style="margin-bottom:6px;" />
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">Precio Nivel 100:</div>
+          <input type="text" id="cmpA_p100" class="dp-input" placeholder="ej. 18.000.000"
+            oninput="formatKamasInput(this);calcCompare()" style="margin-bottom:10px;" />
+          <div id="cmpResultA" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:13px;min-height:56px;"></div>
+        </div>
+        <!-- Mascota B -->
+        <div>
+          <div style="font-weight:600;font-size:13px;color:var(--blue);margin-bottom:10px;text-align:center;">Mascota B</div>
+          <select id="cmpPetB" onchange="onCmpPetChange('B')"
+            style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:13px;padding:8px 10px;outline:none;margin-bottom:10px;">
+            <option value="">Selecciona mascota…</option>
+          </select>
+          <div id="cmpImgB" style="text-align:center;margin-bottom:10px;height:60px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:24px;color:var(--text3);">?</span>
+          </div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">Precio Nivel 1:</div>
+          <input type="text" id="cmpB_p1" class="dp-input" placeholder="ej. 3.000.000"
+            oninput="formatKamasInput(this);calcCompare()" style="margin-bottom:6px;" />
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">Precio Nivel 100:</div>
+          <input type="text" id="cmpB_p100" class="dp-input" placeholder="ej. 14.000.000"
+            oninput="formatKamasInput(this);calcCompare()" style="margin-bottom:10px;" />
+          <div id="cmpResultB" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:13px;min-height:56px;"></div>
+        </div>
+      </div>
+      <div id="cmpVerdict" style="margin-top:16px;display:none;"></div>
     </div>
   </div>
 </div>
