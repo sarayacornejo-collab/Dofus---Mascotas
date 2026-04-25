@@ -1,8 +1,13 @@
-# Archivos de backup y temporales
+# Archivos de backup
 dofus-mascotas_9.html
 *.xlsx
-*.png
-*.jpg
-*.jpeg
 
-# Solo subir el sitio principal
+# Imágenes AI generadas en la raíz (no se usan en el sitio)
+Bloody.png
+e30878e1-8710-4ddc-863e-4bccafbcc3ab.png
+ChatGPT*.png
+
+# Archivos internos de Claude
+.claude/
+
+# Solo subir: index.html, banner.png, mascotas/, mascoturas/
