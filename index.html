@@ -1440,7 +1440,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
       <h3 style="font-size:16px;font-weight:600;margin-bottom:6px;color:var(--text);">&#128172; Feedback &amp; Soporte</h3>
       <p style="font-size:13px;color:var(--text2);max-width:520px;line-height:1.6;">
         ¿Encontraste un error, tienes una sugerencia o quieres reportar un precio incorrecto?
-        Escríbenos directamente. <strong style="color:var(--text);">No necesitas cuenta</strong> para enviar un mensaje.
+        Escríbenos directamente. <strong style="color:var(--text);">Se requiere una cuenta</strong> para evitar spam.
       </p>
     </div>
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex-shrink:0;">
@@ -1453,7 +1453,18 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
       </a>
     </div>
   </div>
-  <div id="ticketForm" class="ticket-grid" style="margin-top:0;">
+  <!-- Gate para no-logueados -->
+  <div id="ticketGate" style="display:none;text-align:center;padding:28px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;margin-top:4px;">
+    <div style="font-size:28px;margin-bottom:10px;">🔒</div>
+    <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;">Inicia sesión para enviar un ticket</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:16px;">Necesitas una cuenta para contactarnos. Es gratis y solo toma un momento.</div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <button onclick="showAuth('login')" style="padding:8px 22px;border-radius:7px;border:1px solid var(--gold2);background:var(--gold-dim);color:var(--gold-text);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Iniciar sesión</button>
+      <button onclick="showAuth('register')" style="padding:8px 22px;border-radius:7px;border:1px solid var(--border);background:var(--bg4);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Crear cuenta</button>
+    </div>
+  </div>
+
+  <div id="ticketForm" class="ticket-grid" style="margin-top:0;display:none;">
     <div>
       <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px;font-weight:500;">Tu nombre / usuario</label>
       <input type="text" id="ticketUser" placeholder="Nombre en el juego (opcional)"
@@ -5606,6 +5617,19 @@ function renderMarket() {
 // ============================================================
 // TICKET
 // ============================================================
+function renderTicketWidget() {
+  const gate = document.getElementById('ticketGate');
+  const form = document.getElementById('ticketForm');
+  if (!gate || !form) return;
+  if (currentUser) {
+    gate.style.display = 'none';
+    form.style.display = '';
+  } else {
+    gate.style.display = 'block';
+    form.style.display = 'none';
+  }
+}
+
 function onTicketTypeChange() {
   const type = document.getElementById('ticketType').value;
   const msg = document.getElementById('ticketTypeMsg');
@@ -5768,6 +5792,7 @@ function initFirebase() {
         currentUser = user;
         await syncUserDoc(user);
         updateTopbarForUser(user);
+        renderTicketWidget();
         if (!isPremium()) resetDarkMode();
         else applyDarkIfSaved();
         // Re-suscribir precios comunitarios si hay servidor seleccionado
@@ -5776,6 +5801,7 @@ function initFirebase() {
         currentUser = null;
         currentUserData = null;
         updateTopbarForUser(null);
+        renderTicketWidget();
         resetDarkMode();
         if (_commUnsubscribe) { _commUnsubscribe(); _commUnsubscribe = null; }
         communityPrices = {};
