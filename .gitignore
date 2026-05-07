@@ -10,4 +10,11 @@ ChatGPT*.png
 # Archivos internos de Claude
 .claude/
 
-# Solo subir: index.html, banner.png, mascotas/, mascoturas/
+# Bot de tendencias (Python)
+__pycache__/
+*.pyc
+bot/.env
+bot/.venv/
+bot/reports/
+
+# Solo subir: index.html, banner.png, mascotas/, mascoturas/, bot/
