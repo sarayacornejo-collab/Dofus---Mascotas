@@ -791,7 +791,6 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     <a href="#" data-page="calc" class="active" onclick="return showPage('calc')">Calculadora</a>
     <a href="#" data-page="guides" onclick="return showPage('guides')">Guías</a>
     <a href="#" data-page="compare" onclick="return showPage('compare')">Comparar</a>
-    <a href="#" data-page="profile" id="profileNavLink" style="display:none;" onclick="return showPage('profile')">Mi Perfil</a>
   </div>
   <!-- Mobile: tabs below topbar -->
   <div id="mobileNav" style="display:none;position:fixed;top:48px;left:0;right:0;
@@ -800,7 +799,6 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     <a href="#" data-page="calc" onclick="return showPage('calc');closeMobileNav()" style="color:rgba(232,217,176,0.8);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:5px;display:block;">Calculadora</a>
     <a href="#" data-page="guides" onclick="return showPage('guides');closeMobileNav()" style="color:rgba(232,217,176,0.8);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:5px;display:block;">Guías</a>
     <a href="#" data-page="compare" onclick="return showPage('compare');closeMobileNav()" style="color:rgba(232,217,176,0.8);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:5px;display:block;">Comparar</a>
-    <a href="#" data-page="profile" id="profileNavLinkMobile" style="display:none;" onclick="return showPage('profile');closeMobileNav()" style="color:rgba(232,217,176,0.8);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:5px;display:block;">Mi Perfil</a>
   </div>
   <button id="mobileMenuBtn" onclick="toggleMobileNav()"
     style="display:none;background:transparent;border:none;color:var(--nav-text);
@@ -808,33 +806,25 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     aria-label="Menú">&#9776;</button>
   <div class="topbar-right">
     <div class="auth-sep"></div>
-    <span style="font-size:10px;color:rgba(232,217,176,0.38);letter-spacing:.07em;margin-right:1px;">IDIOMA</span>
+    <span style="font-size:10px;color:rgba(232,217,176,0.38);letter-spacing:.07em;margin-right:1px;" data-i18n="lang_label">IDIOMA</span>
     <button class="lang-btn active" onclick="setLang('es',this)" title="Español">ES</button>
-    <button class="lang-btn" style="opacity:.4;cursor:not-allowed;" title="Francés — En desarrollo" onclick="return false;">FR</button>
-    <button class="lang-btn" style="opacity:.4;cursor:not-allowed;" title="English — Coming soon" onclick="return false;">EN</button>
-    <button class="lang-btn" style="opacity:.4;cursor:not-allowed;" title="Português (BR) — Em breve" onclick="return false;">BR</button>
+    <button class="lang-btn" onclick="setLang('fr',this)" title="Français">FR</button>
+    <button class="lang-btn" onclick="setLang('en',this)" title="English">EN</button>
+    <button class="lang-btn" onclick="setLang('br',this)" title="Português (BR)">BR</button>
     <div class="auth-sep"></div>
-    <button id="darkToggle" onclick="toggleDark()" title="Modo oscuro"><div class="toggle-track"><div class="toggle-thumb"></div></div><span id="darkLabel">Oscuro</span></button>
+    <button id="darkToggle" onclick="toggleDark()" title="Modo oscuro"><div class="toggle-track"><div class="toggle-thumb"></div></div><span id="darkLabel" data-i18n="dark_mode">Oscuro</span></button>
     <div class="auth-sep"></div>
-    <a href="#kofi-premium" onclick="openKofi();return false;" class="topbar-icon icon-kofi" title="Apoyar en Ko-fi">
+    <a href="#" onclick="openKofi();return false;" class="topbar-icon icon-kofi" title="Apoyar en Ko-fi" style="color:rgba(232,217,176,0.7);text-decoration:none;font-size:12px;display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:6px;transition:color .15s;" onmouseover="this.style.color='#f5dfa0'" onmouseout="this.style.color='rgba(232,217,176,0.7)'">
       &#9749; Ko-fi
     </a>
-    <a href="#ticket-widget" class="topbar-icon icon-mail" title="Contacto y soporte" onclick="document.getElementById('ticket-widget').scrollIntoView({behavior:'smooth'});return false;">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-      Contacto
-    </a>
     <div class="auth-sep"></div>
-    <div id="topbarAuthArea" style="display:inline-flex;align-items:center;gap:6px;">
-      <button class="auth-btn btn-login" onclick="showAuth('login')">Iniciar sesión</button>
-      <button class="auth-btn btn-register" onclick="showAuth('register')">Registrarse</button>
-    </div>
+    <button class="topbar-icon icon-bug" onclick="openBugModal()" title="Reportar un bug" style="background:transparent;border:none;cursor:pointer;color:rgba(232,217,176,0.7);display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .15s;" onmouseover="this.style.color='#f5dfa0'" onmouseout="this.style.color='rgba(232,217,176,0.7)'">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4m0 4h.01"/><path d="M8 6.5C8 6.5 9.5 4 12 4s4 2.5 4 2.5"/><path d="M3 10h3m12 0h3M3 16h2m14 0h2"/></svg>
+      <span data-i18n="bug_report">Bug</span>
+    </button>
   </div>
 </nav>
 
-<!-- ── Beta banner ── -->
-<div class="beta-banner">
-  🚧 <strong>Sitio en versión Beta</strong> — Algunas funciones pueden estar incompletas o cambiar. ¡Gracias por tu paciencia!
-</div>
 
 <div class="app">
 
@@ -858,58 +848,23 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     </div>
   </div>
 
-  <!-- ── Home: para qué sirve + casos de uso + protips ── -->
-  <div style="margin-bottom:20px;">
-    <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:14px;">
-      <strong style="color:var(--text);">DofusPet</strong> te ayuda a calcular si subir o vender una mascota en Dofus es rentable,
-      comparando el costo de los recursos con el margen de precio entre niveles.
-    </p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
-      <div class="home-usecase">
-        <span class="uc-icon">🛍️</span>
-        <div>
-          <div style="font-weight:600;font-size:13px;margin-bottom:3px;">Comprar una mascota y subirla a nivel 100</div>
-          <div style="font-size:12px;color:var(--text3);">Ingresa el precio en nivel 1 y en nivel 100 → calcula si los recursos te salen más baratos que el margen de ganancia.</div>
-        </div>
-      </div>
-      <div class="home-usecase">
-        <span class="uc-icon">⬆️</span>
-        <div>
-          <div style="font-weight:600;font-size:13px;margin-bottom:3px;">Mi mascota ya tiene nivel → llevarla a 100</div>
-          <div style="font-size:12px;color:var(--text3);">Ingresa el nivel actual y el precio de venta a nivel 100 → calcula el costo restante para completarla.</div>
-        </div>
-      </div>
-    </div>
-    <!-- Protips -->
-    <div class="home-protip">
-      <div style="font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;">⚡ Pro tips</div>
-      <p style="margin-bottom:7px;">
-        <strong>Galleta enriquecida:</strong> si su precio ideal es cercano al del mercadillo de tu servidor, subir con recursos es potencialmente rentable.
-        Si la galleta ya es rentable sola, es increíblemente mejor que cualquier otro recurso.
-        Siempre verifica el volumen de venta de la mascota con la <em>"Cotización de mercado"</em> en el juego.
-      </p>
-      <p>
-        <strong>XP por recurso:</strong> los valores pueden cambiar parche a parche y no suele salir en los changelogs del juego. Verifica en game que el recurso dé el XP indicado aquí antes de comprar en volumen.
-      </p>
-    </div>
-  </div>
 
   <div id="calcContent">
 
   <!-- SELECTOR DE MODO -->
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;" id="calcModeRow">
-    <button class="calc-mode-btn active" id="modeBtnBuy" onclick="setCalcMode('buy')">
+    <button class="calc-mode-btn active" id="modeBtnBuy" onclick="setCalcMode('buy')" data-i18n-title="mode_buy_title" data-i18n-sub="mode_buy_sub">
       <span class="cmb-icon">🛍️</span>
       <span>
-        <span class="cmb-title">Comprar mascota (Nv. 1 → 100)</span>
-        <span class="cmb-sub">Ingresa precios en nivel 1, 80 y 100</span>
+        <span class="cmb-title" data-i18n="mode_buy_title">Comprar mascota (Nv. 1 → 100)</span>
+        <span class="cmb-sub" data-i18n="mode_buy_sub">Ingresa el precio en nv. 1 y nv. 100 → calcula si los recursos salen más baratos que el margen de ganancia</span>
       </span>
     </button>
-    <button class="calc-mode-btn" id="modeBtnLevel" onclick="setCalcMode('level')">
+    <button class="calc-mode-btn" id="modeBtnLevel" onclick="setCalcMode('level')" data-i18n-title="mode_level_title" data-i18n-sub="mode_level_sub">
       <span class="cmb-icon">⬆️</span>
       <span>
-        <span class="cmb-title">Mi mascota ya tiene nivel (Nv. X → 100)</span>
-        <span class="cmb-sub">Ingresa nivel actual y precio de venta a nivel 100</span>
+        <span class="cmb-title" data-i18n="mode_level_title">Mi mascota ya tiene nivel (Nv. X → 100)</span>
+        <span class="cmb-sub" data-i18n="mode_level_sub">Ingresa el nivel actual y el precio de venta a nv. 100 → calcula el costo restante para completarla</span>
       </span>
     </button>
   </div>
@@ -1207,17 +1162,6 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     </div>
   </div>
 
-  <!-- Listado de mascotas -->
-  <div class="card">
-    <h2 style="font-size:16px;font-weight:600;margin-bottom:4px;color:var(--gold);">Listado de mascotas y mascoturas</h2>
-    <p style="font-size:12px;color:var(--text3);margin-bottom:12px;">Efectos al nivel 100. Métodos de obtención en construcción.</p>
-    <div class="tab-row" style="margin-bottom:10px;">
-      <button class="tab-btn guide-tab-btn active" onclick="setGuideTab('mascota',this)">🐾 Mascotas (122)</button>
-      <button class="tab-btn guide-tab-btn" onclick="setGuideTab('mascotura',this)">🦎 Mascoturas (25)</button>
-    </div>
-    <input type="text" class="search-box" id="guideSearch" placeholder="Buscar por nombre..." oninput="renderGuideList()" style="margin-bottom:12px;" />
-    <div id="guideList"></div>
-  </div>
   </div><!-- /guides-section -->
 
 <!-- ===== PAGE: COMPARAR MASCOTAS ===== -->
@@ -1269,126 +1213,67 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
   </div>
 </div><!-- /compare-section -->
 
-<!-- ===== PAGE: MI PERFIL ===== -->
-<div id="profile-section" style="display:none">
-  <div class="page-header">
-    <h1>Mi <span>Perfil</span></h1>
-    <p>Gestiona tu cuenta y preferencias</p>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-    <div class="card">
-      <h2 style="font-size:15px;font-weight:600;margin-bottom:16px;color:var(--gold);">Información de la cuenta</h2>
-      <div id="profileInfoBox" style="font-size:13px;line-height:2;color:var(--text2);">Cargando…</div>
-    </div>
-    <div class="card">
-      <h2 style="font-size:15px;font-weight:600;margin-bottom:14px;color:var(--gold);">Cambiar contraseña</h2>
-      <input class="dp-input" type="password" id="profNewPass" placeholder="Nueva contraseña (mín. 6 caracteres)" />
-      <input class="dp-input" type="password" id="profNewPass2" placeholder="Confirmar nueva contraseña" />
-      <button class="dp-btn dp-btn-primary" onclick="changePassword()" style="margin-top:4px;">Actualizar contraseña</button>
-      <div id="profPassStatus" style="display:none;margin-top:8px;font-size:12px;border-radius:6px;padding:8px 12px;"></div>
-    </div>
-    <div class="card">
-      <h2 style="font-size:15px;font-weight:600;margin-bottom:14px;color:var(--gold);">Cambiar correo electrónico</h2>
-      <input class="dp-input" type="email" id="profNewEmail" placeholder="Nuevo correo electrónico" />
-      <input class="dp-input" type="password" id="profEmailPass" placeholder="Contraseña actual (para verificar)" />
-      <button class="dp-btn dp-btn-primary" onclick="changeEmail()" style="margin-top:4px;">Actualizar correo</button>
-      <div id="profEmailStatus" style="display:none;margin-top:8px;font-size:12px;border-radius:6px;padding:8px 12px;"></div>
-    </div>
-  </div>
-  <!-- Tabs de perfil -->
-  <div id="premiumProfileTabs" style="margin-top:24px;">
-    <div class="card">
-      <div class="tab-row" style="margin-bottom:16px;" id="profileTabRow">
-        <button class="tab-btn active" id="ptab-historial" onclick="openProfileTab('historial')">📜 Mi Historial</button>
-        <button class="tab-btn" id="ptab-notas" onclick="openProfileTab('notas')">📌 Notas</button>
-      </div>
-      <div id="profileTabContent">
-        <div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">Selecciona una pestaña.</div>
-      </div>
-    </div>
-  </div>
 
-  <div id="adminPanel" style="display:none;margin-top:24px;">
-    <div class="card">
-      <h2 style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--red);">🛡 Panel de Administración</h2>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:14px;">Visible solo para el administrador</p>
-      <div class="tab-row" style="margin-bottom:12px;" id="adminTabRow">
-        <button class="tab-btn active" id="atab-tickets" onclick="switchAdminTab('tickets',this)">🎫 Tickets</button>
-        <button class="tab-btn" id="atab-users" onclick="switchAdminTab('users',this)">👥 Usuarios</button>
-      </div>
-      <div id="adminContent">
-        <div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">Haz clic en una pestaña arriba.</div>
-      </div>
-    </div>
-  </div>
-</div><!-- /profile-section -->
 
-<!-- ===== TICKET (siempre visible al fondo) ===== -->
-<div id="ticket-widget" style="margin-top:48px;border-top:2px solid var(--border);padding-top:28px;">
-  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:18px;">
-    <div>
-      <h3 style="font-size:16px;font-weight:600;margin-bottom:6px;color:var(--text);">&#128172; Feedback &amp; Soporte</h3>
-      <p style="font-size:13px;color:var(--text2);max-width:520px;line-height:1.6;">
-        ¿Encontraste un error, tienes una sugerencia o quieres reportar un precio incorrecto?
-        Escríbenos directamente. <strong style="color:var(--text);">Se requiere una cuenta</strong> para evitar spam.
-      </p>
-    </div>
-    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex-shrink:0;">
-      <a href="https://ko-fi.com" target="_blank" rel="noopener"
-        style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:8px;
-          background:#ff5e5b;color:#fff;font-size:13px;font-weight:600;text-decoration:none;
-          border:1px solid #e04040;transition:background .15s;"
-        onmouseover="this.style.background='#e04040'" onmouseout="this.style.background='#ff5e5b'">
-        &#9749; Apoyar en Ko-fi
-      </a>
-    </div>
-  </div>
-  <!-- Gate para no-logueados -->
-  <div id="ticketGate" style="display:none;text-align:center;padding:28px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;margin-top:4px;">
-    <div style="font-size:28px;margin-bottom:10px;">🔒</div>
-    <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;">Inicia sesión para enviar un ticket</div>
-    <div style="font-size:12px;color:var(--text2);margin-bottom:16px;">Necesitas una cuenta para contactarnos. Es gratis y solo toma un momento.</div>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-      <button onclick="showAuth('login')" style="padding:8px 22px;border-radius:7px;border:1px solid var(--gold2);background:var(--gold-dim);color:var(--gold-text);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Iniciar sesión</button>
-      <button onclick="showAuth('register')" style="padding:8px 22px;border-radius:7px;border:1px solid var(--border);background:var(--bg4);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Crear cuenta</button>
-    </div>
-  </div>
+</div><!-- /app -->
 
-  <div id="ticketForm" class="ticket-grid" style="margin-top:0;display:none;">
-    <div>
-      <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px;font-weight:500;">Tu nombre / usuario</label>
-      <input type="text" id="ticketUser" placeholder="Nombre en el juego (opcional)"
-        style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--bg3);color:var(--text);outline:none;" />
+<!-- ══════════════ MODAL: BUG REPORT ══════════════ -->
+<div id="bugModal" class="dp-modal-overlay" style="display:none" onclick="if(event.target===this)closeBugModal()">
+  <div class="dp-modal" style="max-width:480px;width:100%;">
+    <div class="dp-modal-head">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;vertical-align:middle;"><circle cx="12" cy="12" r="9"/><path d="M12 8v4m0 4h.01"/></svg>
+      <h2 style="display:inline;vertical-align:middle;" data-i18n="bug_modal_title">Reportar un Bug</h2>
+      <p data-i18n="bug_modal_sub">¿Encontraste un error? Cuéntanos y lo arreglamos.</p>
+      <button class="dp-modal-close" onclick="closeBugModal()">✕</button>
     </div>
-    <div>
-      <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px;font-weight:500;">Tipo de reporte</label>
-      <select id="ticketType"
-        style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--bg3);color:var(--text);outline:none;">
-        <option>Error en la calculadora</option>
-        <option>Error en XP de recurso</option>
-        <option>Sugerencia de mejora</option>
-        <option>Solicitar nueva mascota</option>
-        <option>Otro</option>
-      </select>
-    </div>
-    <div style="grid-column:1/-1;">
-      <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px;font-weight:500;">Mensaje</label>
-      <textarea id="ticketMsg" rows="3" placeholder="Describe tu consulta, error o sugerencia con el mayor detalle posible..."
-        style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--bg3);color:var(--text);outline:none;resize:vertical;font-family:Inter,Arial,sans-serif;"></textarea>
-    </div>
-    <div style="grid-column:1/-1;display:flex;justify-content:flex-end;align-items:center;gap:10px;">
-      <span id="ticketStatus" style="font-size:12px;color:var(--green);display:none;">✓ Mensaje enviado. ¡Gracias!</span>
-      <button onclick="sendTicket()"
-        style="padding:8px 20px;border-radius:6px;border:1px solid var(--gold2);background:var(--gold-dim);color:var(--gold-text);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,Arial,sans-serif;transition:all .15s;"
-        onmouseover="this.style.background=this.style.borderColor='var(--gold2)';this.style.color='#fff'"
-        onmouseout="this.style.background='var(--gold-dim)';this.style.color='var(--gold-text)';this.style.borderColor='var(--gold2)'">
-        Enviar ticket
-      </button>
+    <div class="dp-modal-body" style="padding:20px 24px;">
+      <div style="display:grid;gap:12px;">
+        <!-- Honeypot (antispam invisible) -->
+        <input type="text" id="bugHoneypot" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div>
+          <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px;font-weight:500;" data-i18n="bug_type_label">Tipo de bug</label>
+          <select id="bugType" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--bg3);color:var(--text);outline:none;">
+            <option value="calc" data-i18n="bug_opt_calc">Error en la calculadora</option>
+            <option value="xp" data-i18n="bug_opt_xp">Error en XP de recurso</option>
+            <option value="ui" data-i18n="bug_opt_ui">Error visual / interfaz</option>
+            <option value="suggestion" data-i18n="bug_opt_suggestion">Sugerencia de mejora</option>
+            <option value="other" data-i18n="bug_opt_other">Otro</option>
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px;font-weight:500;" data-i18n="bug_name_label">Tu nombre</label>
+            <input type="text" id="bugName" placeholder="Ej. Bloody" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" />
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px;font-weight:500;" data-i18n="bug_email_label">Correo <span style="color:var(--text3);font-weight:400;">(opcional)</span></label>
+            <input type="email" id="bugEmail" placeholder="para ser contactado" style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" />
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:4px;font-weight:500;" data-i18n="bug_desc_label">Descripción</label>
+          <textarea id="bugDesc" rows="4" placeholder="Describe el error con detalle: qué hiciste, qué esperabas, qué pasó..." style="width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--bg3);color:var(--text);outline:none;resize:vertical;font-family:inherit;box-sizing:border-box;"></textarea>
+        </div>
+
+        <!-- Captcha matemático simple -->
+        <div style="display:flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;">
+          <span style="font-size:12px;color:var(--text2);" data-i18n="bug_captcha_label">Verificación rápida:</span>
+          <span id="bugCaptchaQ" style="font-weight:700;font-size:14px;color:var(--gold-text);"></span>
+          <span style="color:var(--text3);">=</span>
+          <input type="number" id="bugCaptchaA" style="width:60px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--bg);color:var(--text);outline:none;" />
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:4px;">
+          <span id="bugStatus" style="font-size:12px;display:none;"></span>
+          <button onclick="submitBugReport()" style="padding:9px 22px;border-radius:6px;border:1px solid var(--gold2);background:var(--gold-dim);color:var(--gold-text);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;" onmouseover="this.style.background='var(--gold2)';this.style.color='#fff'" onmouseout="this.style.background='var(--gold-dim)';this.style.color='var(--gold-text)'" data-i18n="bug_submit">Enviar reporte</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-</div><!-- /app -->
 
 <script>
 (function(){
@@ -4159,10 +4044,7 @@ function getKamasValue(id) {
 // NAVEGACIÓN DE PÁGINAS
 // ============================================================
 function showPage(page) {
-  if (page === 'profile' && !currentUser) {
-    openDpModal('authModal'); return false;
-  }
-  ['calc','guides','compare','profile'].forEach(p => {
+  ['calc','guides','compare'].forEach(p => {
     const el = document.getElementById(p + '-section');
     if (el) el.style.display = (p === page) ? 'block' : 'none';
   });
@@ -4172,7 +4054,6 @@ function showPage(page) {
   });
   if (page === 'guides')  renderGuideSection();
   if (page === 'compare') initCompareModal();
-  if (page === 'profile') renderProfile();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   return false;
 }
@@ -4193,15 +4074,167 @@ function closeMobileNav() {
   document.getElementById('mobileNav').style.display = 'none';
 }
 
+// ============================================================
+// I18N — SISTEMA DE IDIOMAS
+// ============================================================
+const TRANSLATIONS = {
+  es: {
+    nav_calc: 'Calculadora', nav_guides: 'Guías', nav_compare: 'Comparar',
+    dark_mode: 'Oscuro', lang_label: 'IDIOMA', bug_report: 'Bug',
+    mode_buy_title: 'Comprar mascota (Nv. 1 → 100)',
+    mode_buy_sub: 'Ingresa el precio en nv. 1 y nv. 100 → calcula si los recursos salen más baratos que el margen de ganancia',
+    mode_level_title: 'Mi mascota ya tiene nivel (Nv. X → 100)',
+    mode_level_sub: 'Ingresa el nivel actual y el precio de venta a nv. 100 → calcula el costo restante para completarla',
+    bug_modal_title: 'Reportar un Bug', bug_modal_sub: '¿Encontraste un error? Cuéntanos y lo arreglamos.',
+    bug_type_label: 'Tipo de bug', bug_name_label: 'Tu nombre', bug_email_label: 'Correo',
+    bug_desc_label: 'Descripción', bug_captcha_label: 'Verificación rápida:',
+    bug_submit: 'Enviar reporte',
+    bug_opt_calc: 'Error en la calculadora', bug_opt_xp: 'Error en XP de recurso',
+    bug_opt_ui: 'Error visual / interfaz', bug_opt_suggestion: 'Sugerencia de mejora', bug_opt_other: 'Otro',
+    bug_sent: '✓ ¡Reporte enviado! Gracias.', bug_err_captcha: 'Respuesta incorrecta al captcha.',
+    bug_err_desc: 'Por favor describe el bug antes de enviar.',
+  },
+  en: {
+    nav_calc: 'Calculator', nav_guides: 'Guides', nav_compare: 'Compare',
+    dark_mode: 'Dark', lang_label: 'LANGUAGE', bug_report: 'Bug',
+    mode_buy_title: 'Buy a pet (Lv. 1 → 100)',
+    mode_buy_sub: 'Enter the price at lv. 1 and lv. 100 → check if leveling resources cost less than your profit margin',
+    mode_level_title: 'My pet already has a level (Lv. X → 100)',
+    mode_level_sub: 'Enter the current level and the sell price at lv. 100 → calculates remaining cost to complete it',
+    bug_modal_title: 'Report a Bug', bug_modal_sub: 'Found an error? Tell us and we\'ll fix it.',
+    bug_type_label: 'Bug type', bug_name_label: 'Your name', bug_email_label: 'Email',
+    bug_desc_label: 'Description', bug_captcha_label: 'Quick check:',
+    bug_submit: 'Send report',
+    bug_opt_calc: 'Calculator error', bug_opt_xp: 'Resource XP error',
+    bug_opt_ui: 'Visual / UI error', bug_opt_suggestion: 'Improvement suggestion', bug_opt_other: 'Other',
+    bug_sent: '✓ Report sent! Thank you.', bug_err_captcha: 'Wrong captcha answer.',
+    bug_err_desc: 'Please describe the bug before sending.',
+  },
+  fr: {
+    nav_calc: 'Calculatrice', nav_guides: 'Guides', nav_compare: 'Comparer',
+    dark_mode: 'Sombre', lang_label: 'LANGUE', bug_report: 'Bug',
+    mode_buy_title: 'Acheter une familière (Nv. 1 → 100)',
+    mode_buy_sub: 'Entre le prix au nv. 1 et nv. 100 → vérifie si les ressources coûtent moins que la marge bénéficiaire',
+    mode_level_title: 'Ma familière a déjà un niveau (Nv. X → 100)',
+    mode_level_sub: 'Entre le niveau actuel et le prix de vente au nv. 100 → calcule le coût restant pour la compléter',
+    bug_modal_title: 'Signaler un Bug', bug_modal_sub: 'Trouvé une erreur ? Dis-nous et on la corrige.',
+    bug_type_label: 'Type de bug', bug_name_label: 'Ton nom', bug_email_label: 'Email',
+    bug_desc_label: 'Description', bug_captcha_label: 'Vérification rapide :',
+    bug_submit: 'Envoyer le rapport',
+    bug_opt_calc: 'Erreur dans la calculatrice', bug_opt_xp: 'Erreur XP ressource',
+    bug_opt_ui: 'Erreur visuelle / interface', bug_opt_suggestion: 'Suggestion d\'amélioration', bug_opt_other: 'Autre',
+    bug_sent: '✓ Rapport envoyé ! Merci.', bug_err_captcha: 'Réponse incorrecte au captcha.',
+    bug_err_desc: 'Merci de décrire le bug avant d\'envoyer.',
+  },
+  br: {
+    nav_calc: 'Calculadora', nav_guides: 'Guias', nav_compare: 'Comparar',
+    dark_mode: 'Escuro', lang_label: 'IDIOMA', bug_report: 'Bug',
+    mode_buy_title: 'Comprar uma familière (Nv. 1 → 100)',
+    mode_buy_sub: 'Insira o preço no nv. 1 e nv. 100 → verifique se os recursos custam menos do que a margem de lucro',
+    mode_level_title: 'Minha familière já tem nível (Nv. X → 100)',
+    mode_level_sub: 'Insira o nível atual e o preço de venda no nv. 100 → calcula o custo restante para completá-la',
+    bug_modal_title: 'Reportar um Bug', bug_modal_sub: 'Encontrou um erro? Nos conte e vamos corrigir.',
+    bug_type_label: 'Tipo de bug', bug_name_label: 'Seu nome', bug_email_label: 'E-mail',
+    bug_desc_label: 'Descrição', bug_captcha_label: 'Verificação rápida:',
+    bug_submit: 'Enviar relatório',
+    bug_opt_calc: 'Erro na calculadora', bug_opt_xp: 'Erro de XP de recurso',
+    bug_opt_ui: 'Erro visual / interface', bug_opt_suggestion: 'Sugestão de melhoria', bug_opt_other: 'Outro',
+    bug_sent: '✓ Relatório enviado! Obrigado.', bug_err_captcha: 'Resposta incorreta no captcha.',
+    bug_err_desc: 'Por favor descreva o bug antes de enviar.',
+  }
+};
+
+let _currentLang = localStorage.getItem('dpLang') || 'es';
+
 function setLang(lang, btn) {
-  if (lang !== 'es') return; // Solo ES disponible por ahora
+  if (!TRANSLATIONS[lang]) return;
+  _currentLang = lang;
+  localStorage.setItem('dpLang', lang);
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
+  applyTranslations();
 }
 
-function showAuth(mode) {
-  openDpModal('authModal');
-  switchAuthTab(mode === 'register' ? 'register' : 'login');
+function applyTranslations() {
+  const T = TRANSLATIONS[_currentLang] || TRANSLATIONS.es;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[key] !== undefined) el.textContent = T[key];
+  });
+  // Nav links
+  const navMap = { calc: 'nav_calc', guides: 'nav_guides', compare: 'nav_compare' };
+  document.querySelectorAll('[data-page]').forEach(a => {
+    const k = navMap[a.dataset.page];
+    if (k && T[k]) a.textContent = T[k];
+  });
+}
+
+// ============================================================
+// MODAL BUG REPORT
+// ============================================================
+let _bugCaptchaAnswer = 0;
+
+function openBugModal() {
+  const a = Math.floor(Math.random() * 9) + 1;
+  const b = Math.floor(Math.random() * 9) + 1;
+  _bugCaptchaAnswer = a + b;
+  const q = document.getElementById('bugCaptchaQ');
+  if (q) q.textContent = `${a} + ${b}`;
+  const captchaA = document.getElementById('bugCaptchaA');
+  if (captchaA) captchaA.value = '';
+  const st = document.getElementById('bugStatus');
+  if (st) { st.style.display = 'none'; st.textContent = ''; }
+  openDpModal('bugModal');
+}
+
+function closeBugModal() { closeDpModal('bugModal'); }
+
+async function submitBugReport() {
+  const T = TRANSLATIONS[_currentLang] || TRANSLATIONS.es;
+  // Honeypot check
+  if (document.getElementById('bugHoneypot')?.value) return;
+  // Captcha check
+  const captchaVal = parseInt(document.getElementById('bugCaptchaA')?.value);
+  const st = document.getElementById('bugStatus');
+  if (captchaVal !== _bugCaptchaAnswer) {
+    st.textContent = T.bug_err_captcha;
+    st.style.color = 'var(--red)';
+    st.style.display = 'inline';
+    return;
+  }
+  const desc = (document.getElementById('bugDesc')?.value || '').trim();
+  if (!desc) {
+    st.textContent = T.bug_err_desc;
+    st.style.color = 'var(--red)';
+    st.style.display = 'inline';
+    return;
+  }
+  const payload = {
+    type:  document.getElementById('bugType')?.value || 'other',
+    name:  (document.getElementById('bugName')?.value || '').trim() || 'Anónimo',
+    email: (document.getElementById('bugEmail')?.value || '').trim(),
+    desc,
+    lang:  _currentLang,
+    ts:    new Date().toISOString(),
+  };
+  // Guardar en Firestore
+  try {
+    if (typeof _db !== 'undefined') {
+      await _db.collection('bug_reports').add(payload);
+    }
+  } catch(e) { console.warn('Firestore bug report:', e); }
+  // También enviar por email via Formspree (configura tu endpoint aquí)
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mjglpoyl'; // reemplaza con tu ID de Formspree
+  try {
+    await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...payload, _subject: `[DofusPet Bug] ${payload.type} — ${payload.name}` })
+    });
+  } catch(e) { console.warn('Formspree:', e); }
+  st.textContent = T.bug_sent;
+  st.style.color = 'var(--green)';
+  st.style.display = 'inline';
+  setTimeout(closeBugModal, 2200);
 }
 
 // ============================================================
@@ -4495,7 +4528,7 @@ function updateRowInPlace(row, name, price) {
   if (!res) return;
   const ideal = getIdealPrice(res.xp);
   const cells = row.cells;
-  if (!cells || cells.length < 8) return;
+  if (!cells || cells.length < 7) return;
 
   cells[2].innerHTML = ideal !== null
     ? `<span class="ideal-price">${fmt(ideal)}</span>`
@@ -4908,7 +4941,6 @@ function getPetImgFallback(pet) {
 let _guideTab = 'mascota';
 
 function renderGuideSection() {
-  renderGuideList();
   renderXPTable();
 }
 
@@ -5340,6 +5372,8 @@ function switchAuthTab(tab) {
   if (err) err.style.display = 'none';
 }
 
+function showAuth() {} // stub — auth system removed
+
 // ── Modal helpers ─────────────────────────────────────────
 function openDpModal(id) {
   const el = document.getElementById(id);
@@ -5430,6 +5464,16 @@ function updateTopbarForUser(user) {
 // ============================================================
 loadPets();
 renderResources();
+
+// Inicializar idioma guardado y marcar botón activo
+(function initLang() {
+  const saved = localStorage.getItem('dpLang') || 'es';
+  _currentLang = saved;
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === saved);
+  });
+  applyTranslations();
+})();
 
 // ============================================================
 // KOFI
@@ -5861,53 +5905,6 @@ async function activatePremium(uid) {
 initFirebase();
 </script>
 
-<!-- ══════════════ MODAL: AUTH ══════════════ -->
-<div id="authModal" class="dp-modal-overlay" style="display:none">
-  <div class="dp-modal">
-    <div class="dp-modal-head">
-      <div style="font-size:26px;">🐾</div>
-      <h2>Bienvenido a DofusPet</h2>
-      <p>Inicia sesión o crea tu cuenta gratuita</p>
-      <button class="dp-modal-close" onclick="closeDpModal('authModal')">✕</button>
-    </div>
-    <div class="dp-modal-body">
-      <button class="dp-btn dp-btn-google" onclick="signInWithGoogle()">
-        <svg width="18" height="18" viewBox="0 0 24 24">
-          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-        </svg>
-        Continuar con Google
-      </button>
-      <div class="auth-divider"><span>o usa tu correo</span></div>
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="tabLogin"    onclick="switchAuthTab('login')">Iniciar sesión</button>
-        <button class="auth-tab"        id="tabRegister" onclick="switchAuthTab('register')">Crear cuenta</button>
-      </div>
-      <!-- Login -->
-      <div id="loginForm">
-        <input class="dp-input" type="email"    id="loginEmail" placeholder="Correo electrónico" />
-        <input class="dp-input" type="password" id="loginPass"  placeholder="Contraseña"
-          onkeydown="if(event.key==='Enter')signInWithEmail()" />
-        <button class="dp-btn dp-btn-primary" onclick="signInWithEmail()">Iniciar sesión</button>
-        <div class="auth-link"><a onclick="forgotPassword()">¿Olvidaste tu contraseña?</a></div>
-      </div>
-      <!-- Register -->
-      <div id="registerForm" style="display:none">
-        <input class="dp-input" type="text"     id="regName"  placeholder="Tu personaje en Dofus" />
-        <input class="dp-input" type="email"    id="regEmail" placeholder="Correo electrónico" />
-        <input class="dp-input" type="password" id="regPass"  placeholder="Contraseña (mín. 6 caracteres)"
-          onkeydown="if(event.key==='Enter')registerWithEmail()" />
-        <button class="dp-btn dp-btn-primary" onclick="registerWithEmail()">Crear cuenta gratis</button>
-        <p style="font-size:11px;color:var(--text3);text-align:center;margin-top:10px;line-height:1.5;">
-          Al registrarte aceptas que DofusPet es una herramienta no oficial de fans.
-        </p>
-      </div>
-      <div id="authError" class="auth-error" style="display:none"></div>
-    </div>
-  </div>
-</div>
 
 <!-- ── Footer / Disclaimer ── --><div id="dpToast"></div>
 
@@ -5920,8 +5917,7 @@ initFirebase();
     Algunas ilustraciones y contenidos son propiedad de Ankama y de Dofus. Todos los derechos reservados.
   </div>
   <div class="footer-copy">
-    Copyright &copy; 2026 DofusPet &nbsp;—&nbsp;
-    Gracias por no copiar ni reproducir el contenido de este sitio sin autorización.
+    DofusPet &copy; 2026 — Herramienta gratuita para la comunidad de Dofus. Sin afiliación con Ankama.
   </div>
   <div style="margin-top:10px;font-size:11px;color:rgba(232,217,176,0.3);letter-spacing:.03em;">
     By <strong style="color:rgba(232,217,176,0.45);">Bloody</strong> &middot; Dakal
