@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
@@ -841,7 +841,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
         <h1 style="font-size:22px;font-weight:700;color:#f5dfa0;margin-bottom:4px;text-shadow:0 2px 8px rgba(0,0,0,.5);">
           Calculadora de <span style="color:#e8c96a;">Mascotas</span>
         </h1>
-        <p style="font-size:13px;color:rgba(240,230,204,.8);text-shadow:0 1px 4px rgba(0,0,0,.5);">
+        <p style="font-size:13px;color:rgba(240,230,204,.8);text-shadow:0 1px 4px rgba(0,0,0,.5);" data-i18n="calc_page_sub">
           ¿Es rentable subir esta mascota? Descúbrelo en segundos.
         </p>
       </div>
@@ -870,22 +870,22 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
   </div>
 
   <!-- PASO 1: MASCOTA (modo comprar) -->
-  <div class="step"><div class="step-num">1</div><div class="step-title" id="step1Title">Ingresa precios del mercadillo</div></div>
+  <div class="step"><div class="step-num">1</div><div class="step-title" id="step1Title" data-i18n="step1_title">Ingresa precios del mercadillo</div></div>
   <div class="card">
     <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
       <div style="flex:1;min-width:260px;">
         <div class="field-row">
-          <label>Precio nivel 1 (mercadillo)</label>
+          <label data-i18n="label_p1">Precio nivel 1 (mercadillo)</label>
           <input type="text" id="p1" placeholder="ej. 4.900.000" oninput="formatKamasInput(this);updateDiffs()" inputmode="numeric" />
           <span class="unit">kamas</span>
         </div>
         <div class="field-row">
-          <label>Precio nivel 80 (mercadillo)</label>
+          <label data-i18n="label_p80">Precio nivel 80 (mercadillo)</label>
           <input type="text" id="p80" placeholder="ej. 11.100.000" oninput="formatKamasInput(this);updateDiffs()" inputmode="numeric" />
           <span class="unit">kamas</span>
         </div>
         <div class="field-row">
-          <label>Precio nivel 100 (mercadillo)</label>
+          <label data-i18n="label_p100">Precio nivel 100 (mercadillo)</label>
           <input type="text" id="p100" placeholder="ej. 15.600.000" oninput="formatKamasInput(this);updateDiffs()" inputmode="numeric" />
           <span class="unit">kamas</span>
         </div>
@@ -894,21 +894,21 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     <div class="diff-row">
       <div class="diff-box" id="db0_80" onclick="selectMargin('0_80')">
         <div class="d-check"></div>
-        <div class="d-label">Margen 0 &rarr; 80</div>
+        <div class="d-label" data-i18n="margin_label_0_80">Margen 0 → 80</div>
         <div class="d-val" id="d80">—</div>
-        <div class="d-sub">Máx. a gastar para subir a lvl 80</div>
+        <div class="d-sub" data-i18n="margin_sub_0_80">Máx. a gastar para subir a lvl 80</div>
       </div>
       <div class="diff-box" id="db80_100" onclick="selectMargin('80_100')">
         <div class="d-check"></div>
-        <div class="d-label">Margen 80 &rarr; 100</div>
+        <div class="d-label" data-i18n="margin_label_80_100">Margen 80 → 100</div>
         <div class="d-val" id="d80100">—</div>
-        <div class="d-sub">Máx. a gastar de lvl 80 a 100</div>
+        <div class="d-sub" data-i18n="margin_sub_80_100">Máx. a gastar de lvl 80 a 100</div>
       </div>
       <div class="diff-box active" id="db0_100" onclick="selectMargin('0_100')">
         <div class="d-check"></div>
-        <div class="d-label">Margen 0 &rarr; 100</div>
+        <div class="d-label" data-i18n="margin_label_0_100">Margen 0 → 100</div>
         <div class="d-val" id="d100">—</div>
-        <div class="d-sub">Máx. a gastar para subir a lvl 100</div>
+        <div class="d-sub" data-i18n="margin_sub_0_100">Máx. a gastar para subir a lvl 100</div>
       </div>
     </div>
   </div>
@@ -918,7 +918,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;">
       <div style="flex:1;min-width:220px;">
         <div class="field-row" style="margin-bottom:14px;">
-          <label style="width:160px;">Nivel actual de tu mascota</label>
+          <label style="width:160px;" data-i18n="level_current">Nivel actual de tu mascota</label>
           <input type="number" id="lvlCurrent" min="1" max="99" placeholder="ej. 87"
             style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);
               color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 13px;outline:none;"
@@ -926,7 +926,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
           <span id="lvlXpHint" style="font-size:11px;color:var(--gold-text);white-space:nowrap;padding-left:6px;"></span>
         </div>
         <div class="field-row" style="margin-bottom:14px;">
-          <label style="width:160px;">Precio mascota (nivel actual)</label>
+          <label style="width:160px;" data-i18n="level_price_current">Precio mascota (nivel actual)</label>
           <input type="text" id="lvlPriceCurrent" placeholder="ej. 12.000.000"
             style="flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
               color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 13px;outline:none;"
@@ -934,7 +934,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
           <span class="unit">kamas</span>
         </div>
         <div class="field-row">
-          <label style="width:160px;">Precio mascota nivel 100</label>
+          <label style="width:160px;" data-i18n="level_price_100">Precio mascota nivel 100</label>
           <input type="text" id="lvlPrice100" placeholder="ej. 29.000.000"
             style="flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
               color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 13px;outline:none;"
@@ -944,74 +944,74 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
       </div>
       <div id="levelModeSummary" style="flex:1;min-width:200px;background:var(--bg3);border:1px solid var(--border);
         border-radius:var(--r-lg);padding:16px 18px;font-size:13px;">
-        <div style="color:var(--text3);font-size:12px;">Ingresa los valores para ver el resumen.</div>
+        <div style="color:var(--text3);font-size:12px;" data-i18n="level_summary_hint">Ingresa los valores para ver el resumen.</div>
       </div>
     </div>
   </div>
 
   <!-- PASO 2: PROGRESO -->
-  <div class="step"><div class="step-num">2</div><div class="step-title">Progreso y rentabilidad en tiempo real</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-title" data-i18n="step2_title">Progreso y rentabilidad en tiempo real</div></div>
   <div class="card">
     <div class="prog-row">
       <div class="prog-label-row">
-        <span>XP acumulado <span id="levelBadge" style="display:none;background:linear-gradient(90deg,#7060c8,#a090f0);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px;">Nivel —</span></span>
+        <span data-i18n="xp_accumulated">XP acumulado</span> <span id="levelBadge" style="display:none;background:linear-gradient(90deg,#7060c8,#a090f0);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px;">Nivel —</span></span>
         <span id="xpLabel">0 / 179.592 XP (0%)</span>
       </div>
       <div class="prog-track"><div class="prog-bar xp" id="xpBar" style="width:0%"></div></div>
     </div>
     <div class="prog-row" style="margin-bottom:0">
-      <div class="prog-label-row"><span>Presupuesto utilizado</span><span id="budgetLabel">0 / — (0%)</span></div>
+      <div class="prog-label-row"><span data-i18n="budget_used">Presupuesto utilizado</span><span id="budgetLabel">0 / — (0%)</span></div>
       <div class="prog-track"><div class="prog-bar budget" id="budgetBar" style="width:0%"></div></div>
     </div>
     <div class="divider"></div>
     <div class="metrics-grid">
-      <div class="metric"><div class="mlabel">XP total</div><div class="mval purple" id="mXP">0</div></div>
-      <div class="metric"><div class="mlabel">Kamas gastados</div><div class="mval gold" id="mKamas">0</div></div>
-      <div class="metric"><div class="mlabel">Margen restante</div><div class="mval dim" id="mMargin">—</div></div>
-      <div class="metric"><div class="mlabel">Utilidad estimada</div><div class="mval dim" id="mProfit">—</div></div>
+      <div class="metric"><div class="mlabel" data-i18n="metric_xp">XP total</div><div class="mval purple" id="mXP">0</div></div>
+      <div class="metric"><div class="mlabel" data-i18n="metric_kamas">Kamas gastados</div><div class="mval gold" id="mKamas">0</div></div>
+      <div class="metric"><div class="mlabel" data-i18n="metric_margin">Margen restante</div><div class="mval dim" id="mMargin">—</div></div>
+      <div class="metric"><div class="mlabel" data-i18n="metric_profit">Utilidad estimada</div><div class="mval dim" id="mProfit">—</div></div>
     </div>
     <div class="verdict neutral" id="verdictBox">
       <div class="v-icon">?</div>
-      <div class="v-body" id="vText">Selecciona un margen y añade recursos para activar el análisis.</div>
+      <div class="v-body" id="vText" data-i18n="verdict_hint">Selecciona un margen y añade recursos para activar el análisis.</div>
     </div>
   </div>
 
   <!-- PASO 3: RECURSOS -->
-  <div class="step"><div class="step-num">3</div><div class="step-title">Recursos del mercadillo</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-title" data-i18n="step3_title">Recursos del mercadillo</div></div>
   <div class="card" style="position:relative;" id="step3Card">
     <div style="margin-bottom:12px;">
-      <p style="font-size:13px;color:var(--text2);margin-bottom:10px;">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:10px;" data-i18n-html="step3_desc">
         Ingresa el <strong>precio de mercadillo</strong> y la <strong>cantidad</strong>. El <strong>Precio Ideal</strong> es el máximo que deberías pagar para que la operación sea rentable dentro del margen elegido.
       </p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;" id="sortBtnRow">
-        <button class="tab-btn sort-btn active" onclick="setSort('todos',this)">Todos</button>
-        <button class="tab-btn sort-btn" onclick="setSort('xp_desc',this)">XP mayor → menor</button>
+        <button class="tab-btn sort-btn active" onclick="setSort('todos',this)" data-i18n="sort_all">Todos</button>
+        <button class="tab-btn sort-btn" onclick="setSort('xp_desc',this)" data-i18n="sort_xp_desc">XP mayor → menor</button>
         <div style="display:flex;align-items:center;gap:6px;margin-left:auto;">
-          <label style="font-size:12px;color:var(--text2);white-space:nowrap;">XP mín.:</label>
+          <label style="font-size:12px;color:var(--text2);white-space:nowrap;" data-i18n="xp_min_label">XP mín.:</label>
           <input type="number" id="xpMinFilter" placeholder="ej. 10" min="0" step="1"
             style="width:70px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;background:var(--bg3);color:var(--text);outline:none;"
             oninput="debouncedRender()" />
         </div>
       </div>
     </div>
-    <input type="text" class="search-box" id="resSearch" placeholder="Buscar recurso..." oninput="debouncedRender()" />
+    <input type="text" class="search-box" id="resSearch" placeholder="Buscar recurso..." data-i18n-placeholder="search_ph" oninput="debouncedRender()" />
     <div class="res-wrap">
       <table class="res-table">
         <thead>
           <tr>
-            <th style="width:26%">Recurso</th>
-            <th style="width:7%">XP/u</th>
-            <th style="width:12%" class="th-ideal" title="Precio máximo que deberías pagar por este recurso para que la operación sea rentable">Precio ideal ★</th>
-            <th style="width:11%">Precio real</th>
-            <th style="width:7%">Unidades</th>
-            <th style="width:13%" class="th-rent" title="Qué tan rentable es este recurso comparado con su precio ideal">Rentabilidad</th>
-            <th style="width:11%">Añadir</th>
+            <th style="width:26%" data-i18n="th_resource">Recurso</th>
+            <th style="width:7%" data-i18n="th_xp_u">XP/u</th>
+            <th style="width:12%" class="th-ideal" title="Precio máximo que deberías pagar por este recurso para que la operación sea rentable" data-i18n="th_ideal">Precio ideal ★</th>
+            <th style="width:11%" data-i18n="th_real">Precio real</th>
+            <th style="width:7%" data-i18n="th_units">Unidades</th>
+            <th style="width:13%" class="th-rent" title="Qué tan rentable es este recurso comparado con su precio ideal" data-i18n="th_rent">Rentabilidad</th>
+            <th style="width:11%" data-i18n="th_add">Añadir</th>
           </tr>
         </thead>
         <tbody id="resBody"></tbody>
       </table>
     </div>
-    <p style="font-size:11px; color:var(--text3); margin-top:10px;">
+    <p style="font-size:11px; color:var(--text3); margin-top:10px;" data-i18n-html="ideal_footnote">
       ★ <strong>Precio ideal</strong> = (Margen elegido ÷ XP total del tramo) × XP del recurso. Si pagas menos del precio ideal, el recurso es rentable para tu objetivo.
     </p>
   </div>
@@ -1020,7 +1020,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
   <div class="step" style="justify-content:space-between;align-items:center;">
     <div style="display:flex;align-items:center;gap:10px;">
       <div class="step-num">4</div>
-      <div class="step-title">Recursos que estás usando</div>
+      <div class="step-title" data-i18n="step4_title">Recursos que estás usando</div>
     </div>
     <button onclick="clearLog()" title="Vaciar todos los recursos añadidos"
       style="font-size:12px;padding:4px 12px;border-radius:6px;border:1px solid var(--border);
@@ -1028,31 +1028,31 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
         transition:all .15s;"
       onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'"
       onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border)'">
-      &#128465; Limpiar todo
+      &#128465; <span data-i18n="btn_clear">Limpiar todo</span>
     </button>
   </div>
   <div class="card" id="logCard">
     <div class="log-empty" id="logEmpty" style="padding:24px 0;">
       <div style="font-size:24px;margin-bottom:8px;color:var(--border2);">&#128230;</div>
-      <div style="font-size:13px;color:var(--text3);">Aún no has añadido recursos.</div>
-      <div style="font-size:12px;color:var(--text3);margin-top:4px;">Ingresa precio y unidades en la tabla de arriba y pulsa <strong style="color:var(--gold-text);">+ Añadir</strong></div>
+      <div style="font-size:13px;color:var(--text3);" data-i18n="log_empty1">Aún no has añadido recursos.</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:4px;" data-i18n-html="log_empty2">Ingresa precio y unidades en la tabla de arriba y pulsa <strong style="color:var(--gold-text);">+ Añadir</strong></div>
     </div>
     <table class="log-table" id="logTable" style="display:none">
       <thead>
         <tr>
-          <th style="width:26%">Recurso</th>
-          <th style="width:9%">XP/u</th>
-          <th style="width:13%">Precio pagado</th>
-          <th style="width:13%">Cantidad</th>
-          <th style="width:12%">XP total</th>
-          <th style="width:14%">Kamas gastados</th>
+          <th style="width:26%" data-i18n="th_resource">Recurso</th>
+          <th style="width:9%" data-i18n="th_xp_u">XP/u</th>
+          <th style="width:13%" data-i18n="th_price_paid">Precio pagado</th>
+          <th style="width:13%" data-i18n="th_qty">Cantidad</th>
+          <th style="width:12%" data-i18n="metric_xp">XP total</th>
+          <th style="width:14%" data-i18n="metric_kamas">Kamas gastados</th>
           <th style="width:7%"></th>
         </tr>
       </thead>
       <tbody id="logBody"></tbody>
     </table>
     <div class="log-total" id="logTotal" style="display:none">
-      <span style="color:var(--text2);">Total gastado:</span>
+      <span style="color:var(--text2);" data-i18n="log_total">Total gastado:</span>
       <strong id="logTotalVal">0</strong>
       <button onclick="copyLogSummary()" title="Copiar resumen al portapapeles"
         style="margin-left:12px;font-size:11px;padding:3px 10px;border-radius:5px;
@@ -1060,7 +1060,7 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
           cursor:pointer;font-family:Inter,Arial,sans-serif;transition:all .15s;"
         onmouseover="this.style.color='var(--text)';this.style.borderColor='var(--border2)'"
         onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border)'">
-        &#128203; Copiar resumen
+        &#128203; <span data-i18n="btn_copy">Copiar resumen</span>
       </button>
     </div>
   </div>
@@ -1077,38 +1077,38 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
       <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(26,21,16,.85) 0%, rgba(26,21,16,.3) 60%, transparent 100%);"></div>
       <div style="position:absolute;top:50%;left:28px;transform:translateY(-50%);">
         <h1 style="font-size:26px;font-weight:700;color:#f5dfa0;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,.5);">Guías de <span style="color:#e8c96a;">Mascotas</span></h1>
-        <p style="font-size:13px;color:rgba(240,230,204,.8);max-width:360px;line-height:1.5;text-shadow:0 1px 4px rgba(0,0,0,.5);">Todo sobre mascotas y mascoturas en Dofus: cómo obtenerlas, sus bonificaciones y cómo alimentarlas.</p>
+        <p style="font-size:13px;color:rgba(240,230,204,.8);max-width:360px;line-height:1.5;text-shadow:0 1px 4px rgba(0,0,0,.5);"><span data-i18n="guides_page_sub">Todo sobre mascotas y mascoturas en Dofus: cómo obtenerlas, sus bonificaciones y cómo alimentarlas.</span></p>
       </div>
     </div>
   </div>
 
   <!-- Introducción -->
   <div class="card" style="margin-bottom:16px;">
-    <h2 style="font-size:16px;font-weight:600;margin-bottom:12px;color:var(--gold);">¿Cómo funcionan las mascotas?</h2>
+    <h2 style="font-size:16px;font-weight:600;margin-bottom:12px;color:var(--gold);" data-i18n="guides_how_title">¿Cómo funcionan las mascotas?</h2>
     <div class="guide-intro-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:13px;color:var(--text2);line-height:1.7;">
       <div>
-        <p style="margin-bottom:8px;"><strong style="color:var(--text);">Sin puntos de vida.</strong> Desde la actualización 2.48, las mascotas ya no tienen PDV y no pueden morir. Se eliminaron los polvos de resurrección.</p>
-        <p style="margin-bottom:8px;"><strong style="color:var(--text);">100 niveles.</strong> Cada mascota tiene 100 niveles. A nivel 1 da el 10% de sus bonificaciones máximas.</p>
-        <p><strong style="color:var(--text);">Sin límite de tiempo.</strong> Puedes alimentar tu mascota con cualquier recurso del juego, sin restricción de tiempo entre comidas.</p>
+        <p style="margin-bottom:8px;" data-i18n-html="guides_no_hp"><strong>Sin puntos de vida.</strong> Desde la actualización 2.48, las mascotas ya no tienen PDV y no pueden morir. Se eliminaron los polvos de resurrección.</p>
+        <p style="margin-bottom:8px;" data-i18n-html="guides_100_levels"><strong>100 niveles.</strong> Cada mascota tiene 100 niveles. A nivel 1 da el 10% de sus bonificaciones máximas.</p>
+        <p data-i18n-html="guides_no_time"><strong>Sin límite de tiempo.</strong> Puedes alimentar tu mascota con cualquier recurso del juego, sin restricción de tiempo entre comidas.</p>
       </div>
       <div>
-        <p style="margin-bottom:8px;"><strong style="color:var(--text);">Recursos raros = más XP.</strong> Cuanto más raro sea un recurso (menor tasa de drop), más experiencia dará. Un recurso de jefe dará más XP que uno de monstruo normal.</p>
-        <p style="margin-bottom:8px;"><strong style="color:var(--text);">Redondeo a la baja.</strong> Los valores de XP son decimales y se redondean hacia abajo. Conviene dar los recursos en lotes grandes (100 a la vez) para minimizar pérdidas.</p>
-        <p><strong style="color:var(--text);">Galleta Enriquecida.</strong> 500 XP exactos. Se necesitan 360 para subir de lvl 0 a 100. Se compra en el Kolizeum [-13,-29] o Templo de Alianzas [13,35] por 500 Pepitas cada una.</p>
+        <p style="margin-bottom:8px;" data-i18n-html="guides_rare_xp"><strong>Recursos raros = más XP.</strong> Cuanto más raro sea un recurso (menor tasa de drop), más experiencia dará. Un recurso de jefe dará más XP que uno de monstruo normal.</p>
+        <p style="margin-bottom:8px;" data-i18n-html="guides_rounding"><strong>Redondeo a la baja.</strong> Los valores de XP son decimales y se redondean hacia abajo. Conviene dar los recursos en lotes grandes (100 a la vez) para minimizar pérdidas.</p>
+        <p data-i18n-html="guides_cookie"><strong>Galleta Enriquecida.</strong> 500 XP exactos. Se necesitan 360 para subir de lvl 0 a 100. Se compra en el Kolizeum [-13,-29] o Templo de Alianzas [13,35] por 500 Pepitas cada una.</p>
       </div>
     </div>
   </div>
 
   <!-- Tips DPLN -->
   <div class="card" style="margin-bottom:16px;background:var(--gold-dim);border-color:var(--border2);">
-    <h3 style="font-size:14px;font-weight:600;color:var(--gold-text);margin-bottom:8px;">💡 Consejo sobre los crafts</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.6;">Algunos recursos son crafteados (idolos, esencias de mazmorras). <strong style="color:var(--text);">No siempre es rentable dar el craft</strong> en lugar de los ingredientes individuales. Ejemplo: 1 Esencia del Capitán Ekarlatte da 135 XP, pero sus 10 Corazones de ingredientes dan 90 XP → conviene el craft. En cambio, 1 ídolo Nekinéko da 392 XP vs 1.567 XP de sus ingredientes → no conviene craftear.</p>
+    <h3 style="font-size:14px;font-weight:600;color:var(--gold-text);margin-bottom:8px;" data-i18n="guides_craft_title">💡 Consejo sobre los crafts</h3>
+    <p style="font-size:13px;color:var(--text2);line-height:1.6;" data-i18n-html="guides_craft_text">Algunos recursos son crafteados (idolos, esencias de mazmorras). <strong>No siempre es rentable dar el craft</strong> en lugar de los ingredientes individuales. Ejemplo: 1 Esencia del Capitán Ekarlatte da 135 XP, pero sus 10 Corazones de ingredientes dan 90 XP → conviene el craft. En cambio, 1 ídolo Nekinéko da 392 XP vs 1.567 XP de sus ingredientes → no conviene craftear.</p>
   </div>
 
   <!-- XP por nivel tabla -->
   <div class="card" style="margin-bottom:16px;">
-    <h2 style="font-size:16px;font-weight:600;margin-bottom:4px;color:var(--gold);">XP necesaria por nivel</h2>
-    <p style="font-size:12px;color:var(--text3);margin-bottom:12px;">XP necesaria por nivel. Fuente: DofusPourLesNoobs / datos del juego.</p>
+    <h2 style="font-size:16px;font-weight:600;margin-bottom:4px;color:var(--gold);" data-i18n="guides_xp_title">XP necesaria por nivel</h2>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:12px;" data-i18n="guides_xp_sub">XP necesaria por nivel. Fuente: DofusPourLesNoobs / datos del juego.</p>
     <div style="overflow-x:auto;">
     <table style="width:100%;border-collapse:collapse;font-size:12px;">
       <thead><tr id="xpTableHead"></tr></thead>
@@ -1121,40 +1121,36 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
   <div class="card" style="border-color:rgba(201,168,76,.35);background:linear-gradient(135deg,rgba(154,110,20,.06),rgba(201,168,76,.04));">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
       <span style="font-size:20px;">💡</span>
-      <h2 style="font-size:15px;font-weight:700;color:var(--gold);margin:0;">Claves para usar bien la herramienta</h2>
+      <h2 style="font-size:15px;font-weight:700;color:var(--gold);margin:0;" data-i18n="guides_keys_title">Claves para usar bien la herramienta</h2>
     </div>
     <div style="font-size:13px;color:var(--text2);line-height:1.8;display:flex;flex-direction:column;gap:12px;">
 
       <div style="display:flex;gap:10px;">
         <span style="color:var(--gold);font-weight:700;flex-shrink:0;">①</span>
         <div>
-          <strong style="color:var(--text);">Conoce el margen típico de tu servidor.</strong>
-          El dato más importante que debes manejar son los márgenes 0→100, 0→80 y 80→100 habituales
+          <strong style="color:var(--text);" data-i18n="guides_key1_title">Conoce el margen típico de tu servidor.</strong>
+          <span data-i18n="guides_key1_text">El dato más importante que debes manejar son los márgenes 0→100, 0→80 y 80→100 habituales
           en tu servidor. Estos varían bastante según sea monocuenta o multicuenta — en servidores
-          mono los márgenes suelen ser más amplios. Tómate el tiempo de observarlos antes de invertir.
+          mono los márgenes suelen ser más amplios. Tómate el tiempo de observarlos antes de invertir.</span>
         </div>
       </div>
 
       <div style="display:flex;gap:10px;">
         <span style="color:var(--gold);font-weight:700;flex-shrink:0;">②</span>
         <div>
-          <strong style="color:var(--text);">La Galleta Enriquecida: la gran variable.</strong>
-          En la mayoría de servidores <em>no</em> es rentable usarla directamente como recurso de subida,
-          pero en algunos sí — ya sea por depreciación de las Kolichas, inflación del mercado u otros
-          factores. Revisa siempre su precio ideal antes de descartarla o apostar todo a ella.
+          <strong style="color:var(--text);" data-i18n="guides_key2_title">La Galleta Enriquecida: la gran variable.</strong>
+          <span data-i18n-html="guides_key2_text">En la mayoría de servidores <em>no</em> es rentable usarla directamente como recurso de subida, pero en algunos sí — ya sea por depreciación de las Kolichas, inflación del mercado u otros factores. Revisa siempre su precio ideal antes de descartarla o apostar todo a ella.</span>
         </div>
       </div>
 
       <div style="display:flex;gap:10px;">
         <span style="color:var(--gold);font-weight:700;flex-shrink:0;">③</span>
         <div>
-          <strong style="color:var(--text);">Compartir esta herramienta es bueno para el ecosistema.</strong>
-          Puede parecer contraproducente compartir "el secreto", pero más jugadores subiendo mascotas
-          significa más consumo de recursos, lo que a la larga infla el precio del drop in-game y
-          valoriza mejor lo que farmeas. Más demanda = mejores precios para todos.
+          <strong style="color:var(--text);" data-i18n="guides_key3_title">Compartir esta herramienta es bueno para el ecosistema.</strong>
+          <span data-i18n="guides_key3_text">Puede parecer contraproducente compartir "el secreto", pero más jugadores subiendo mascotas significa más consumo de recursos, lo que a la larga infla el precio del drop in-game y valoriza mejor lo que farmeas. Más demanda = mejores precios para todos.</span>
           <br />
           <span style="font-size:12px;color:var(--text3);margin-top:4px;display:block;">
-            — Al menos esa es mi visión. ¡Comparte con tu gremio y amigos del Mundo de los Doce! 🐾
+            <span data-i18n="guides_key3_note">— Al menos esa es mi visión. ¡Comparte con tu gremio y amigos del Mundo de los Doce! 🐾</span>
           </span>
         </div>
       </div>
@@ -1172,8 +1168,8 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
         <h1 style="font-size:22px;font-weight:700;color:#f5dfa0;margin-bottom:4px;text-shadow:0 2px 8px rgba(0,0,0,.5);">
           Comparar <span style="color:#e8c96a;">Mascotas</span>
         </h1>
-        <p style="font-size:13px;color:rgba(240,230,204,.8);text-shadow:0 1px 4px rgba(0,0,0,.5);">
-          Compara m&aacute;rgenes de dos mascotas lado a lado.
+        <p style="font-size:13px;color:rgba(240,230,204,.8);text-shadow:0 1px 4px rgba(0,0,0,.5);" data-i18n="compare_page_sub">
+          Compara márgenes de dos mascotas lado a lado.
         </p>
       </div>
     </div>
@@ -1182,28 +1178,28 @@ input, select, textarea, button { font-family: 'DM Sans', Arial, sans-serif; }
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;" id="compareGrid">
         <!-- Mascota A -->
         <div>
-          <div style="font-weight:600;font-size:13px;color:var(--gold);margin-bottom:10px;text-align:center;">Mascota A</div>
-          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">Precio Nivel 1:</div>
+          <div style="font-weight:600;font-size:13px;color:var(--gold);margin-bottom:10px;text-align:center;" data-i18n="cmp_pet_a">Mascota A</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;" data-i18n="cmp_price_lv1">Precio Nivel 1:</div>
           <input type="text" id="cmpA_p1" class="dp-input" placeholder="ej. 5.000.000"
             oninput="formatKamasInput(this);calcCompare()" style="margin-bottom:6px;" />
-          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">Precio Nivel 80:</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;" data-i18n="cmp_price_lv80">Precio Nivel 80:</div>
           <input type="text" id="cmpA_p80" class="dp-input" placeholder="ej. 12.000.000"
             oninput="formatKamasInput(this);calcCompare()" style="margin-bottom:6px;" />
-          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">Precio Nivel 100:</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;" data-i18n="cmp_price_lv100">Precio Nivel 100:</div>
           <input type="text" id="cmpA_p100" class="dp-input" placeholder="ej. 18.000.000"
             oninput="formatKamasInput(this);calcCompare()" style="margin-bottom:10px;" />
           <div id="cmpResultA" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:13px;min-height:56px;"></div>
         </div>
         <!-- Mascota B -->
         <div>
-          <div style="font-weight:600;font-size:13px;color:var(--blue);margin-bottom:10px;text-align:center;">Mascota B</div>
-          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">Precio Nivel 1:</div>
+          <div style="font-weight:600;font-size:13px;color:var(--blue);margin-bottom:10px;text-align:center;" data-i18n="cmp_pet_b">Mascota B</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;" data-i18n="cmp_price_lv1">Precio Nivel 1:</div>
           <input type="text" id="cmpB_p1" class="dp-input" placeholder="ej. 3.000.000"
             oninput="formatKamasInput(this);calcCompare()" style="margin-bottom:6px;" />
-          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">Precio Nivel 80:</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;" data-i18n="cmp_price_lv80">Precio Nivel 80:</div>
           <input type="text" id="cmpB_p80" class="dp-input" placeholder="ej. 8.000.000"
             oninput="formatKamasInput(this);calcCompare()" style="margin-bottom:6px;" />
-          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">Precio Nivel 100:</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:4px;" data-i18n="cmp_price_lv100">Precio Nivel 100:</div>
           <input type="text" id="cmpB_p100" class="dp-input" placeholder="ej. 14.000.000"
             oninput="formatKamasInput(this);calcCompare()" style="margin-bottom:10px;" />
           <div id="cmpResultB" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;font-size:13px;min-height:56px;"></div>
@@ -1285,11 +1281,11 @@ function toggleDark(){
   if(isDark){
     document.documentElement.removeAttribute('data-theme');
     localStorage.setItem('dofuspets-theme','light');
-    const l=document.getElementById('darkLabel'); if(l)l.textContent='Oscuro';
+    const l=document.getElementById('darkLabel'); if(l)l.textContent=t('dark_mode');
   } else {
     document.documentElement.setAttribute('data-theme','dark');
     localStorage.setItem('dofuspets-theme','dark');
-    const l=document.getElementById('darkLabel'); if(l)l.textContent='Claro';
+    const l=document.getElementById('darkLabel'); if(l)l.textContent=t('dark_mode_light');
   }
 }
 </script>
@@ -4079,12 +4075,106 @@ function closeMobileNav() {
 // ============================================================
 const TRANSLATIONS = {
   es: {
+    // Nav
     nav_calc: 'Calculadora', nav_guides: 'Guías', nav_compare: 'Comparar',
-    dark_mode: 'Oscuro', lang_label: 'IDIOMA', bug_report: 'Bug',
+    dark_mode: 'Oscuro', dark_mode_light: 'Claro', lang_label: 'IDIOMA', bug_report: 'Bug',
+    // Modos calculadora
     mode_buy_title: 'Comprar mascota (Nv. 1 → 100)',
     mode_buy_sub: 'Ingresa el precio en nv. 1 y nv. 100 → calcula si los recursos salen más baratos que el margen de ganancia',
     mode_level_title: 'Mi mascota ya tiene nivel (Nv. X → 100)',
     mode_level_sub: 'Ingresa el nivel actual y el precio de venta a nv. 100 → calcula el costo restante para completarla',
+    // Encabezado calculadora
+    calc_page_sub: '¿Es rentable subir esta mascota? Descúbrelo en segundos.',
+    // Paso 1
+    step1_title: 'Ingresa precios del mercadillo',
+    label_p1: 'Precio nivel 1 (mercadillo)', label_p80: 'Precio nivel 80 (mercadillo)', label_p100: 'Precio nivel 100 (mercadillo)',
+    margin_label_0_80: 'Margen 0 → 80', margin_sub_0_80: 'Máx. a gastar para subir a lvl 80',
+    margin_label_80_100: 'Margen 80 → 100', margin_sub_80_100: 'Máx. a gastar de lvl 80 a 100',
+    margin_label_0_100: 'Margen 0 → 100', margin_sub_0_100: 'Máx. a gastar para subir a lvl 100',
+    level_current: 'Nivel actual de tu mascota', level_price_current: 'Precio mascota (nivel actual)', level_price_100: 'Precio mascota nivel 100',
+    level_summary_hint: 'Ingresa los valores para ver el resumen.',
+    // Paso 2
+    step2_title: 'Progreso y rentabilidad en tiempo real',
+    xp_accumulated: 'XP acumulado', budget_used: 'Presupuesto utilizado',
+    metric_xp: 'XP total', metric_kamas: 'Kamas gastados', metric_margin: 'Margen restante', metric_profit: 'Utilidad estimada',
+    verdict_hint: 'Selecciona un margen y añade recursos para activar el análisis.',
+    // Paso 3
+    step3_title: 'Recursos del mercadillo',
+    step3_desc: 'Ingresa el <strong>precio de mercadillo</strong> y la <strong>cantidad</strong>. El <strong>Precio Ideal</strong> es el máximo que deberías pagar para que la operación sea rentable dentro del margen elegido.',
+    sort_all: 'Todos', sort_xp_desc: 'XP mayor → menor', xp_min_label: 'XP mín.:',
+    search_ph: 'Buscar recurso...',
+    th_resource: 'Recurso', th_xp_u: 'XP/u', th_ideal: 'Precio ideal ★', th_real: 'Precio real', th_units: 'Unidades', th_rent: 'Rentabilidad', th_add: 'Añadir',
+    ideal_footnote: '★ <strong>Precio ideal</strong> = (Margen elegido ÷ XP total del tramo) × XP del recurso. Si pagas menos del precio ideal, el recurso es rentable para tu objetivo.',
+    // Paso 4
+    step4_title: 'Recursos que estás usando', btn_clear: 'Limpiar todo',
+    log_empty1: 'Aún no has añadido recursos.',
+    log_empty2: 'Ingresa precio y unidades en la tabla de arriba y pulsa <strong style="color:var(--gold-text);">+ Añadir</strong>',
+    th_price_paid: 'Precio pagado', th_qty: 'Cantidad', log_total: 'Total gastado:', btn_copy: 'Copiar resumen',
+    // Guías
+    guides_page_sub: '<span data-i18n="guides_page_sub">Todo sobre mascotas y mascoturas en Dofus: cómo obtenerlas, sus bonificaciones y cómo alimentarlas.</span>',
+    guides_how_title: '¿Cómo funcionan las mascotas?',
+    guides_no_hp: '<strong>Sin puntos de vida.</strong> Desde la actualización 2.48, las mascotas ya no tienen PDV y no pueden morir. Se eliminaron los polvos de resurrección.',
+    guides_100_levels: '<strong>100 niveles.</strong> Cada mascota tiene 100 niveles. A nivel 1 da el 10% de sus bonificaciones máximas.',
+    guides_no_time: '<strong>Sin límite de tiempo.</strong> Puedes alimentar tu mascota con cualquier recurso del juego, sin restricción de tiempo entre comidas.',
+    guides_rare_xp: '<strong>Recursos raros = más XP.</strong> Cuanto más raro sea un recurso (menor tasa de drop), más experiencia dará. Un recurso de jefe dará más XP que uno de monstruo normal.',
+    guides_rounding: '<strong>Redondeo a la baja.</strong> Los valores de XP son decimales y se redondean hacia abajo. Conviene dar los recursos en lotes grandes (100 a la vez) para minimizar pérdidas.',
+    guides_cookie: '<strong>Galleta Enriquecida.</strong> 500 XP exactos. Se necesitan 360 para subir de lvl 0 a 100. Se compra en el Kolizeum [-13,-29] o Templo de Alianzas [13,35] por 500 Pepitas cada una.',
+    guides_craft_title: '💡 Consejo sobre los crafts',
+    guides_craft_text: 'Algunos recursos son crafteados (idolos, esencias de mazmorras). <strong>No siempre es rentable dar el craft</strong> en lugar de los ingredientes individuales. Ejemplo: 1 Esencia del Capitán Ekarlatte da 135 XP, pero sus 10 Corazones de ingredientes dan 90 XP → conviene el craft. En cambio, 1 ídolo Nekinéko da 392 XP vs 1.567 XP de sus ingredientes → no conviene craftear.',
+    guides_xp_title: 'XP necesaria por nivel', guides_xp_sub: 'XP necesaria por nivel. Fuente: DofusPourLesNoobs / datos del juego.',
+    guides_keys_title: 'Claves para usar bien la herramienta',
+    guides_key1_title: 'Conoce el margen típico de tu servidor.',
+    guides_key1_text: 'El dato más importante que debes manejar son los márgenes 0→100, 0→80 y 80→100 habituales en tu servidor. Estos varían bastante según sea monocuenta o multicuenta — en servidores mono los márgenes suelen ser más amplios. Tómate el tiempo de observarlos antes de invertir.',
+    guides_key2_title: 'La Galleta Enriquecida: la gran variable.',
+    guides_key2_text: 'En la mayoría de servidores <em>no</em> es rentable usarla directamente como recurso de subida, pero en algunos sí — ya sea por depreciación de las Kolichas, inflación del mercado u otros factores. Revisa siempre su precio ideal antes de descartarla o apostar todo a ella.',
+    guides_key3_title: 'Compartir esta herramienta es bueno para el ecosistema.',
+    guides_key3_text: 'Puede parecer contraproducente compartir "el secreto", pero más jugadores subiendo mascotas significa más consumo de recursos, lo que a la larga infla el precio del drop in-game y valoriza mejor lo que farmeas. Más demanda = mejores precios para todos.',
+    guides_key3_note: '— Al menos esa es mi visión. ¡Comparte con tu gremio y amigos del Mundo de los Doce! 🐾',
+    guide_mascota: 'Mascota', guide_mascotura: 'Mascotura',
+    guide_method: 'Método de obtención:', guide_method_soon: 'Próximamente…', guide_no_results: 'Sin resultados',
+    xp_table_lv: 'Nv.', xp_table_total: 'XP Total', xp_table_next: '+Siguiente',
+    // Comparar
+    compare_page_sub: 'Compara márgenes de dos mascotas lado a lado.',
+    cmp_pet_a: 'Mascota A', cmp_pet_b: 'Mascota B',
+    cmp_price_lv1: 'Precio Nivel 1:', cmp_price_lv80: 'Precio Nivel 80:', cmp_price_lv100: 'Precio Nivel 100:',
+    cmp_enter_prices: 'Ingresa los precios para calcular.',
+    cmp_lv_0_100: 'Lvl 1 → 100', cmp_lv_0_80: 'Lvl 1 → 80', cmp_lv_80_100: 'Lvl 80 → 100',
+    cmp_same_margin: 'Ambas mascotas tienen el mismo margen (0→100).',
+    cmp_winner: '{name} tiene mayor margen (0→100) por {diff}.',
+    // Auth / Usuario
+    btn_login: 'Iniciar sesión', btn_register: 'Registrarse',
+    plan_free: 'Cuenta gratuita', dd_my_profile: 'Mi Perfil', dd_my_history: 'Mi historial', dd_compare_pets: 'Comparar mascotas', btn_logout: 'Cerrar sesión',
+    toast_google_ok: '✓ Sesión iniciada con Google.', toast_account_created: '✓ Cuenta creada. Revisa tu correo para verificarlo.', toast_logout: 'Sesión cerrada.',
+    err_fill_all: 'Completa todos los campos.', err_pass_length: 'La contraseña debe tener mínimo 6 caracteres.',
+    err_email_first: 'Ingresa tu correo electrónico arriba y vuelve a intentarlo.', err_no_account: 'No existe una cuenta con ese correo.',
+    err_fill_both: 'Completa ambos campos.', err_passwords_mismatch: 'Las contraseñas no coinciden.', err_min_6: 'Mínimo 6 caracteres.',
+    prof_relogin: 'Por seguridad, cierra sesión, vuelve a iniciarla y reintenta.',
+    toast_pass_updated: '✓ Contraseña actualizada correctamente.', toast_email_updated: '✓ Correo actualizado. Revisa tu bandeja para verificarlo.',
+    toast_reset_sent: '📧 Correo enviado a {email}. Revisa tu bandeja (y la carpeta de spam).',
+    prof_notes_soon: 'Próximamente: notas personales por mascota/recurso.',
+    // Errores Firebase
+    fb_email_in_use: 'Este correo ya tiene cuenta. Inicia sesión.', fb_invalid_email: 'Correo no válido.',
+    fb_weak_password: 'Contraseña muy débil. Mínimo 6 caracteres.', fb_user_not_found: 'No existe cuenta con ese correo.',
+    fb_wrong_password: 'Contraseña incorrecta.', fb_invalid_cred: 'Correo o contraseña incorrectos.',
+    fb_too_many: 'Demasiados intentos. Espera unos minutos.', fb_popup_closed: 'Ventana de Google cerrada. Inténtalo de nuevo.',
+    fb_network: 'Sin conexión. Revisa tu internet.',
+    // Admin
+    admin_loading_users: 'Cargando usuarios…', admin_no_users: 'Sin usuarios registrados.',
+    admin_loading_tickets: 'Cargando tickets…', admin_no_tickets: 'Sin tickets aún.',
+    admin_loading_reqs: 'Cargando solicitudes…', admin_no_reqs: 'Sin solicitudes pendientes.',
+    admin_no_results: 'Sin resultados.', admin_n_users: '{n} usuarios registrados',
+    admin_search_ph: 'Buscar usuario / mensaje…', admin_server_ph: 'Servidor…',
+    admin_type_all: 'Tipo: todos',
+    admin_th_name: 'Nombre', admin_th_email: 'Correo', admin_th_plan: 'Plan', admin_th_reg: 'Registro', admin_th_action: 'Acción',
+    admin_th_date: 'Fecha', admin_th_user: 'Usuario', admin_th_type: 'Tipo', admin_th_msg: 'Mensaje', admin_th_server: 'Servidor',
+    admin_th_kofi: 'Ko-fi', admin_btn_remove: 'Quitar', admin_btn_activate: 'Activar',
+    // Historial
+    hist_loading: 'Cargando historial…', hist_empty: 'Sin entradas aún. Los recursos que añadas a tu log se guardarán aquí.',
+    th_pet: 'Mascota', th_price: 'Precio', th_server: 'Servidor', th_date: 'Fecha',
+    // Footer
+    footer_main: '<strong>Dofus</strong> es un MMORPG publicado por <a href="https://www.ankama.com" target="_blank" rel="noopener">Ankama</a>. <strong>"DofusPet"</strong> es una página web no oficial y no está afiliada ni asociada con Ankama. Algunas ilustraciones y contenidos son propiedad de Ankama y de Dofus. Todos los derechos reservados.',
+    footer_copy: 'DofusPet © 2026 — Herramienta gratuita para la comunidad de Dofus. Sin afiliación con Ankama.',
+    // Bug report
     bug_modal_title: 'Reportar un Bug', bug_modal_sub: '¿Encontraste un error? Cuéntanos y lo arreglamos.',
     bug_type_label: 'Tipo de bug', bug_name_label: 'Tu nombre', bug_email_label: 'Correo',
     bug_desc_label: 'Descripción', bug_captcha_label: 'Verificación rápida:',
@@ -4096,11 +4186,90 @@ const TRANSLATIONS = {
   },
   en: {
     nav_calc: 'Calculator', nav_guides: 'Guides', nav_compare: 'Compare',
-    dark_mode: 'Dark', lang_label: 'LANGUAGE', bug_report: 'Bug',
+    dark_mode: 'Dark', dark_mode_light: 'Light', lang_label: 'LANGUAGE', bug_report: 'Bug',
     mode_buy_title: 'Buy a pet (Lv. 1 → 100)',
     mode_buy_sub: 'Enter the price at lv. 1 and lv. 100 → check if leveling resources cost less than your profit margin',
     mode_level_title: 'My pet already has a level (Lv. X → 100)',
     mode_level_sub: 'Enter the current level and the sell price at lv. 100 → calculates remaining cost to complete it',
+    calc_page_sub: 'Is leveling this pet worth it? Find out in seconds.',
+    step1_title: 'Enter marketplace prices',
+    label_p1: 'Level 1 price (marketplace)', label_p80: 'Level 80 price (marketplace)', label_p100: 'Level 100 price (marketplace)',
+    margin_label_0_80: 'Margin 0 → 80', margin_sub_0_80: 'Max. to spend leveling to lv 80',
+    margin_label_80_100: 'Margin 80 → 100', margin_sub_80_100: 'Max. to spend from lv 80 to 100',
+    margin_label_0_100: 'Margin 0 → 100', margin_sub_0_100: 'Max. to spend leveling to lv 100',
+    level_current: 'Current level of your pet', level_price_current: 'Pet price (current level)', level_price_100: 'Pet price at level 100',
+    level_summary_hint: 'Enter values to see the summary.',
+    step2_title: 'Progress & profitability in real time',
+    xp_accumulated: 'Accumulated XP', budget_used: 'Budget used',
+    metric_xp: 'Total XP', metric_kamas: 'Kamas spent', metric_margin: 'Remaining margin', metric_profit: 'Estimated profit',
+    verdict_hint: 'Select a margin and add resources to activate the analysis.',
+    step3_title: 'Marketplace resources',
+    step3_desc: 'Enter the <strong>marketplace price</strong> and <strong>quantity</strong>. The <strong>Ideal Price</strong> is the maximum you should pay for the operation to be profitable within the chosen margin.',
+    sort_all: 'All', sort_xp_desc: 'XP high → low', xp_min_label: 'Min XP:',
+    search_ph: 'Search resource...',
+    th_resource: 'Resource', th_xp_u: 'XP/u', th_ideal: 'Ideal price ★', th_real: 'Real price', th_units: 'Units', th_rent: 'Profitability', th_add: 'Add',
+    ideal_footnote: '★ <strong>Ideal price</strong> = (Chosen margin ÷ Total XP of range) × Resource XP. If you pay less than the ideal price, the resource is profitable for your goal.',
+    step4_title: 'Resources you\'re using', btn_clear: 'Clear all',
+    log_empty1: 'No resources added yet.',
+    log_empty2: 'Enter price and units in the table above and click <strong style="color:var(--gold-text);">+ Add</strong>',
+    th_price_paid: 'Price paid', th_qty: 'Quantity', log_total: 'Total spent:', btn_copy: 'Copy summary',
+    guides_page_sub: 'Everything about pets and petsmounts in Dofus: how to get them, their bonuses, and how to feed them.',
+    guides_how_title: 'How do pets work?',
+    guides_no_hp: '<strong>No hit points.</strong> Since update 2.48, pets no longer have HP and cannot die. Resurrection powders were removed.',
+    guides_100_levels: '<strong>100 levels.</strong> Each pet has 100 levels. At level 1 it gives 10% of its maximum bonuses.',
+    guides_no_time: '<strong>No time limit.</strong> You can feed your pet with any in-game resource, with no restriction between feedings.',
+    guides_rare_xp: '<strong>Rare resources = more XP.</strong> The rarer a resource (lower drop rate), the more XP it gives. A boss resource gives more XP than a regular monster drop.',
+    guides_rounding: '<strong>Round down.</strong> XP values are decimal and rounded down. It\'s better to give resources in large batches (100 at a time) to minimize losses.',
+    guides_cookie: '<strong>Enriched Biscuit.</strong> Exactly 500 XP. You need 360 to level from 0 to 100. Available at the Kolossium [-13,-29] or Alliance Temple [13,35] for 500 Kolizeus each.',
+    guides_craft_title: '💡 Tip about crafts',
+    guides_craft_text: 'Some resources are crafted (idols, dungeon essences). <strong>It\'s not always profitable to use the craft</strong> instead of individual ingredients. Example: 1 Captain Ecarlatte Essence gives 135 XP, but its 10 Heart ingredients give 90 XP → better to use the craft. However, 1 Nekineko idol gives 392 XP vs 1,567 XP from its ingredients → don\'t bother crafting.',
+    guides_xp_title: 'XP required per level', guides_xp_sub: 'XP required per level. Source: DofusPourLesNoobs / in-game data.',
+    guides_keys_title: 'Keys to using this tool well',
+    guides_key1_title: 'Know your server\'s typical margin.',
+    guides_key1_text: 'The most important data to track are the usual 0→100, 0→80, and 80→100 margins on your server. These vary significantly between mono-account and multi-account servers — mono servers tend to have wider margins. Take time to observe them before investing.',
+    guides_key2_title: 'The Enriched Biscuit: the big variable.',
+    guides_key2_text: 'On most servers it\'s <em>not</em> profitable to use it directly as a leveling resource, but on some it is — due to Kolizeus depreciation, market inflation, or other factors. Always check its ideal price before ruling it out or going all-in.',
+    guides_key3_title: 'Sharing this tool is good for the ecosystem.',
+    guides_key3_text: 'It might seem counterproductive to share "the secret," but more players leveling pets means more resource consumption, which eventually raises in-game drop prices and makes your farming more valuable. More demand = better prices for everyone.',
+    guides_key3_note: '— At least that\'s my view. Share it with your guild and friends in the World of Twelve! 🐾',
+    guide_mascota: 'Pet', guide_mascotura: 'Petsmount',
+    guide_method: 'How to obtain:', guide_method_soon: 'Coming soon…', guide_no_results: 'No results',
+    xp_table_lv: 'Lv.', xp_table_total: 'Total XP', xp_table_next: '+Next',
+    compare_page_sub: 'Compare margins of two pets side by side.',
+    cmp_pet_a: 'Pet A', cmp_pet_b: 'Pet B',
+    cmp_price_lv1: 'Level 1 price:', cmp_price_lv80: 'Level 80 price:', cmp_price_lv100: 'Level 100 price:',
+    cmp_enter_prices: 'Enter prices to calculate.',
+    cmp_lv_0_100: 'Lv 1 → 100', cmp_lv_0_80: 'Lv 1 → 80', cmp_lv_80_100: 'Lv 80 → 100',
+    cmp_same_margin: 'Both pets have the same margin (0→100).',
+    cmp_winner: '{name} has a higher margin (0→100) by {diff}.',
+    btn_login: 'Log in', btn_register: 'Sign up',
+    plan_free: 'Free account', dd_my_profile: 'My Profile', dd_my_history: 'My history', dd_compare_pets: 'Compare pets', btn_logout: 'Log out',
+    toast_google_ok: '✓ Signed in with Google.', toast_account_created: '✓ Account created. Check your email to verify it.', toast_logout: 'Signed out.',
+    err_fill_all: 'Please fill in all fields.', err_pass_length: 'Password must be at least 6 characters.',
+    err_email_first: 'Enter your email address above and try again.', err_no_account: 'No account found with that email.',
+    err_fill_both: 'Fill in both fields.', err_passwords_mismatch: 'Passwords do not match.', err_min_6: 'Minimum 6 characters.',
+    prof_relogin: 'For security, sign out, sign back in, and try again.',
+    toast_pass_updated: '✓ Password updated successfully.', toast_email_updated: '✓ Email updated. Check your inbox to verify it.',
+    toast_reset_sent: '📧 Email sent to {email}. Check your inbox (and spam folder).',
+    prof_notes_soon: 'Coming soon: personal notes per pet/resource.',
+    fb_email_in_use: 'This email already has an account. Log in.', fb_invalid_email: 'Invalid email address.',
+    fb_weak_password: 'Password too weak. Minimum 6 characters.', fb_user_not_found: 'No account with that email.',
+    fb_wrong_password: 'Incorrect password.', fb_invalid_cred: 'Incorrect email or password.',
+    fb_too_many: 'Too many attempts. Wait a few minutes.', fb_popup_closed: 'Google window closed. Try again.',
+    fb_network: 'No connection. Check your internet.',
+    admin_loading_users: 'Loading users…', admin_no_users: 'No registered users.',
+    admin_loading_tickets: 'Loading tickets…', admin_no_tickets: 'No tickets yet.',
+    admin_loading_reqs: 'Loading requests…', admin_no_reqs: 'No pending requests.',
+    admin_no_results: 'No results.', admin_n_users: '{n} registered users',
+    admin_search_ph: 'Search user / message…', admin_server_ph: 'Server…',
+    admin_type_all: 'Type: all',
+    admin_th_name: 'Name', admin_th_email: 'Email', admin_th_plan: 'Plan', admin_th_reg: 'Registered', admin_th_action: 'Action',
+    admin_th_date: 'Date', admin_th_user: 'User', admin_th_type: 'Type', admin_th_msg: 'Message', admin_th_server: 'Server',
+    admin_th_kofi: 'Ko-fi', admin_btn_remove: 'Remove', admin_btn_activate: 'Activate',
+    hist_loading: 'Loading history…', hist_empty: 'No entries yet. Resources you add to your log will be saved here.',
+    th_pet: 'Pet', th_price: 'Price', th_server: 'Server', th_date: 'Date',
+    footer_main: '<strong>Dofus</strong> is an MMORPG published by <a href="https://www.ankama.com" target="_blank" rel="noopener">Ankama</a>. <strong>"DofusPet"</strong> is an unofficial website and is not affiliated with or endorsed by Ankama. Some illustrations and content are the property of Ankama and Dofus. All rights reserved.',
+    footer_copy: 'DofusPet © 2026 — Free tool for the Dofus community. No affiliation with Ankama.',
     bug_modal_title: 'Report a Bug', bug_modal_sub: 'Found an error? Tell us and we\'ll fix it.',
     bug_type_label: 'Bug type', bug_name_label: 'Your name', bug_email_label: 'Email',
     bug_desc_label: 'Description', bug_captcha_label: 'Quick check:',
@@ -4112,11 +4281,90 @@ const TRANSLATIONS = {
   },
   fr: {
     nav_calc: 'Calculatrice', nav_guides: 'Guides', nav_compare: 'Comparer',
-    dark_mode: 'Sombre', lang_label: 'LANGUE', bug_report: 'Bug',
+    dark_mode: 'Sombre', dark_mode_light: 'Clair', lang_label: 'LANGUE', bug_report: 'Bug',
     mode_buy_title: 'Acheter une familière (Nv. 1 → 100)',
     mode_buy_sub: 'Entre le prix au nv. 1 et nv. 100 → vérifie si les ressources coûtent moins que la marge bénéficiaire',
     mode_level_title: 'Ma familière a déjà un niveau (Nv. X → 100)',
     mode_level_sub: 'Entre le niveau actuel et le prix de vente au nv. 100 → calcule le coût restant pour la compléter',
+    calc_page_sub: 'Monter cette familière est-il rentable ? Découvrez-le en quelques secondes.',
+    step1_title: 'Entrez les prix du Marché aux Trésors',
+    label_p1: 'Prix niveau 1 (Marché aux Trésors)', label_p80: 'Prix niveau 80 (Marché aux Trésors)', label_p100: 'Prix niveau 100 (Marché aux Trésors)',
+    margin_label_0_80: 'Marge 0 → 80', margin_sub_0_80: 'Max. à dépenser pour monter au nv 80',
+    margin_label_80_100: 'Marge 80 → 100', margin_sub_80_100: 'Max. à dépenser du nv 80 au 100',
+    margin_label_0_100: 'Marge 0 → 100', margin_sub_0_100: 'Max. à dépenser pour monter au nv 100',
+    level_current: 'Niveau actuel de ta familière', level_price_current: 'Prix familière (niveau actuel)', level_price_100: 'Prix familière niveau 100',
+    level_summary_hint: 'Entre les valeurs pour voir le résumé.',
+    step2_title: 'Progression et rentabilité en temps réel',
+    xp_accumulated: 'XP accumulée', budget_used: 'Budget utilisé',
+    metric_xp: 'XP totale', metric_kamas: 'Kamas dépensés', metric_margin: 'Marge restante', metric_profit: 'Bénéfice estimé',
+    verdict_hint: 'Sélectionne une marge et ajoute des ressources pour activer l\'analyse.',
+    step3_title: 'Ressources du Marché aux Trésors',
+    step3_desc: 'Entre le <strong>prix du Marché aux Trésors</strong> et la <strong>quantité</strong>. Le <strong>Prix Idéal</strong> est le maximum à payer pour que l\'opération soit rentable dans la marge choisie.',
+    sort_all: 'Tous', sort_xp_desc: 'XP décroissant', xp_min_label: 'XP min :',
+    search_ph: 'Chercher une ressource...',
+    th_resource: 'Ressource', th_xp_u: 'XP/u', th_ideal: 'Prix idéal ★', th_real: 'Prix réel', th_units: 'Unités', th_rent: 'Rentabilité', th_add: 'Ajouter',
+    ideal_footnote: '★ <strong>Prix idéal</strong> = (Marge choisie ÷ XP totale du tranche) × XP de la ressource. Si tu paies moins que le prix idéal, la ressource est rentable pour ton objectif.',
+    step4_title: 'Ressources que tu utilises', btn_clear: 'Tout effacer',
+    log_empty1: 'Aucune ressource ajoutée.',
+    log_empty2: 'Entre le prix et les unités dans le tableau ci-dessus et clique sur <strong style="color:var(--gold-text);">+ Ajouter</strong>',
+    th_price_paid: 'Prix payé', th_qty: 'Quantité', log_total: 'Total dépensé :', btn_copy: 'Copier le résumé',
+    guides_page_sub: 'Tout sur les familières et familiroïdes dans Dofus : comment les obtenir, leurs bonus et comment les nourrir.',
+    guides_how_title: 'Comment fonctionnent les familières ?',
+    guides_no_hp: '<strong>Sans points de vie.</strong> Depuis la mise à jour 2.48, les familières n\'ont plus de PDV et ne peuvent pas mourir. Les poudres de résurrection ont été supprimées.',
+    guides_100_levels: '<strong>100 niveaux.</strong> Chaque familière a 100 niveaux. Au niveau 1, elle donne 10 % de ses bonus maximaux.',
+    guides_no_time: '<strong>Sans limite de temps.</strong> Tu peux nourrir ta familière avec n\'importe quelle ressource du jeu, sans restriction de temps entre les repas.',
+    guides_rare_xp: '<strong>Ressources rares = plus d\'XP.</strong> Plus une ressource est rare (faible taux de drop), plus elle donne d\'expérience. Une ressource de boss donnera plus d\'XP qu\'un drop de monstre normal.',
+    guides_rounding: '<strong>Arrondi à l\'inférieur.</strong> Les valeurs d\'XP sont décimales et arrondies à l\'inférieur. Il vaut mieux donner les ressources en grandes quantités (100 à la fois) pour minimiser les pertes.',
+    guides_cookie: '<strong>Biscuit Enrichi.</strong> Exactement 500 XP. Il faut 360 pour monter du nv 0 au 100. S\'achète au Kolizéum [-13,-29] ou au Temple des Alliances [13,35] pour 500 Kolizétons chacun.',
+    guides_craft_title: '💡 Conseil sur les crafts',
+    guides_craft_text: 'Certaines ressources sont craftées (idoles, essences de donjons). <strong>Il n\'est pas toujours rentable de donner le craft</strong> plutôt que les ingrédients individuels. Exemple : 1 Essence du Capitaine Ekarlatte donne 135 XP, mais ses 10 Cœurs d\'ingrédients donnent 90 XP → le craft est préférable. En revanche, 1 idole Nekkineko donne 392 XP vs 1 567 XP de ses ingrédients → ne pas crafter.',
+    guides_xp_title: 'XP requise par niveau', guides_xp_sub: 'XP requise par niveau. Source : DofusPourLesNoobs / données du jeu.',
+    guides_keys_title: 'Clés pour bien utiliser l\'outil',
+    guides_key1_title: 'Connais la marge typique de ton serveur.',
+    guides_key1_text: 'La donnée la plus importante à suivre sont les marges habituelles 0→100, 0→80 et 80→100 sur ton serveur. Elles varient beaucoup selon que c\'est un serveur monocompte ou multicompte — les serveurs mono ont généralement des marges plus larges. Prends le temps de les observer avant d\'investir.',
+    guides_key2_title: 'Le Biscuit Enrichi : la grande variable.',
+    guides_key2_text: 'Sur la plupart des serveurs, il n\'est <em>pas</em> rentable de l\'utiliser directement comme ressource de montée, mais sur certains oui — en raison de la dépréciation des Kolizétons, de l\'inflation du marché ou d\'autres facteurs. Vérifie toujours son prix idéal avant de l\'écarter ou de tout miser dessus.',
+    guides_key3_title: 'Partager cet outil est bon pour l\'écosystème.',
+    guides_key3_text: 'Cela peut sembler contre-productif de partager « le secret », mais plus de joueurs montant des familières signifie plus de consommation de ressources, ce qui finit par augmenter les prix des drops in-game et valorise mieux ce que tu farmes. Plus de demande = de meilleurs prix pour tous.',
+    guides_key3_note: '— C\'est du moins ma vision. Partage avec ta guilde et tes amis du Monde des Douze ! 🐾',
+    guide_mascota: 'Familière', guide_mascotura: 'Familiroïde',
+    guide_method: 'Comment l\'obtenir :', guide_method_soon: 'Prochainement…', guide_no_results: 'Aucun résultat',
+    xp_table_lv: 'Nv.', xp_table_total: 'XP Total', xp_table_next: '+Suivant',
+    compare_page_sub: 'Compare les marges de deux familières côte à côte.',
+    cmp_pet_a: 'Familière A', cmp_pet_b: 'Familière B',
+    cmp_price_lv1: 'Prix Niveau 1 :', cmp_price_lv80: 'Prix Niveau 80 :', cmp_price_lv100: 'Prix Niveau 100 :',
+    cmp_enter_prices: 'Entre les prix pour calculer.',
+    cmp_lv_0_100: 'Nv 1 → 100', cmp_lv_0_80: 'Nv 1 → 80', cmp_lv_80_100: 'Nv 80 → 100',
+    cmp_same_margin: 'Les deux familières ont la même marge (0→100).',
+    cmp_winner: '{name} a une marge plus élevée (0→100) de {diff}.',
+    btn_login: 'Se connecter', btn_register: 'S\'inscrire',
+    plan_free: 'Compte gratuit', dd_my_profile: 'Mon Profil', dd_my_history: 'Mon historique', dd_compare_pets: 'Comparer les familières', btn_logout: 'Se déconnecter',
+    toast_google_ok: '✓ Connecté avec Google.', toast_account_created: '✓ Compte créé. Vérifie ton email pour le valider.', toast_logout: 'Déconnecté.',
+    err_fill_all: 'Remplis tous les champs.', err_pass_length: 'Le mot de passe doit avoir au moins 6 caractères.',
+    err_email_first: 'Entre ton adresse e-mail ci-dessus et réessaie.', err_no_account: 'Aucun compte avec cet e-mail.',
+    err_fill_both: 'Remplis les deux champs.', err_passwords_mismatch: 'Les mots de passe ne correspondent pas.', err_min_6: 'Minimum 6 caractères.',
+    prof_relogin: 'Par sécurité, déconnecte-toi, reconnecte-toi et réessaie.',
+    toast_pass_updated: '✓ Mot de passe mis à jour.', toast_email_updated: '✓ E-mail mis à jour. Vérifie ta boîte de réception.',
+    toast_reset_sent: '📧 E-mail envoyé à {email}. Vérifie ta boîte (et les spams).',
+    prof_notes_soon: 'Prochainement : notes personnelles par familière/ressource.',
+    fb_email_in_use: 'Cet e-mail a déjà un compte. Connecte-toi.', fb_invalid_email: 'Adresse e-mail invalide.',
+    fb_weak_password: 'Mot de passe trop faible. Minimum 6 caractères.', fb_user_not_found: 'Aucun compte avec cet e-mail.',
+    fb_wrong_password: 'Mot de passe incorrect.', fb_invalid_cred: 'E-mail ou mot de passe incorrect.',
+    fb_too_many: 'Trop de tentatives. Attends quelques minutes.', fb_popup_closed: 'Fenêtre Google fermée. Réessaie.',
+    fb_network: 'Pas de connexion. Vérifie ton internet.',
+    admin_loading_users: 'Chargement des utilisateurs…', admin_no_users: 'Aucun utilisateur enregistré.',
+    admin_loading_tickets: 'Chargement des tickets…', admin_no_tickets: 'Aucun ticket pour l\'instant.',
+    admin_loading_reqs: 'Chargement des demandes…', admin_no_reqs: 'Aucune demande en attente.',
+    admin_no_results: 'Aucun résultat.', admin_n_users: '{n} utilisateurs enregistrés',
+    admin_search_ph: 'Chercher utilisateur / message…', admin_server_ph: 'Serveur…',
+    admin_type_all: 'Type : tous',
+    admin_th_name: 'Nom', admin_th_email: 'E-mail', admin_th_plan: 'Plan', admin_th_reg: 'Inscription', admin_th_action: 'Action',
+    admin_th_date: 'Date', admin_th_user: 'Utilisateur', admin_th_type: 'Type', admin_th_msg: 'Message', admin_th_server: 'Serveur',
+    admin_th_kofi: 'Ko-fi', admin_btn_remove: 'Retirer', admin_btn_activate: 'Activer',
+    hist_loading: 'Chargement de l\'historique…', hist_empty: 'Aucune entrée pour l\'instant. Les ressources ajoutées à ton log seront enregistrées ici.',
+    th_pet: 'Familière', th_price: 'Prix', th_server: 'Serveur', th_date: 'Date',
+    footer_main: '<strong>Dofus</strong> est un MMORPG publié par <a href="https://www.ankama.com" target="_blank" rel="noopener">Ankama</a>. <strong>« DofusPet »</strong> est un site web non officiel et n\'est pas affilié ni associé à Ankama. Certaines illustrations et contenus sont la propriété d\'Ankama et de Dofus. Tous droits réservés.',
+    footer_copy: 'DofusPet © 2026 — Outil gratuit pour la communauté Dofus. Aucune affiliation avec Ankama.',
     bug_modal_title: 'Signaler un Bug', bug_modal_sub: 'Trouvé une erreur ? Dis-nous et on la corrige.',
     bug_type_label: 'Type de bug', bug_name_label: 'Ton nom', bug_email_label: 'Email',
     bug_desc_label: 'Description', bug_captcha_label: 'Vérification rapide :',
@@ -4128,11 +4376,90 @@ const TRANSLATIONS = {
   },
   br: {
     nav_calc: 'Calculadora', nav_guides: 'Guias', nav_compare: 'Comparar',
-    dark_mode: 'Escuro', lang_label: 'IDIOMA', bug_report: 'Bug',
-    mode_buy_title: 'Comprar uma familière (Nv. 1 → 100)',
+    dark_mode: 'Escuro', dark_mode_light: 'Claro', lang_label: 'IDIOMA', bug_report: 'Bug',
+    mode_buy_title: 'Comprar um familiar (Nv. 1 → 100)',
     mode_buy_sub: 'Insira o preço no nv. 1 e nv. 100 → verifique se os recursos custam menos do que a margem de lucro',
-    mode_level_title: 'Minha familière já tem nível (Nv. X → 100)',
-    mode_level_sub: 'Insira o nível atual e o preço de venda no nv. 100 → calcula o custo restante para completá-la',
+    mode_level_title: 'Meu familiar já tem nível (Nv. X → 100)',
+    mode_level_sub: 'Insira o nível atual e o preço de venda no nv. 100 → calcula o custo restante para completá-lo',
+    calc_page_sub: 'Vale a pena evoluir este familiar? Descubra em segundos.',
+    step1_title: 'Insira os preços do mercadinho',
+    label_p1: 'Preço nível 1 (mercadinho)', label_p80: 'Preço nível 80 (mercadinho)', label_p100: 'Preço nível 100 (mercadinho)',
+    margin_label_0_80: 'Margem 0 → 80', margin_sub_0_80: 'Máx. a gastar para subir ao nv 80',
+    margin_label_80_100: 'Margem 80 → 100', margin_sub_80_100: 'Máx. a gastar do nv 80 ao 100',
+    margin_label_0_100: 'Margem 0 → 100', margin_sub_0_100: 'Máx. a gastar para subir ao nv 100',
+    level_current: 'Nível atual do seu familiar', level_price_current: 'Preço do familiar (nível atual)', level_price_100: 'Preço do familiar nível 100',
+    level_summary_hint: 'Insira os valores para ver o resumo.',
+    step2_title: 'Progresso e rentabilidade em tempo real',
+    xp_accumulated: 'XP acumulado', budget_used: 'Orçamento utilizado',
+    metric_xp: 'XP total', metric_kamas: 'Kamas gastos', metric_margin: 'Margem restante', metric_profit: 'Lucro estimado',
+    verdict_hint: 'Selecione uma margem e adicione recursos para ativar a análise.',
+    step3_title: 'Recursos do mercadinho',
+    step3_desc: 'Insira o <strong>preço do mercadinho</strong> e a <strong>quantidade</strong>. O <strong>Preço Ideal</strong> é o máximo que você deve pagar para que a operação seja lucrativa dentro da margem escolhida.',
+    sort_all: 'Todos', sort_xp_desc: 'XP maior → menor', xp_min_label: 'XP mín.:',
+    search_ph: 'Buscar recurso...',
+    th_resource: 'Recurso', th_xp_u: 'XP/u', th_ideal: 'Preço ideal ★', th_real: 'Preço real', th_units: 'Unidades', th_rent: 'Rentabilidade', th_add: 'Adicionar',
+    ideal_footnote: '★ <strong>Preço ideal</strong> = (Margem escolhida ÷ XP total do trecho) × XP do recurso. Se pagar menos que o preço ideal, o recurso é lucrativo para seu objetivo.',
+    step4_title: 'Recursos que você está usando', btn_clear: 'Limpar tudo',
+    log_empty1: 'Nenhum recurso adicionado ainda.',
+    log_empty2: 'Insira preço e unidades na tabela acima e clique em <strong style="color:var(--gold-text);">+ Adicionar</strong>',
+    th_price_paid: 'Preço pago', th_qty: 'Quantidade', log_total: 'Total gasto:', btn_copy: 'Copiar resumo',
+    guides_page_sub: 'Tudo sobre familiares e familiroïdes no Dofus: como obtê-los, seus bônus e como alimentá-los.',
+    guides_how_title: 'Como funcionam os familiares?',
+    guides_no_hp: '<strong>Sem pontos de vida.</strong> Desde a atualização 2.48, os familiares não têm mais PV e não podem morrer. Os pós de ressurreição foram removidos.',
+    guides_100_levels: '<strong>100 níveis.</strong> Cada familiar tem 100 níveis. No nível 1, ele dá 10% de seus bônus máximos.',
+    guides_no_time: '<strong>Sem limite de tempo.</strong> Você pode alimentar seu familiar com qualquer recurso do jogo, sem restrição de tempo entre as refeições.',
+    guides_rare_xp: '<strong>Recursos raros = mais XP.</strong> Quanto mais raro o recurso (menor taxa de drop), mais experiência ele dará. Um recurso de boss dará mais XP do que um drop de monstro normal.',
+    guides_rounding: '<strong>Arredondamento para baixo.</strong> Os valores de XP são decimais e arredondados para baixo. É melhor dar os recursos em grandes quantidades (100 de uma vez) para minimizar perdas.',
+    guides_cookie: '<strong>Biscoito Enriquecido.</strong> Exatamente 500 XP. São necessários 360 para subir do nv 0 ao 100. Disponível no Koliseu [-13,-29] ou Templo das Alianças [13,35] por 500 Moedas Koli cada.',
+    guides_craft_title: '💡 Dica sobre crafts',
+    guides_craft_text: 'Alguns recursos são craftados (ídolos, essências de masmorras). <strong>Nem sempre é lucrativo usar o craft</strong> em vez dos ingredientes individuais. Exemplo: 1 Essência do Capitão Ekarlate dá 135 XP, mas seus 10 Corações de ingredientes dão 90 XP → vale usar o craft. Já 1 ídolo Nekineko dá 392 XP vs 1.567 XP de seus ingredientes → não vale craftar.',
+    guides_xp_title: 'XP necessária por nível', guides_xp_sub: 'XP necessária por nível. Fonte: DofusPourLesNoobs / dados do jogo.',
+    guides_keys_title: 'Chaves para usar bem a ferramenta',
+    guides_key1_title: 'Conheça a margem típica do seu servidor.',
+    guides_key1_text: 'O dado mais importante a acompanhar são as margens habituais 0→100, 0→80 e 80→100 no seu servidor. Elas variam bastante entre servidores monoconta e multiconta — servidores mono tendem a ter margens mais amplas. Reserve um tempo para observá-las antes de investir.',
+    guides_key2_title: 'O Biscoito Enriquecido: a grande variável.',
+    guides_key2_text: 'Na maioria dos servidores, <em>não</em> é lucrativo usá-lo diretamente como recurso de evolução, mas em alguns sim — por depreciação das Moedas Koli, inflação do mercado ou outros fatores. Sempre verifique seu preço ideal antes de descartá-lo ou apostar tudo nele.',
+    guides_key3_title: 'Compartilhar esta ferramenta é bom para o ecossistema.',
+    guides_key3_text: 'Pode parecer contraproducente compartilhar "o segredo", mas mais jogadores evoluindo familiares significa mais consumo de recursos, o que eventualmente aumenta os preços de drops in-game e valoriza mais o que você farma. Mais demanda = melhores preços para todos.',
+    guides_key3_note: '— Pelo menos essa é minha visão. Compartilhe com sua guilda e amigos no Mundo dos Doze! 🐾',
+    guide_mascota: 'Familiar', guide_mascotura: 'Familiroïde',
+    guide_method: 'Como obter:', guide_method_soon: 'Em breve…', guide_no_results: 'Sem resultados',
+    xp_table_lv: 'Nv.', xp_table_total: 'XP Total', xp_table_next: '+Próximo',
+    compare_page_sub: 'Compare as margens de dois familiares lado a lado.',
+    cmp_pet_a: 'Familiar A', cmp_pet_b: 'Familiar B',
+    cmp_price_lv1: 'Preço Nível 1:', cmp_price_lv80: 'Preço Nível 80:', cmp_price_lv100: 'Preço Nível 100:',
+    cmp_enter_prices: 'Insira os preços para calcular.',
+    cmp_lv_0_100: 'Nv 1 → 100', cmp_lv_0_80: 'Nv 1 → 80', cmp_lv_80_100: 'Nv 80 → 100',
+    cmp_same_margin: 'Os dois familiares têm a mesma margem (0→100).',
+    cmp_winner: '{name} tem margem maior (0→100) por {diff}.',
+    btn_login: 'Entrar', btn_register: 'Cadastrar-se',
+    plan_free: 'Conta gratuita', dd_my_profile: 'Meu Perfil', dd_my_history: 'Meu histórico', dd_compare_pets: 'Comparar familiares', btn_logout: 'Sair',
+    toast_google_ok: '✓ Conectado com Google.', toast_account_created: '✓ Conta criada. Verifique seu e-mail para validá-la.', toast_logout: 'Sessão encerrada.',
+    err_fill_all: 'Preencha todos os campos.', err_pass_length: 'A senha deve ter no mínimo 6 caracteres.',
+    err_email_first: 'Insira seu endereço de e-mail acima e tente novamente.', err_no_account: 'Nenhuma conta com esse e-mail.',
+    err_fill_both: 'Preencha os dois campos.', err_passwords_mismatch: 'As senhas não coincidem.', err_min_6: 'Mínimo 6 caracteres.',
+    prof_relogin: 'Por segurança, saia, faça login novamente e tente de novo.',
+    toast_pass_updated: '✓ Senha atualizada com sucesso.', toast_email_updated: '✓ E-mail atualizado. Verifique sua caixa de entrada.',
+    toast_reset_sent: '📧 E-mail enviado a {email}. Verifique sua caixa (e a pasta de spam).',
+    prof_notes_soon: 'Em breve: notas pessoais por familiar/recurso.',
+    fb_email_in_use: 'Este e-mail já tem uma conta. Faça login.', fb_invalid_email: 'Endereço de e-mail inválido.',
+    fb_weak_password: 'Senha muito fraca. Mínimo 6 caracteres.', fb_user_not_found: 'Nenhuma conta com esse e-mail.',
+    fb_wrong_password: 'Senha incorreta.', fb_invalid_cred: 'E-mail ou senha incorretos.',
+    fb_too_many: 'Muitas tentativas. Aguarde alguns minutos.', fb_popup_closed: 'Janela do Google fechada. Tente novamente.',
+    fb_network: 'Sem conexão. Verifique sua internet.',
+    admin_loading_users: 'Carregando usuários…', admin_no_users: 'Sem usuários registrados.',
+    admin_loading_tickets: 'Carregando tickets…', admin_no_tickets: 'Sem tickets ainda.',
+    admin_loading_reqs: 'Carregando solicitações…', admin_no_reqs: 'Sem solicitações pendentes.',
+    admin_no_results: 'Sem resultados.', admin_n_users: '{n} usuários registrados',
+    admin_search_ph: 'Buscar usuário / mensagem…', admin_server_ph: 'Servidor…',
+    admin_type_all: 'Tipo: todos',
+    admin_th_name: 'Nome', admin_th_email: 'E-mail', admin_th_plan: 'Plano', admin_th_reg: 'Cadastro', admin_th_action: 'Ação',
+    admin_th_date: 'Data', admin_th_user: 'Usuário', admin_th_type: 'Tipo', admin_th_msg: 'Mensagem', admin_th_server: 'Servidor',
+    admin_th_kofi: 'Ko-fi', admin_btn_remove: 'Remover', admin_btn_activate: 'Ativar',
+    hist_loading: 'Carregando histórico…', hist_empty: 'Sem entradas ainda. Os recursos que você adicionar ao seu log serão salvos aqui.',
+    th_pet: 'Familiar', th_price: 'Preço', th_server: 'Servidor', th_date: 'Data',
+    footer_main: '<strong>Dofus</strong> é um MMORPG publicado pela <a href="https://www.ankama.com" target="_blank" rel="noopener">Ankama</a>. <strong>"DofusPet"</strong> é um site não oficial e não tem afiliação ou associação com a Ankama. Algumas ilustrações e conteúdos são propriedade da Ankama e do Dofus. Todos os direitos reservados.',
+    footer_copy: 'DofusPet © 2026 — Ferramenta gratuita para a comunidade do Dofus. Sem afiliação com a Ankama.',
     bug_modal_title: 'Reportar um Bug', bug_modal_sub: 'Encontrou um erro? Nos conte e vamos corrigir.',
     bug_type_label: 'Tipo de bug', bug_name_label: 'Seu nome', bug_email_label: 'E-mail',
     bug_desc_label: 'Descrição', bug_captcha_label: 'Verificação rápida:',
@@ -4155,11 +4482,26 @@ function setLang(lang, btn) {
   applyTranslations();
 }
 
+function t(key, vars) {
+  const T = TRANSLATIONS[_currentLang] || TRANSLATIONS.es;
+  let s = T[key] !== undefined ? T[key] : (TRANSLATIONS.es[key] || key);
+  if (vars) Object.keys(vars).forEach(k => { s = s.replace('{' + k + '}', vars[k]); });
+  return s;
+}
+
 function applyTranslations() {
   const T = TRANSLATIONS[_currentLang] || TRANSLATIONS.es;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (T[key] !== undefined) el.textContent = T[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (T[key] !== undefined) el.innerHTML = T[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (T[key] !== undefined) el.placeholder = T[key];
   });
   // Nav links
   const navMap = { calc: 'nav_calc', guides: 'nav_guides', compare: 'nav_compare' };
@@ -4336,14 +4678,14 @@ function setCalcMode(mode) {
     if (step1Card)  step1Card.style.display  = '';
     if (levelCard)  levelCard.style.display  = 'none';
     if (diffRow)    diffRow.style.display    = '';
-    document.getElementById('step1Title').textContent = 'Ingresa precios del mercadillo';
+    document.getElementById('step1Title').textContent = t('step1_title');
     // Restaurar modo normal
     updateDiffs();
   } else {
     if (step1Card)  step1Card.style.display  = 'none';
     if (levelCard)  levelCard.style.display  = '';
     if (diffRow)    diffRow.style.display    = 'none';
-    document.getElementById('step1Title').textContent = 'Ingresa precios del mercadillo';
+    document.getElementById('step1Title').textContent = t('step1_title');
     onLevelModeChange();
   }
 }
@@ -4396,7 +4738,7 @@ function onLevelModeChange() {
       </div>` : '');
   } else {
     if (hint) hint.textContent = '';
-    summary.innerHTML = '<div style="color:var(--text3);font-size:12px;">Ingresa los valores para ver el resumen.</div>';
+    summary.innerHTML = '<div style="color:var(--text3);font-size:12px;" data-i18n="level_summary_hint">Ingresa los valores para ver el resumen.</div>';
   }
 
   clearTimeout(_debounceProgress); _debounceProgress = setTimeout(updateProgress, 180);
@@ -4977,17 +5319,17 @@ function renderGuideList() {
             background:${p.tipo==='mascotura'?'var(--blue-bg)':'var(--green-bg)'};
             color:${p.tipo==='mascotura'?'var(--blue)':'var(--green)'};
             border:1px solid ${p.tipo==='mascotura'?'#90b8e8':'#90d0a8'};">
-            ${p.tipo==='mascotura'?'Mascotura':'Mascota'}
+            ${p.tipo==='mascotura'?t('guide_mascotura'):t('guide_mascota')}
           </span>
         </div>
         <div style="margin-bottom:6px;">${efectosHtml}</div>
         <div style="font-size:12px;color:var(--text3);">
-          <strong style="color:var(--text2);">Método de obtención:</strong>
-          <span style="font-style:italic;">Próximamente…</span>
+          <strong style="color:var(--text2);">${t('guide_method')}</strong>
+          <span style="font-style:italic;">${t('guide_method_soon')}</span>
         </div>
       </div>
     </div>`;
-  }).join('') || '<div style="text-align:center;color:var(--text3);padding:32px;">Sin resultados</div>';
+  }).join('') || `<div style="text-align:center;color:var(--text3);padding:32px;">${t('guide_no_results')}</div>`;
 }
 
 function renderXPTable() {
@@ -4996,13 +5338,13 @@ function renderXPTable() {
   if (!tbody || !thead) return;
 
   thead.innerHTML = `
-    <th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--text3);font-weight:600;border-bottom:1px solid var(--border);">Nv.</th>
-    <th style="padding:6px 10px;text-align:right;font-size:11px;color:var(--gold-text);font-weight:600;border-bottom:1px solid var(--border);" title="XP total acumulado para estar en este nivel">XP Total</th>
-    <th style="padding:6px 10px;text-align:right;font-size:11px;color:var(--text3);font-weight:600;border-bottom:1px solid var(--border);" title="XP necesario para pasar al siguiente nivel">+Siguiente</th>
+    <th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--text3);font-weight:600;border-bottom:1px solid var(--border);">${t('xp_table_lv')}</th>
+    <th style="padding:6px 10px;text-align:right;font-size:11px;color:var(--gold-text);font-weight:600;border-bottom:1px solid var(--border);" title="XP total acumulado para estar en este nivel">${t('xp_table_total')}</th>
+    <th style="padding:6px 10px;text-align:right;font-size:11px;color:var(--text3);font-weight:600;border-bottom:1px solid var(--border);" title="XP necesario para pasar al siguiente nivel">${t('xp_table_next')}</th>
     <th style="width:12px;border-bottom:1px solid var(--border);"></th>
-    <th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--text3);font-weight:600;border-bottom:1px solid var(--border);">Nv.</th>
-    <th style="padding:6px 10px;text-align:right;font-size:11px;color:var(--gold-text);font-weight:600;border-bottom:1px solid var(--border);">XP Total</th>
-    <th style="padding:6px 10px;text-align:right;font-size:11px;color:var(--text3);font-weight:600;border-bottom:1px solid var(--border);">+Siguiente</th>`;
+    <th style="padding:6px 10px;text-align:left;font-size:11px;color:var(--text3);font-weight:600;border-bottom:1px solid var(--border);">${t('xp_table_lv')}</th>
+    <th style="padding:6px 10px;text-align:right;font-size:11px;color:var(--gold-text);font-weight:600;border-bottom:1px solid var(--border);">${t('xp_table_total')}</th>
+    <th style="padding:6px 10px;text-align:right;font-size:11px;color:var(--text3);font-weight:600;border-bottom:1px solid var(--border);">${t('xp_table_next')}</th>`;
 
   const rows = [];
   for (let lvl = 1; lvl <= 100; lvl++) {
@@ -5260,13 +5602,13 @@ function applyDarkIfSaved() {
   const t = localStorage.getItem('dofuspets-theme');
   if (t === 'dark') {
     document.documentElement.setAttribute('data-theme', 'dark');
-    const l = document.getElementById('darkLabel'); if (l) l.textContent = 'Claro';
+    const l = document.getElementById('darkLabel'); if (l) l.textContent = (_currentLang ? (TRANSLATIONS[_currentLang]||TRANSLATIONS.es).dark_mode_light : 'Claro');
   }
 }
 
 function resetDarkMode() {
   document.documentElement.removeAttribute('data-theme');
-  const l = document.getElementById('darkLabel'); if (l) l.textContent = 'Oscuro';
+  const l = document.getElementById('darkLabel'); if (l) l.textContent = (_currentLang ? (TRANSLATIONS[_currentLang]||TRANSLATIONS.es).dark_mode : 'Oscuro');
 }
 
 // ── Auth: Google ──────────────────────────────────────────
@@ -5276,7 +5618,7 @@ async function signInWithGoogle() {
     const prov = new firebase.auth.GoogleAuthProvider();
     await _auth.signInWithPopup(prov);
     closeDpModal('authModal');
-    showToast('✓ Sesión iniciada con Google.');
+    showToast(t('toast_google_ok'));
   } catch(e) { showAuthError(fbError(e.code)); }
 }
 
@@ -5285,7 +5627,7 @@ async function signInWithEmail() {
   if (!_fbReady) { alert('Firebase no configurado aún.'); return; }
   const email = document.getElementById('loginEmail')?.value.trim();
   const pass  = document.getElementById('loginPass')?.value;
-  if (!email || !pass) { showAuthError('Completa todos los campos.'); return; }
+  if (!email || !pass) { showAuthError(t('err_fill_all')); return; }
   try {
     await _auth.signInWithEmailAndPassword(email, pass);
     closeDpModal('authModal');
@@ -5298,15 +5640,15 @@ async function registerWithEmail() {
   const name  = document.getElementById('regName')?.value.trim();
   const email = document.getElementById('regEmail')?.value.trim();
   const pass  = document.getElementById('regPass')?.value;
-  if (!name || !email || !pass) { showAuthError('Completa todos los campos.'); return; }
-  if (pass.length < 6) { showAuthError('La contraseña debe tener mínimo 6 caracteres.'); return; }
+  if (!name || !email || !pass) { showAuthError(t('err_fill_all')); return; }
+  if (pass.length < 6) { showAuthError(t('err_pass_length')); return; }
   try {
     const cred = await _auth.createUserWithEmailAndPassword(email, pass);
     await cred.user.updateProfile({ displayName: name });
     // Enviar correo de verificación
     try { await cred.user.sendEmailVerification(); } catch(ve) { console.warn('verif email:', ve); }
     closeDpModal('authModal');
-    showToast('✓ Cuenta creada. Revisa tu correo para verificarlo.', true, 6000);
+    showToast(t('toast_account_created'), true, 6000);
   } catch(e) { showAuthError(fbError(e.code)); }
 }
 
@@ -5314,15 +5656,15 @@ async function registerWithEmail() {
 async function forgotPassword() {
   if (!_fbReady) return;
   const email = document.getElementById('loginEmail')?.value.trim();
-  if (!email) { showAuthError('Ingresa tu correo electrónico arriba y vuelve a intentarlo.'); return; }
+  if (!email) { showAuthError(t('err_email_first')); return; }
   try {
     await _auth.sendPasswordResetEmail(email, {
       url: window.location.origin + window.location.pathname
     });
-    showAuthError('📧 Correo enviado a ' + email + '. Revisa tu bandeja (y la carpeta de spam).', true);
+    showAuthError(t('toast_reset_sent').replace('{email}', email), true);
   } catch(e) {
     const msg = e.code === 'auth/user-not-found'
-      ? 'No existe una cuenta con ese correo.'
+      ? t('err_no_account')
       : fbError(e.code);
     showAuthError(msg);
   }
@@ -5333,22 +5675,22 @@ async function logoutUser() {
   if (!_auth) return;
   closeUserDd();
   await _auth.signOut();
-  showToast('Sesión cerrada.', true, 2500);
+  showToast(t('toast_logout'), true, 2500);
   showPage('calc');
 }
 
 // ── Auth error messages ───────────────────────────────────
 function fbError(code) {
   return {
-    'auth/email-already-in-use':  'Este correo ya tiene cuenta. Inicia sesión.',
-    'auth/invalid-email':         'Correo no válido.',
-    'auth/weak-password':         'Contraseña muy débil. Mínimo 6 caracteres.',
-    'auth/user-not-found':        'No existe cuenta con ese correo.',
-    'auth/wrong-password':        'Contraseña incorrecta.',
-    'auth/invalid-credential':    'Correo o contraseña incorrectos.',
-    'auth/too-many-requests':     'Demasiados intentos. Espera unos minutos.',
-    'auth/popup-closed-by-user':  'Ventana de Google cerrada. Inténtalo de nuevo.',
-    'auth/network-request-failed':'Sin conexión. Revisa tu internet.',
+    'auth/email-already-in-use':  t('fb_email_in_use'),
+    'auth/invalid-email':         t('fb_invalid_email'),
+    'auth/weak-password':         t('fb_weak_password'),
+    'auth/user-not-found':        t('fb_user_not_found'),
+    'auth/wrong-password':        t('fb_wrong_password'),
+    'auth/invalid-credential':    t('fb_invalid_cred'),
+    'auth/too-many-requests':     t('fb_too_many'),
+    'auth/popup-closed-by-user':  t('fb_popup_closed'),
+    'auth/network-request-failed':t('fb_network'),
   }[code] || ('Error: ' + code);
 }
 
@@ -5417,8 +5759,8 @@ function updateTopbarForUser(user) {
   if (!area) return;
   if (!user) {
     area.innerHTML = `
-      <button class="auth-btn btn-login"     onclick="showAuth('login')">Iniciar sesión</button>
-      <button class="auth-btn btn-register"  onclick="showAuth('register')">Registrarse</button>`;
+      <button class="auth-btn btn-login"     onclick="showAuth('login')">${t('btn_login')}</button>
+      <button class="auth-btn btn-register"  onclick="showAuth('register')">${t('btn_register')}</button>`;
     if (profileLink)  profileLink.style.display  = 'none';
     if (profileLinkM) profileLinkM.style.display = 'none';
     return;
@@ -5439,21 +5781,21 @@ function updateTopbarForUser(user) {
         <div class="user-dd-header">
           <div class="uname">${name}</div>
           <div class="uemail">${user.email || ''}</div>
-          <div class="plan-chip ${isAdmin() ? 'premium' : 'free'}">${isAdmin() ? '🛡 Admin' : 'Cuenta gratuita'}</div>
+          <div class="plan-chip ${isAdmin() ? 'premium' : 'free'}">${isAdmin() ? '🛡 Admin' : t('plan_free')}</div>
         </div>
         <button class="user-dd-item" onclick="closeUserDd();showPage('profile')">
-          <span>👤</span> Mi Perfil
+          <span>👤</span> ${t('dd_my_profile')}
         </button>
         <button class="user-dd-item"
           onclick="closeUserDd();showPage('profile');setTimeout(()=>openProfileTab('historial'),250)">
-          <span>📜</span> Mi historial
+          <span>📜</span> ${t('dd_my_history')}
         </button>
         <button class="user-dd-item"
           onclick="closeUserDd();showPage('compare')">
-          <span>⚖️</span> Comparar mascotas
+          <span>⚖️</span> ${t('dd_compare_pets')}
         </button>
         <button class="user-dd-item danger" onclick="logoutUser()">
-          <span>↩</span> Cerrar sesión
+          <span>↩</span> ${t('btn_logout')}
         </button>
       </div>
     </div>`;
@@ -5519,7 +5861,7 @@ function openProfileTab(tab) {
 async function loadHistorial() {
   const container = document.getElementById('profileTabContent');
   if (!container || !_db || !currentUser) return;
-  container.innerHTML = '<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">Cargando historial…</div>';
+  container.innerHTML = `<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">${t('hist_loading')}</div>`;
   try {
     let snap;
     try {
@@ -5531,7 +5873,7 @@ async function loadHistorial() {
     }
     if (snap.empty) {
       container.innerHTML = `<div style="text-align:center;color:var(--text3);padding:32px;font-size:13px;">
-        Sin entradas aún. Los recursos que añadas a tu log se guardarán aquí.</div>`;
+        ${t('hist_empty')}</div>`;
       return;
     }
     const rows = snap.docs.map(d => {
@@ -5602,7 +5944,7 @@ function calcCompare() {
     const box = document.getElementById('cmpResult' + r.side);
     if (!box) return;
     if (!r.p1 && !r.p100) {
-      box.innerHTML = '<span style="color:var(--text3);font-size:12px;">Ingresa los precios para calcular.</span>';
+      box.innerHTML = `<span style="color:var(--text3);font-size:12px;">${t('cmp_enter_prices')}</span>`;
       return;
     }
     const color = r.side === 'A' ? 'var(--gold)' : 'var(--blue)';
@@ -5619,12 +5961,12 @@ function calcCompare() {
 
     box.innerHTML = `
       <div style="display:flex;justify-content:space-between;padding:3px 0;">
-        <span style="color:var(--text2);font-size:12px;">Lvl 1 → 100:</span>
+        <span style="color:var(--text2);font-size:12px;">${t('cmp_lv_0_100')}:</span>
         <span style="font-weight:700;color:${m_0_100 >= 0 ? color : 'var(--red)'};">${m_0_100 >= 0 ? '+' : ''}${fmt(m_0_100)}</span>
       </div>
       ${has80 ? `<div style="border-top:1px solid var(--border);margin:4px 0;"></div>` : ''}
-      ${marginRow('Lvl 1 → 80', m_0_80)}
-      ${marginRow('Lvl 80 → 100', m_80_100)}`;
+      ${marginRow(t('cmp_lv_0_80'), m_0_80)}
+      ${marginRow(t('cmp_lv_80_100'), m_80_100)}`;
   });
 
   // Veredicto comparativo (basado en margen 0→100)
@@ -5638,13 +5980,13 @@ function calcCompare() {
     const diff = Math.abs(aMargin - bMargin);
     let msg = '';
     if (aMargin > bMargin && aMargin > 0) {
-      const nameA = document.getElementById('cmpPetA')?.value || 'Mascota A';
-      msg = `<strong style="color:var(--gold);">${nameA}</strong> tiene mayor margen (0→100) por <strong>${fmt(diff)}</strong>.`;
+      const nameA = document.getElementById('cmpPetA')?.value || t('cmp_pet_a');
+      msg = t('cmp_winner').replace('{name}', `<strong style="color:var(--gold);">${nameA}</strong>`).replace('{diff}', `<strong>${fmt(diff)}</strong>`);
     } else if (bMargin > aMargin && bMargin > 0) {
-      const nameB = document.getElementById('cmpPetB')?.value || 'Mascota B';
-      msg = `<strong style="color:var(--blue);">${nameB}</strong> tiene mayor margen (0→100) por <strong>${fmt(diff)}</strong>.`;
+      const nameB = document.getElementById('cmpPetB')?.value || t('cmp_pet_b');
+      msg = t('cmp_winner').replace('{name}', `<strong style="color:var(--blue);">${nameB}</strong>`).replace('{diff}', `<strong>${fmt(diff)}</strong>`);
     } else {
-      msg = 'Ambas mascotas tienen el mismo margen (0→100).';
+      msg = t('cmp_same_margin');
     }
     verdict.innerHTML = `<div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:13px;text-align:center;">${msg}</div>`;
   } else {
@@ -5657,17 +5999,17 @@ async function changePassword() {
   const p1 = document.getElementById('profNewPass').value;
   const p2 = document.getElementById('profNewPass2').value;
   const st = document.getElementById('profPassStatus');
-  if (!p1 || !p2) { showProfileStatus(st, 'Completa ambos campos.', false); return; }
-  if (p1 !== p2)  { showProfileStatus(st, 'Las contraseñas no coinciden.', false); return; }
-  if (p1.length < 6) { showProfileStatus(st, 'Mínimo 6 caracteres.', false); return; }
+  if (!p1 || !p2) { showProfileStatus(st, t('err_fill_both'), false); return; }
+  if (p1 !== p2)  { showProfileStatus(st, t('err_passwords_mismatch'), false); return; }
+  if (p1.length < 6) { showProfileStatus(st, t('err_min_6'), false); return; }
   try {
     await currentUser.updatePassword(p1);
-    showProfileStatus(st, '✓ Contraseña actualizada correctamente.', true);
+    showProfileStatus(st, t('toast_pass_updated'), true);
     document.getElementById('profNewPass').value = '';
     document.getElementById('profNewPass2').value = '';
   } catch(e) {
     if (e.code === 'auth/requires-recent-login') {
-      showProfileStatus(st, 'Por seguridad, cierra sesión, vuelve a iniciarla y reintenta.', false);
+      showProfileStatus(st, t('prof_relogin'), false);
     } else { showProfileStatus(st, fbError(e.code), false); }
   }
 }
@@ -5677,18 +6019,18 @@ async function changeEmail() {
   const newEmail = document.getElementById('profNewEmail').value.trim();
   const pass = document.getElementById('profEmailPass').value;
   const st = document.getElementById('profEmailStatus');
-  if (!newEmail || !pass) { showProfileStatus(st, 'Completa todos los campos.', false); return; }
+  if (!newEmail || !pass) { showProfileStatus(st, t('err_fill_all'), false); return; }
   try {
     const cred = firebase.auth.EmailAuthProvider.credential(currentUser.email, pass);
     await currentUser.reauthenticateWithCredential(cred);
     await currentUser.updateEmail(newEmail);
     if (_db) await _db.collection('users').doc(currentUser.uid).update({ email: newEmail });
-    showProfileStatus(st, '✓ Correo actualizado. Revisa tu bandeja para verificarlo.', true);
+    showProfileStatus(st, t('toast_email_updated'), true);
     document.getElementById('profNewEmail').value = '';
     document.getElementById('profEmailPass').value = '';
     renderProfile();
   } catch(e) {
-    if (e.code === 'auth/wrong-password') showProfileStatus(st, 'Contraseña incorrecta.', false);
+    if (e.code === 'auth/wrong-password') showProfileStatus(st, t('fb_wrong_password'), false);
     else showProfileStatus(st, fbError(e.code), false);
   }
 }
@@ -5713,12 +6055,12 @@ function switchAdminTab(tab, btn) {
 
 async function loadAdminUsers() {
   if (!isAdmin() || !_db) return;
-  document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">Cargando usuarios…</div>';
+  document.getElementById('adminContent').innerHTML = `<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">${t('admin_loading_users')}</div>`;
   try {
     // Sin orderBy para evitar errores si algún doc no tiene createdAt
     const snap = await _db.collection('users').limit(100).get();
     if (snap.empty) {
-      document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">Sin usuarios registrados.</div>';
+      document.getElementById('adminContent').innerHTML = `<div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">${t('admin_no_users')}</div>`;
       return;
     }
     const rows = snap.docs.map(d => {
@@ -5727,8 +6069,8 @@ async function loadAdminUsers() {
       const prem = u.premium ? '⭐ Premium' : 'Free';
       const premColor = u.premium ? 'var(--gold)' : 'var(--text3)';
       const premBtn = u.premium
-        ? `<button onclick="setUserPremium('${uid}',false)" style="font-size:11px;padding:3px 8px;border-radius:5px;background:var(--red-bg);color:var(--red);border:1px solid var(--red);cursor:pointer;font-family:'DM Sans',sans-serif;">Quitar</button>`
-        : `<button onclick="setUserPremium('${uid}',true)" style="font-size:11px;padding:3px 8px;border-radius:5px;background:var(--green-bg);color:var(--green);border:1px solid var(--green);cursor:pointer;font-family:'DM Sans',sans-serif;">Activar</button>`;
+        ? `<button onclick="setUserPremium('${uid}',false)" style="font-size:11px;padding:3px 8px;border-radius:5px;background:var(--red-bg);color:var(--red);border:1px solid var(--red);cursor:pointer;font-family:'DM Sans',sans-serif;">${t('admin_btn_remove')}</button>`
+        : `<button onclick="setUserPremium('${uid}',true)" style="font-size:11px;padding:3px 8px;border-radius:5px;background:var(--green-bg);color:var(--green);border:1px solid var(--green);cursor:pointer;font-family:'DM Sans',sans-serif;">${t('admin_btn_activate')}</button>`;
       const date = u.createdAt?.toDate ? u.createdAt.toDate().toLocaleDateString('es-CL') : '—';
       return `<tr id="urow-${uid}">
         <td style="padding:7px 10px;font-size:12px;">${u.displayName||'—'}</td>
@@ -5740,14 +6082,14 @@ async function loadAdminUsers() {
     }).join('');
     document.getElementById('adminContent').innerHTML = `
       <div style="overflow-x:auto;">
-        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;">${snap.size} usuarios registrados</div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;">${t('admin_n_users').replace('{n}', snap.size)}</div>
         <table style="width:100%;border-collapse:collapse;font-size:13px;">
           <thead><tr style="background:var(--bg3);">
-            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Nombre</th>
-            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Correo</th>
-            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Plan</th>
-            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Registro</th>
-            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">Acción</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">${t('admin_th_name')}</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">${t('admin_th_email')}</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">${t('admin_th_plan')}</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">${t('admin_th_reg')}</th>
+            <th style="padding:7px 10px;text-align:left;font-size:11px;color:var(--text3);border-bottom:2px solid var(--border);">${t('admin_th_action')}</th>
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>
@@ -5775,11 +6117,11 @@ let _adminTickets = [];
 
 async function loadAdminTickets() {
   if (!isAdmin() || !_db) return;
-  document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">Cargando tickets…</div>';
+  document.getElementById('adminContent').innerHTML = `<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">${t('admin_loading_tickets')}</div>`;
   try {
     const snap = await _db.collection('tickets').orderBy('ts', 'desc').limit(200).get();
     if (snap.empty) {
-      document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">Sin tickets aún.</div>';
+      document.getElementById('adminContent').innerHTML = \<div style=\"text-align:center;color:var(--text3);padding:24px;font-size:13px;\">\</div>\;
       return;
     }
     _adminTickets = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -5817,7 +6159,7 @@ function renderAdminTickets() {
       <td style="padding:7px 10px;font-size:12px;max-width:280px;word-break:break-word;">${t.msg||'—'}</td>
       <td style="padding:7px 10px;font-size:11px;color:var(--text3);">${t.server||'—'}</td>
     </tr>`;
-  }).join('') || `<tr><td colspan="5" style="padding:16px;text-align:center;color:var(--text3);font-size:12px;">Sin resultados.</td></tr>`;
+  }).join('') || `<tr><td colspan="5" style="padding:16px;text-align:center;color:var(--text3);font-size:12px;">${t('admin_no_results')}</td></tr>`;
 
   const uniqueTypes = [...new Set(_adminTickets.map(t => t.type).filter(Boolean))];
   const typeOpts = uniqueTypes.map(ty => `<option value="${ty}">${ty}</option>`).join('');
@@ -5857,11 +6199,11 @@ function renderAdminTickets() {
 
 async function loadAdminPremiumReqs() {
   if (!isAdmin() || !_db) return;
-  document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">Cargando solicitudes…</div>';
+  document.getElementById('adminContent').innerHTML = \<div style=\"text-align:center;color:var(--text3);padding:16px;font-size:12px;\">\</div>\;
   try {
     const snap = await _db.collection('premiumRequests').where('status','==','pending').get();
     if (snap.empty) {
-      document.getElementById('adminContent').innerHTML = '<div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">Sin solicitudes pendientes.</div>';
+      document.getElementById('adminContent').innerHTML = \<div style=\"text-align:center;color:var(--text3);padding:24px;font-size:13px;\">\</div>\;
       return;
     }
     const rows = snap.docs.map(d => {
@@ -5909,15 +6251,15 @@ initFirebase();
 <!-- ── Footer / Disclaimer ── --><div id="dpToast"></div>
 
 <footer class="site-footer">
-  <div>
+  <div data-i18n-html="footer_main">
     <strong style="color:rgba(232,217,176,0.5);">Dofus</strong> es un MMORPG publicado por
     <a href="https://www.ankama.com" target="_blank" rel="noopener">Ankama</a>.
     <strong style="color:rgba(232,217,176,0.5);">"DofusPet"</strong> es una página web no oficial
     y no está afiliada ni asociada con Ankama.
     Algunas ilustraciones y contenidos son propiedad de Ankama y de Dofus. Todos los derechos reservados.
   </div>
-  <div class="footer-copy">
-    DofusPet &copy; 2026 — Herramienta gratuita para la comunidad de Dofus. Sin afiliación con Ankama.
+  <div class="footer-copy" data-i18n="footer_copy">
+    DofusPet © 2026 — Herramienta gratuita para la comunidad de Dofus. Sin afiliación con Ankama.
   </div>
   <div style="margin-top:10px;font-size:11px;color:rgba(232,217,176,0.3);letter-spacing:.03em;">
     By <strong style="color:rgba(232,217,176,0.45);">Bloody</strong> &middot; Dakal
