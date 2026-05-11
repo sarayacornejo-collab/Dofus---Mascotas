@@ -4543,6 +4543,20 @@ async function loadResourceNames(lang) {
   renderResources();
 }
 
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function safeSrc(url) {
+  if (!url) return '';
+  return /^https:\/\//.test(url) ? url : '';
+}
+
 function t(key, vars) {
   const T = TRANSLATIONS[_currentLang] || TRANSLATIONS.es;
   let s = T[key] !== undefined ? T[key] : (TRANSLATIONS.es[key] || key);
@@ -4859,7 +4873,7 @@ function renderResources() {
   if (limited) list = list.slice(0, _RES_LIMIT);
 
   document.getElementById('resBody').innerHTML = list.map(r => {
-    const displayName = _resDisplayNames[r.name] || r.name;
+    const displayName = esc(_resDisplayNames[r.name] || r.name);
     const price    = resPrices[r.name] || null;
     const qty      = resQtys[r.name] || 1;
     const ideal    = getIdealPrice(r.xp);
@@ -5846,19 +5860,20 @@ function updateTopbarForUser(user) {
   if (profileLink)  profileLink.style.display  = '';
   if (profileLinkM) profileLinkM.style.display = '';
   const name   = currentUserData?.displayName || user.displayName || user.email?.split('@')[0] || 'Jugador';
-  const photo  = user.photoURL;
-  const ini    = name.charAt(0).toUpperCase();
+  const photo  = safeSrc(user.photoURL);
+  const ini    = esc(name.charAt(0).toUpperCase());
+  const safeName = esc(name);
   area.innerHTML = `
     <div style="position:relative;">
       <button id="userMenuBtn" class="topbar-user-btn" onclick="toggleUserDd()">
-        <div class="user-avatar">${photo ? `<img src="${photo}" alt="${name}">` : ini}</div>
-        <span style="max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${name}</span>
+        <div class="user-avatar">${photo ? `<img src="${photo}" alt="${safeName}">` : ini}</div>
+        <span style="max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${safeName}</span>
         <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" style="opacity:.35;flex-shrink:0;"><path d="M7 10l5 5 5-5z"/></svg>
       </button>
       <div id="userDropdown" class="user-dropdown">
         <div class="user-dd-header">
-          <div class="uname">${name}</div>
-          <div class="uemail">${user.email || ''}</div>
+          <div class="uname">${safeName}</div>
+          <div class="uemail">${esc(user.email || '')}</div>
           <div class="plan-chip ${isAdmin() ? 'premium' : 'free'}">${isAdmin() ? '🛡 Admin' : t('plan_free')}</div>
         </div>
         <button class="user-dd-item" onclick="closeUserDd();showPage('profile')">
@@ -5912,9 +5927,9 @@ function renderProfile() {
 
   document.getElementById('profileInfoBox').innerHTML = `
     <div style="display:flex;flex-direction:column;gap:6px;">
-      <div><strong style="color:var(--text);">Nombre:</strong> ${name}</div>
-      <div><strong style="color:var(--text);">Correo:</strong> ${email}</div>
-      <div><strong style="color:var(--text);">Cuenta creada:</strong> ${currentUser.metadata?.creationTime ? new Date(currentUser.metadata.creationTime).toLocaleDateString('es-CL') : '—'}</div>
+      <div><strong style="color:var(--text);">Nombre:</strong> ${esc(name)}</div>
+      <div><strong style="color:var(--text);">Correo:</strong> ${esc(email)}</div>
+      <div><strong style="color:var(--text);">Cuenta creada:</strong> ${currentUser.metadata?.creationTime ? esc(new Date(currentUser.metadata.creationTime).toLocaleDateString('es-CL')) : '—'}</div>
     </div>`;
 
   const adminPanel = document.getElementById('adminPanel');
@@ -5961,12 +5976,12 @@ async function loadHistorial() {
         ? `<span style="color:${h.rentPct >= 0 ? 'var(--green)' : 'var(--red)'};font-weight:600;">${h.rentPct >= 0 ? '+' : ''}${h.rentPct}%</span>`
         : '<span style="color:var(--text3);">—</span>';
       return `<tr>
-        <td style="padding:7px 10px;font-size:13px;font-weight:500;">${h.resourceName||'—'}</td>
-        <td style="padding:7px 10px;font-size:12px;color:var(--text3);">${h.pet||'—'}</td>
+        <td style="padding:7px 10px;font-size:13px;font-weight:500;">${esc(h.resourceName||'—')}</td>
+        <td style="padding:7px 10px;font-size:12px;color:var(--text3);">${esc(h.pet||'—')}</td>
         <td style="padding:7px 10px;font-size:12px;">${h.qty||1}×</td>
         <td style="padding:7px 10px;font-weight:600;color:var(--gold);">${fmt(h.price)}</td>
         <td style="padding:7px 10px;">${rentLabel}</td>
-        <td style="padding:7px 10px;font-size:11px;color:var(--text3);">${h.server||'—'}</td>
+        <td style="padding:7px 10px;font-size:11px;color:var(--text3);">${esc(h.server||'—')}</td>
         <td style="padding:7px 10px;font-size:11px;color:var(--text3);">${date}</td>
         <td style="padding:7px 10px;">
           <button onclick="deleteHistEntry('${d.id}')" style="font-size:11px;background:none;border:none;color:var(--text3);cursor:pointer;padding:2px 6px;border-radius:4px;" title="Eliminar">✕</button>
@@ -6151,8 +6166,8 @@ async function loadAdminUsers() {
         : `<button onclick="setUserPremium('${uid}',true)" style="font-size:11px;padding:3px 8px;border-radius:5px;background:var(--green-bg);color:var(--green);border:1px solid var(--green);cursor:pointer;font-family:'DM Sans',sans-serif;">${t('admin_btn_activate')}</button>`;
       const date = u.createdAt?.toDate ? u.createdAt.toDate().toLocaleDateString('es-CL') : '—';
       return `<tr id="urow-${uid}">
-        <td style="padding:7px 10px;font-size:12px;">${u.displayName||'—'}</td>
-        <td style="padding:7px 10px;font-size:12px;color:var(--text3);">${u.email||'—'}</td>
+        <td style="padding:7px 10px;font-size:12px;">${esc(u.displayName||'—')}</td>
+        <td style="padding:7px 10px;font-size:12px;color:var(--text3);">${esc(u.email||'—')}</td>
         <td style="padding:7px 10px;font-size:12px;color:${premColor};font-weight:600;">${prem}</td>
         <td style="padding:7px 10px;font-size:12px;color:var(--text3);">${date}</td>
         <td style="padding:7px 10px;">${premBtn}</td>
@@ -6232,10 +6247,10 @@ function renderAdminTickets() {
     const date = t.ts?.toDate ? t.ts.toDate().toLocaleString('es-CL') : '—';
     return `<tr>
       <td style="padding:7px 10px;font-size:11px;color:var(--text3);white-space:nowrap;">${date}</td>
-      <td style="padding:7px 10px;font-size:12px;font-weight:500;">${t.userEmail||t.user||'Anónimo'}</td>
-      <td style="padding:7px 10px;"><span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--bg4);border:1px solid var(--border);white-space:nowrap;">${t.type||'—'}</span></td>
-      <td style="padding:7px 10px;font-size:12px;max-width:280px;word-break:break-word;">${t.msg||'—'}</td>
-      <td style="padding:7px 10px;font-size:11px;color:var(--text3);">${t.server||'—'}</td>
+      <td style="padding:7px 10px;font-size:12px;font-weight:500;">${esc(t.userEmail||t.user||'Anónimo')}</td>
+      <td style="padding:7px 10px;"><span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--bg4);border:1px solid var(--border);white-space:nowrap;">${esc(t.type||'—')}</span></td>
+      <td style="padding:7px 10px;font-size:12px;max-width:280px;word-break:break-word;">${esc(t.msg||'—')}</td>
+      <td style="padding:7px 10px;font-size:11px;color:var(--text3);">${esc(t.server||'—')}</td>
     </tr>`;
   }).join('') || `<tr><td colspan="5" style="padding:16px;text-align:center;color:var(--text3);font-size:12px;">${t('admin_no_results')}</td></tr>`;
 
@@ -6287,9 +6302,9 @@ async function loadAdminPremiumReqs() {
     const rows = snap.docs.map(d => {
       const r = d.data();
       return `<tr>
-        <td style="padding:8px 10px;font-size:13px;">${r.email||'—'}</td>
-        <td style="padding:8px 10px;font-size:13px;">${r.displayName||'—'}</td>
-        <td style="padding:8px 10px;font-size:13px;">${r.kofiUsername||'—'}</td>
+        <td style="padding:8px 10px;font-size:13px;">${esc(r.email||'—')}</td>
+        <td style="padding:8px 10px;font-size:13px;">${esc(r.displayName||'—')}</td>
+        <td style="padding:8px 10px;font-size:13px;">${esc(r.kofiUsername||'—')}</td>
         <td style="padding:8px 10px;">
           <button onclick="activatePremium('${d.id}')" style="font-size:11px;padding:3px 10px;border-radius:5px;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;">Activar</button>
         </td>
