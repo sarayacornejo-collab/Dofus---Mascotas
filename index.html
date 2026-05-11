@@ -6121,7 +6121,7 @@ async function loadAdminTickets() {
   try {
     const snap = await _db.collection('tickets').orderBy('ts', 'desc').limit(200).get();
     if (snap.empty) {
-      document.getElementById('adminContent').innerHTML = \<div style=\"text-align:center;color:var(--text3);padding:24px;font-size:13px;\">\</div>\;
+      document.getElementById('adminContent').innerHTML = `<div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">${t('admin_no_tickets')}</div>`;
       return;
     }
     _adminTickets = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -6199,11 +6199,11 @@ function renderAdminTickets() {
 
 async function loadAdminPremiumReqs() {
   if (!isAdmin() || !_db) return;
-  document.getElementById('adminContent').innerHTML = \<div style=\"text-align:center;color:var(--text3);padding:16px;font-size:12px;\">\</div>\;
+  document.getElementById('adminContent').innerHTML = `<div style="text-align:center;color:var(--text3);padding:16px;font-size:12px;">${t('admin_loading_reqs')}</div>`;
   try {
     const snap = await _db.collection('premiumRequests').where('status','==','pending').get();
     if (snap.empty) {
-      document.getElementById('adminContent').innerHTML = \<div style=\"text-align:center;color:var(--text3);padding:24px;font-size:13px;\">\</div>\;
+      document.getElementById('adminContent').innerHTML = `<div style="text-align:center;color:var(--text3);padding:24px;font-size:13px;">${t('admin_no_reqs')}</div>`;
       return;
     }
     const rows = snap.docs.map(d => {
